@@ -5,6 +5,24 @@ var hlayer = {
     setData: function(key,value) {
         this.data[key] = value;
     },
+    addStyle: function() {
+        var scripts = document.getElementsByTagName('script');
+        var hlayerSrc = '';
+        for(var i = 0, max = scripts.length; i < max; i++) {
+            if(scripts[i].getAttribute('src') !== null && scripts[i].getAttribute('src').toString().indexOf('hlayer.js') > -1){
+                hlayerSrc = scripts[i].getAttribute('src');
+            }
+            console.log(scripts[i]);
+        }
+        console.log(hlayerSrc);
+        var styleSrc = hlayerSrc.replace('hlayer.js', 'hlayer.css');
+        var link = this.creEle('link');
+        link.setAttribute('href', styleSrc);
+        link.setAttribute('rel','stylesheet');
+        console.log(styleSrc);
+        document.getElementsByTagName('body')[0].appendChild(link);
+        return link;
+    },
     css: function(ele, cssJson) {
         for(var key in cssJson){
             ele.style[key] = cssJson[key];
@@ -16,6 +34,13 @@ var hlayer = {
     rmEle: function(eleArr, parArr) {
         for(var i = 0, max = eleArr.length; i < max; i++) {
             parArr[i].removeChild(eleArr[i]);
+        }
+    },
+    rmHlayer: function() {
+        var hlayerEle = document.getElementsByClassName('hlayer');
+        var body = document.getElementsByTagName('body');
+        for(var i = 0, max = halyerEle.length; i < max; i++) {
+            body.removeChild(halyerEle[i]);
         }
     },
     getStyle: function(ele, attr) {
@@ -90,10 +115,12 @@ var hlayer = {
     creAlert: function(cfg) {
       var title = cfg.title || '信息';
       var content = cfg.title || '我是信息';
-      var shadow = cfg.shadow;
+      var shadow = cfg.disNone[0];
+      var style =  cfg.disNone[1];
       var confirmCallback = cfg.confirmCb;
       var cancelCallback = cfg.cancelCb;
       var alertCon = this.creEle('div');
+      alertCon.className = 'hlayer';
       var alertTitle = this.creEle('div');
       var alertContent = this.creEle('div');
       this.css(alertCon, {width:'260px',height:'148px',borderRadius: '5px',backgroundColor:'#fff',zIndex:10010});
@@ -109,7 +136,7 @@ var hlayer = {
           var body = document.getElementsByTagName('body')[0];
           this.addEvent(btn,'click',function() {
               var body = document.getElementsByTagName('body')[0];
-              that.rmEle([alertCon,shadow],[body,body]);
+              that.rmEle([alertCon,shadow,style],[body,body,body]);
               confirmCallback && confirmCallback();
           })
       }
@@ -127,6 +154,17 @@ var hlayer = {
       document.getElementsByTagName('body')[0].appendChild(alertCon);
       return alertCon;
     },
+    creLoad: function() {
+        var loadCon = this.creEle('div');
+        loadCon.className = 'load hlayer';
+        for(var i = 0; i < 8; i++) {
+            var div = this.creEle('div');
+            loadCon.appendChild(div);
+        }
+        this.css(loadCon,{width:'100px',height:'100px'});
+        document.getElementsByTagName('body')[0].appendChild(loadCon);
+        return loadCon;
+    },
     msg: function(cfg) {
         var cfg = cfg || {};
         var shadow = this.creShadow();
@@ -139,12 +177,21 @@ var hlayer = {
         this.timingCancer([shadow, msgCon],[body, body], cfg.time);
     },
     alert: function(cfg) {
+        var style = this.addStyle();
         var cfg = cfg || {};
         this.mainBg = cfg.mainBg || this.mainBg;
         this.mainColor = cfg.mainColor || this.mainColor;
         var shadow = this.creShadow();
-        cfg.shadow = shadow;
+        cfg.disNone = [shadow, style];
         var alertCon = this.creAlert(cfg);
         this.posCenter(alertCon, shadow);
+    },
+    loading: function(cfg) {
+        var style = this.addStyle();
+        var cfg = cfg || {};
+        var shadow = this.creShadow();
+        cfg.disNone = [shadow, style];
+        var loadCon = this.creLoad();
+        this.posCenter(loadCon, shadow);
     }
 };
