@@ -164,7 +164,7 @@ var hlayer = {
             var div = this.creEle('div');
             loadCon.appendChild(div);
         }
-        this.css(loadCon,{width:'100px',height:'100px'});
+        this.css(loadCon,{width:'100px',height:'100px',zIndex:10010});
         document.getElementsByTagName('body')[0].appendChild(loadCon);
         return loadCon;
     },
