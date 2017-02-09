@@ -114,7 +114,7 @@ var hlayer = {
     },
     creAlert: function(cfg) {
       var title = cfg.title || '信息';
-      var content = cfg.content || '我是信息';
+      var content = cfg.text || '我是信息';
       var shadow = cfg.disNone[0];
       var style =  cfg.disNone[1];
       var confirmCallback = cfg.confirmCb;
@@ -190,7 +190,7 @@ var hlayer = {
         mainBg: 主要的背景颜色,
         mainColor: 主要的字体颜色,
         title: alert框的标题,
-        content: alert框的内容,
+        text: alert框的内容,
         confirmBtn: 是否需要确认按钮，默认为true,
         confirmCb: 点击确认按钮时触发的事件函数,
         cancelBtn: 是否需要取消按钮，默认为false,

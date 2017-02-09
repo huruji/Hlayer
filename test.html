@@ -22,9 +22,14 @@
     /*btn.onclick=function() {
         hlayer.alert({mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true});
     };*/
-    btn.onclick=function() {
+    /*btn.onclick=function() {
         hlayer.loading();
-    };
+    };*/
+    btn.onclick = function() {
+        hlayer.alert({
+        mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true
+        })
+    }
 
 </script>
 </body>
