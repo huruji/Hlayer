@@ -114,7 +114,7 @@ var hlayer = {
     },
     creAlert: function(cfg) {
       var title = cfg.title || '信息';
-      var content = cfg.title || '我是信息';
+      var content = cfg.content || '我是信息';
       var shadow = cfg.disNone[0];
       var style =  cfg.disNone[1];
       var confirmCallback = cfg.confirmCb;
@@ -165,6 +165,12 @@ var hlayer = {
         document.getElementsByTagName('body')[0].appendChild(loadCon);
         return loadCon;
     },
+    /*cfg:{
+        text: '内容'，
+        css: {msg盒子的css样式组成的json},
+        time: msg消失的时间，毫秒计，默认为1s,
+      }
+    */
     msg: function(cfg) {
         var cfg = cfg || {};
         var shadow = this.creShadow();
@@ -176,6 +182,18 @@ var hlayer = {
         var body = document.getElementsByTagName('body')[0];
         this.timingCancer([shadow, msgCon],[body, body], cfg.time);
     },
+    /*
+    cfg:{
+        mainBg: 主要的背景颜色,
+        mainColor: 主要的字体颜色,
+        title: alert框的标题,
+        content: alert框的内容,
+        confirmBtn: 是否需要确认按钮，默认为true,
+        confirmCb: 点击确认按钮时触发的事件函数,
+        cancelBtn: 是否需要取消按钮，默认为false,
+        cancelCb: 点击取消按钮时触发的事件函数
+     }
+    */
     alert: function(cfg) {
         var style = this.addStyle();
         var cfg = cfg || {};
@@ -186,6 +204,11 @@ var hlayer = {
         var alertCon = this.creAlert(cfg);
         this.posCenter(alertCon, shadow);
     },
+    /*
+    cfg:{
+        
+    }
+    */
     loading: function(cfg) {
         var style = this.addStyle();
         var cfg = cfg || {};
