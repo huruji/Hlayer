@@ -121,6 +121,9 @@ var hlayer = {
       var cancelCallback = cfg.cancelCb;
       var alertCon = this.creEle('div');
       alertCon.className = 'hlayer';
+      if(cfg.animateType && typeof cfg.animateType === "number") {
+          alertCon.className += ' animate' + cfg.animateType;
+      }
       var alertTitle = this.creEle('div');
       var alertContent = this.creEle('div');
       this.css(alertCon, {width:'260px',height:'148px',borderRadius: '5px',backgroundColor:'#fff',zIndex:10010});
@@ -191,7 +194,8 @@ var hlayer = {
         confirmBtn: 是否需要确认按钮，默认为true,
         confirmCb: 点击确认按钮时触发的事件函数,
         cancelBtn: 是否需要取消按钮，默认为false,
-        cancelCb: 点击取消按钮时触发的事件函数
+        cancelCb: 点击取消按钮时触发的事件函数,
+        animateType:动画类型1,2，3中的一种
      }
     */
     alert: function(cfg) {

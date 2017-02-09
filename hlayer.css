@@ -66,7 +66,7 @@
 }
 
 /*各大进入函数的类*/
-.hlayer.bottomIn {
+.hlayer.animate1 {
     animation: halyer-bottomIn 1s ease-in-out;
 }
 @keyframes halyer-bottomIn{
@@ -77,7 +77,7 @@
         transform:  translate(0,0);
     }
 }
-.hlayer.topIn {
+.hlayer.animate2 {
     animation: halyer-topIn 1s ease-in-out;
 }
 @keyframes halyer-topIn{
@@ -88,7 +88,7 @@
         transform:  translate(0,0);
     }
 }
-.hlayer.scaleIn {
+.hlayer.animate3 {
     animation: halyer-scaleIn 1s ease-in-out;
 }
 @keyframes halyer-scaleIn {
