@@ -64,3 +64,38 @@
     -webkit-transform: rotate(-45deg);
     -webkit-animation: loader1 0.5s 0s infinite ease-in-out;
 }
+
+/*各大进入函数的类*/
+.hlayer.bottomIn {
+    animation: halyer-bottomIn 1s ease-in-out;
+}
+@keyframes halyer-bottomIn{
+    from{
+        transform: translate(0,2500px);
+    }
+    to{
+        transform:  translate(0,0);
+    }
+}
+.hlayer.topIn {
+    animation: halyer-topIn 1s ease-in-out;
+}
+@keyframes halyer-topIn{
+    from{
+        transform: translate(0,2500px);
+    }
+    to{
+        transform:  translate(0,0);
+    }
+}
+.hlayer.scaleIn {
+    animation: halyer-scaleIn 1s ease-in-out;
+}
+@keyframes halyer-scaleIn {
+    from{
+        transform:scale(0,0);
+    }
+    to{
+        transform: scale(1,1);
+    }
+}
