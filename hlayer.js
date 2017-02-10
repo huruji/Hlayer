@@ -116,7 +116,6 @@ var hlayer = {
       var title = cfg.title || '信息';
       var content = cfg.text || '我是信息';
       var shadow = cfg.disNone[0];
-      var style =  cfg.disNone[1];
       var confirmCallback = cfg.confirmCb;
       var cancelCallback = cfg.cancelCb;
       var alertCon = this.creEle('div');
@@ -139,7 +138,7 @@ var hlayer = {
           var body = document.getElementsByTagName('body')[0];
           this.addEvent(btn,'click',function() {
               var body = document.getElementsByTagName('body')[0];
-              that.rmEle([alertCon,shadow,style],[body,body,body]);
+              that.rmEle([alertCon,shadow],[body,body]);
               confirmCallback && confirmCallback();
           })
       }

@@ -12,16 +12,18 @@
     <link href="hlayer.css" rel="stylesheet">
 </head>
 <body>
-<button>点击我</button>
-<button>点击我</button>
+<input type="button" value="msg">
+<input type="button" value="alert">
+<input type="button" value="loading">
 <script src="hlayer.js"></script>
 <script>
     /*hlayer.msg({text:'我是测试safdasfasfasf',css:{backgroundColor:'red'}});*/
     /*hlayer.alert({confirmCb:function() {
         alert(12123);
     }});*/
-    var btn = document.getElementsByTagName('button')[0];
-    var btn2 = document.getElementsByTagName('button')[1];
+    var btn = document.getElementsByTagName('input')[0];
+    var btn2 = document.getElementsByTagName('input')[1];
+    var btn3 = document.getElementsByTagName('input')[2];
     /*btn.onclick=function() {
         hlayer.alert({mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true});
     };*/
@@ -29,14 +31,15 @@
         hlayer.loading();
     };*/
     btn.onclick = function() {
-        hlayer.alert({
-        mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true,animateType:1
-        })
+       hlayer.msg({text:'前端真奇葩'});
     };
     btn2.onclick = function() {
         hlayer.alert({
             mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:3
         })
+    }
+    btn3.onclick = function () {
+        hlayer.loading();
     }
 </script>
 </body>
