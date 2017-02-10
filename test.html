@@ -15,6 +15,7 @@
 <input type="button" value="msg">
 <input type="button" value="alert">
 <input type="button" value="loading">
+<input type="button" value="iframe">
 <script src="hlayer.js"></script>
 <script>
     /*hlayer.msg({text:'我是测试safdasfasfasf',css:{backgroundColor:'red'}});*/
@@ -24,6 +25,7 @@
     var btn = document.getElementsByTagName('input')[0];
     var btn2 = document.getElementsByTagName('input')[1];
     var btn3 = document.getElementsByTagName('input')[2];
+    var btn4 = document.getElementsByTagName('input')[3];
     /*btn.onclick=function() {
         hlayer.alert({mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true});
     };*/
@@ -37,9 +39,12 @@
         hlayer.alert({
             mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:3
         })
-    }
+    };
     btn3.onclick = function () {
         hlayer.loading();
+    };
+    btn4.onclick = function () {
+        hlayer.iframe({url:'http://www.loveqiao.com/'});
     }
 </script>
 </body>

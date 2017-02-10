@@ -121,7 +121,7 @@ var hlayer = {
       var alertCon = this.creEle('div');
       alertCon.className = 'hlayer';
         if(cfg.animateType && typeof cfg.animateType === "number") {
-            alertCon.className += ' animate' + cfg.animateType;
+            alertCon.className += ' hlayer-animate' + cfg.animateType;
         }
       var alertTitle = this.creEle('div');
       var alertContent = this.creEle('div');
@@ -158,7 +158,7 @@ var hlayer = {
     },
     creLoad: function() {
         var loadCon = this.creEle('div');
-        loadCon.className = 'load hlayer';
+        loadCon.className = 'halyer-load hlayer';
         for(var i = 0; i < 8; i++) {
             var div = this.creEle('div');
             loadCon.appendChild(div);
@@ -166,6 +166,24 @@ var hlayer = {
         this.css(loadCon,{width:'100px',height:'100px',zIndex:10010});
         document.getElementsByTagName('body')[0].appendChild(loadCon);
         return loadCon;
+    },
+    creIframe: function(cfg) {
+        var title = cfg.title || '信息';
+        var width = cfg.width;
+        var height = cfg.height;
+        var iframeCon = this.creEle('div');
+        this.css(iframeCon,{padding: '10px', width: width, height: height,zIndex:10010,position:'fixed',backgroundColor:'#fff',borderRadius:'5px'});
+        var iframeTitle = this.creEle('div');
+        iframeTitle.textContent = title;
+        this.css(iframeTitle, {height:'32px',lineHeight:'32px',fontSize:'14px',borderBottom:'1px solid #333'});
+        var iframeContent = this.creEle('div');
+        var iframe = this.creEle('iframe');
+        this.css(iframe, {display: 'block', width:'100%', height: parseInt(height)- 33 + 'px', borderWidth: 0});
+        iframe.src = cfg.url;
+        this.appendNodes(iframeContent,[iframe]);
+        this.appendNodes(iframeCon, [iframeTitle, iframeContent]);
+        document.getElementsByTagName('body')[0].appendChild(iframeCon);
+        return iframeCon;
     },
     /*cfg:{
         text: '内容'，
@@ -217,5 +235,16 @@ var hlayer = {
         cfg.disNone = [shadow];
         var loadCon = this.creLoad();
         this.posCenter(loadCon, shadow);
+    },
+    iframe: function(cfg) {
+        var cfg = cfg || {};
+        cfg.width = cfg.width || '700px';
+        cfg.height = cfg.height || '486px';
+        /*if(cfg.shadow !== false || cfg.shadow !== undefined) {
+            var shadow = this.creShadow();
+        }*/
+        var shadow = this.creShadow();
+        var iframeCon = this.creIframe(cfg);
+        this.posCenter(iframeCon, shadow);
     }
 };
