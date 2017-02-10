@@ -9,8 +9,10 @@
             padding:0;
         }
     </style>
+    <link href="hlayer.css" rel="stylesheet">
 </head>
 <body>
+<button>点击我</button>
 <button>点击我</button>
 <script src="hlayer.js"></script>
 <script>
@@ -19,6 +21,7 @@
         alert(12123);
     }});*/
     var btn = document.getElementsByTagName('button')[0];
+    var btn2 = document.getElementsByTagName('button')[1];
     /*btn.onclick=function() {
         hlayer.alert({mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true});
     };*/
@@ -29,8 +32,12 @@
         hlayer.alert({
         mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true,animateType:1
         })
+    };
+    btn2.onclick = function() {
+        hlayer.alert({
+            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:3
+        })
     }
-
 </script>
 </body>
 </html>

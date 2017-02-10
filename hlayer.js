@@ -20,7 +20,7 @@ var hlayer = {
         link.setAttribute('href', styleSrc);
         link.setAttribute('rel','stylesheet');
         console.log(styleSrc);
-        document.getElementsByTagName('body')[0].appendChild(link);
+        document.getElementsByTagName('head')[0].appendChild(link);
         return link;
     },
     css: function(ele, cssJson) {
@@ -60,7 +60,7 @@ var hlayer = {
         console.log(parentHei);
         var setTop = (parentHei - childHei) / 2 + 'px';
         var setLeft = (parentWid - childWid) / 2 + 'px';
-        this.css(child, {position:'absolute',top:setTop,left:setLeft});
+        this.css(child, {position:'fixed',top:setTop,left:setLeft});
     },
     addEvent: function(ele, event, fn){
         if(ele.attachEvent) {
@@ -199,12 +199,11 @@ var hlayer = {
      }
     */
     alert: function(cfg) {
-        var style = this.addStyle();
         var cfg = cfg || {};
         this.mainBg = cfg.mainBg || this.mainBg;
         this.mainColor = cfg.mainColor || this.mainColor;
         var shadow = this.creShadow();
-        cfg.disNone = [shadow, style];
+        cfg.disNone = [shadow];
         var alertCon = this.creAlert(cfg);
         this.posCenter(alertCon, shadow);
     },
@@ -214,10 +213,9 @@ var hlayer = {
     }
     */
     loading: function(cfg) {
-        var style = this.addStyle();
         var cfg = cfg || {};
         var shadow = this.creShadow();
-        cfg.disNone = [shadow, style];
+        cfg.disNone = [shadow];
         var loadCon = this.creLoad();
         this.posCenter(loadCon, shadow);
     }
