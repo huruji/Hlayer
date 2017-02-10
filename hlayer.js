@@ -121,9 +121,9 @@ var hlayer = {
       var cancelCallback = cfg.cancelCb;
       var alertCon = this.creEle('div');
       alertCon.className = 'hlayer';
-      if(cfg.animateType && typeof cfg.animateType === "number") {
-          alertCon.className += ' animate' + cfg.animateType;
-      }
+        if(cfg.animateType && typeof cfg.animateType === "number") {
+            alertCon.className += ' animate' + cfg.animateType;
+        }
       var alertTitle = this.creEle('div');
       var alertContent = this.creEle('div');
       this.css(alertCon, {width:'260px',height:'148px',borderRadius: '5px',backgroundColor:'#fff',zIndex:10010});

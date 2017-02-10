@@ -67,22 +67,23 @@
 
 /*各大进入函数的类*/
 .hlayer.animate1 {
-    animation: halyer-bottomIn 1s ease-in-out;
+    animation: halyer-bottomIn 0.3s -0.1s ease-in-out;
+    animation-fill-mode: forwards;
 }
 @keyframes halyer-bottomIn{
     from{
-        transform: translate(0,2500px);
+        transform: translate(0,500px);
     }
     to{
         transform:  translate(0,0);
     }
 }
 .hlayer.animate2 {
-    animation: halyer-topIn 1s ease-in-out;
+    animation: halyer-topIn 0.5s ease-in-out;
 }
 @keyframes halyer-topIn{
     from{
-        transform: translate(0,2500px);
+        transform: translate(0,500px);
     }
     to{
         transform:  translate(0,0);
