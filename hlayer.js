@@ -111,12 +111,18 @@ var hlayer = {
         this.css(shadow, {position: 'fixed',top:0,left:0,width: '100%',height:'100%',backgroundColor:'#000',opacity:'0.3',zIndex: 10000});
         return shadow;
     },
-    creMsg: function(msg) {
+    creMsg: function(cfg) {
         var msgCon = this.creEle('div');
         msgCon.className = 'hlayer hlayer-msg';
-        var msg = msg || '我是信息';
-        msgCon.textContent = msg;
-        this.css(msgCon, {minWidth:'60px',height: '30px',lineHeight:'30px',fontSize:'14px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
+        msgCon.textContent = cfg.text;
+        this.css(msgCon, {height:cfg.height,lineHeight:cfg.height});
+        if(cfg.width) {
+            this.css(msgCon, {width: cfg.width});
+        }
+        this.css(msgCon, {minWidth:'60px',fontSize:'14px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
+        if(cfg.css) {
+            this.css(msgCon,css);
+        }
         return msgCon;
     },
     creBtn: function(options) {
@@ -225,14 +231,21 @@ var hlayer = {
     /*cfg:{
         text: '内容'，
         css: {msg盒子的css样式组成的json},
+        width: 宽度,
+        height: 高度,
         time: msg消失的时间，毫秒计，默认为1s,
       }
     */
     msg: function(cfg) {
         var cfg = cfg || {};
+        cfg.width = cfg.width || '';
+        cfg.height =  cfg.height || '30px';
+        cfg.text = cfg.text || '提示信息';
+        cfg.time = cfg.time || 1000;
+        cfg.css = cfg.css || '';
         var layer = this.creHlayer();
         var shadow = this.creShadow();
-        var msgCon = this.creMsg(cfg.text);
+        var msgCon = this.creMsg(cfg);
         this.appendNodes(layer,[shadow, msgCon]);
         this.appendNodes(this.docBody,layer);
         this.center(msgCon);
