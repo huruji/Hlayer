@@ -37,7 +37,9 @@
     };
     btn2.onclick = function() {
         hlayer.alert({
-            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:3
+            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:3,confirmCb:function(){
+                hlayer.msg();
+            }
         })
     };
     btn3.onclick = function () {

@@ -131,7 +131,7 @@ var hlayer = {
       var bottom = options.bottom || '10px';
       var text = options.text || '确定';
       var btn = this.creEle('span');
-      this.css(btn, {width:'44px',height:'30px',lineHeight:'30px', cursor:'pointer',textAlign:'center',backgroundColor:this.mainBg, color: this.mainColor, borderRadius:'3px', padding:'0 8px',position:'absolute',right:right,bottom: bottom});
+      this.css(btn, {width:'44px',height:'30px',lineHeight:'30px', cursor:'pointer',textAlign:'center',backgroundColor:options.mainBg, color: options.mainColor, borderRadius:'3px', padding:'0 8px',position:'absolute',right:right,bottom: bottom});
       if(options.css) {
           this.css(btn, options.css);
       }
@@ -139,47 +139,36 @@ var hlayer = {
       return btn;
     },
     creAlert: function(cfg) {
-      var title = cfg.title || '信息';
-      var content = cfg.text || '我是信息';
-      var shadow = cfg.disNone[0];
-      var confirmCallback = cfg.confirmCb;
-      var cancelCallback = cfg.cancelCb;
-      var alertCon = this.creEle('div');
-      alertCon.className = 'hlayer';
-        if(cfg.animateType && typeof cfg.animateType === "number") {
-            alertCon.className += ' hlayer-animate' + cfg.animateType;
-        }
-      var alertTitle = this.creEle('div');
-      var alertContent = this.creEle('div');
-      this.css(alertCon, {width:'260px',height:'148px',borderRadius: '5px',backgroundColor:'#fff',zIndex:10010});
-      this.css(alertTitle, {height:'42px', padding: '0 10px', borderRadius:'5px 5px 0px 0px',lineHeight: '42px',fontSize: '16px',backgroundColor:this.mainBg,color:this.mainColor});
-      alertTitle.textContent = title;
+        var _this = this;
+      var alertCon = this.creEle('div','hlayer-alert');
+      if(cfg.animateType && typeof cfg.animateType === "number") {
+          alertCon.className += ' hlayer-animate' + cfg.animateType;
+      }
+      var alertTitle = this.creEle('div','hlayer-alert-title');
+      var alertContent = this.creEle('div', 'hlayer-alert-content');
+      this.css(alertCon,{width:cfg.width,height:cfg.height});
+      this.css(alertCon, {borderRadius: '5px',backgroundColor:'#fff',zIndex:10010});
+      this.css(alertTitle, {height:'42px', padding: '0 10px', borderRadius:'5px 5px 0px 0px',lineHeight: '42px',fontSize: '16px',backgroundColor:cfg.mainBg,color:cfg.mainColor});
+      alertTitle.textContent = cfg.title;
       this.css(alertContent, {height:'70px',padding: '18px 10px',fontSize: '14px',lineHeight: '20px'});
-      alertContent.textContent = content;
+      alertContent.textContent = cfg.text;
       this.appendNodes(alertCon, [alertTitle, alertContent]);
       if(cfg.confirmBtn !== false) {
-          var btn  = this.creBtn();
+          var btn  = this.creBtn({mainBg:cfg.mainBg,mainColor:cfg.mainColor});
           alertCon.appendChild(btn);
-          var that = this;
-          var body = document.getElementsByTagName('body')[0];
           this.addEvent(btn,'click',function() {
-              var body = document.getElementsByTagName('body')[0];
-              that.rmEle([alertCon,shadow],[body,body]);
-              confirmCallback && confirmCallback();
+              _this.rmHlayer();
+              cfg.confirmCb && cfg.confirmCb();
           })
       }
       if(cfg.cancelBtn === true) {
-          var btn = this.creBtn({text:'取消',css:{left:'10px'}});
+          var btn = this.creBtn({text:'取消',mainBg:cfg.mainBg,mainColor:cfg.mainColor,css:{left:'10px'}});
           alertCon.appendChild(btn);
-          var that = this;
-          var body = document.getElementsByTagName('body')[0];
           this.addEvent(btn,'click',function() {
-              var body = document.getElementsByTagName('body')[0];
-              that.rmEle([alertCon,shadow],[body,body]);
-              cancelCallback && cancelCallback();
+              _this.rmHlayer();
+              cfg.cancelCb && cfg.cancelCb();
           })
       }
-      document.getElementsByTagName('body')[0].appendChild(alertCon);
       return alertCon;
     },
     creLoad: function() {
@@ -260,6 +249,8 @@ var hlayer = {
         mainColor: 主要的字体颜色,
         title: alert框的标题,
         text: alert框的内容,
+        width: 宽度,
+        height: 高度,
         confirmBtn: 是否需要确认按钮，默认为true,
         confirmCb: 点击确认按钮时触发的事件函数,
         cancelBtn: 是否需要取消按钮，默认为false,
@@ -269,12 +260,21 @@ var hlayer = {
     */
     alert: function(cfg) {
         var cfg = cfg || {};
-        this.mainBg = cfg.mainBg || this.mainBg;
-        this.mainColor = cfg.mainColor || this.mainColor;
+        cfg.mainBg = cfg.mainBg || this.mainBg;
+        cfg.mainColor = cfg.mainColor || this.mainColor;
+        cfg.title = cfg.title || '信息';
+        cfg.text = cfg.text || '提示信息';
+        cfg.width = cfg.width || '260px';
+        cfg.height = cfg.height || '148px';
+        cfg.confirmBtn = cfg.confirmBtn || true;
+        cfg.cancelBtn = cfg.cancelBtn || false;
+        cfg.animateType = cfg.animateType || 1;
+        var layer = this.creHlayer();
         var shadow = this.creShadow();
-        cfg.disNone = [shadow];
         var alertCon = this.creAlert(cfg);
-        this.posCenter(alertCon, shadow);
+        this.appendNodes(layer,[shadow, alertCon]);
+        this.appendNodes(this.docBody,layer);
+        this.center(alertCon);
     },
     /*
     cfg:{

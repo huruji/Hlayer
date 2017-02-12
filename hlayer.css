@@ -1,4 +1,4 @@
-.hlayer.halyer-load div {
+.halyer-load div {
     width: 5px;
     height: 15px;
     background: #fff;
@@ -17,48 +17,48 @@
         opacity: 1;
     }
 }
-.hlayer.halyer-load div:nth-child(1) {
+.hlayer-load div:nth-child(1) {
     top: -20px;
     left: 0;
     -webkit-animation: loader1 0.5s -0.4s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(2) {
+.hlayer-load div:nth-child(2) {
     top: -13px;
     left: 13px;
     -webkit-transform: rotate(45deg);
     -webkit-animation: loader1 0.5s -0.35s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(3) {
+.hlayer-load div:nth-child(3) {
     top: 0px;
     left: 20px;
     -webkit-transform: rotate(90deg);
     -webkit-animation: loader1 0.5s -0.30s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(4) {
+.hlayer-load div:nth-child(4) {
     top: 13px;
     left: 13px;
     -webkit-transform: rotate(-45deg);
     -webkit-animation: loader1 0.5s -0.25s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(5) {
+.hlayer-load div:nth-child(5) {
     top: 20px;
     left: 0px;
     -webkit-transform: rotate(0deg);
     -webkit-animation: loader1 0.5s -0.2s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(6) {
+.hlayer-load div:nth-child(6) {
     top: 13px;
     left: -13px;
     -webkit-transform: rotate(45deg);
     -webkit-animation: loader1 0.5s -0.15s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(7) {
+.hlayer-load div:nth-child(7) {
     top: 0px;
     left: -20px;
     -webkit-transform: rotate(90deg);
     -webkit-animation: loader1 0.5s -0.1s infinite ease-in-out;
 }
-.hlayer.halyer-load div:nth-child(8) {
+.hlayer-load div:nth-child(8) {
     top: -13px;
     left: -13px;
     -webkit-transform: rotate(-45deg);
@@ -66,11 +66,11 @@
 }
 
 /*各大进入函数的类*/
-.hlayer.halyer-animate1 {
-    animation: halyer-bottomIn 0.3s -0.1s ease-in-out;
+.hlayer-animate1 {
+    animation: hlayer-bottomIn 0.3s -0.1s ease-in-out;
     animation-fill-mode: forwards;
 }
-@keyframes halyer-bottomIn{
+@keyframes hlayer-bottomIn{
     from{
         transform: translate(0,2000px);
     }
@@ -78,10 +78,10 @@
         transform:  translate(0,0);
     }
 }
-.hlayer.halyer-animate2 {
-    animation: halyer-topIn 0.3s -0.1s ease-in-out;
+.hlayer-animate2 {
+    animation: hlayer-topIn 0.3s -0.1s ease-in-out;
 }
-@keyframes halyer-topIn{
+@keyframes hlayer-topIn{
     from{
         transform: translate(0,-2000px);
     }
@@ -89,10 +89,10 @@
         transform:  translate(0,0);
     }
 }
-.hlayer.halyer-animate3 {
-    animation: halyer-scaleIn 0.5s ease-in-out;
+.hlayer-animate3 {
+    animation: hlayer-scaleIn 0.3s ease-in-out;
 }
-@keyframes halyer-scaleIn {
+@keyframes hlayer-scaleIn {
     from{
         transform:scale(0,0);
     }
