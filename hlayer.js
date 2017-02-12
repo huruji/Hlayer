@@ -1,4 +1,5 @@
 var hlayer = {
+    docBody: document.getElementsByTagName('body')[0],
     mainBg:'#51B1D9',
     mainColor: '#fff',
     data:{},
@@ -6,6 +7,7 @@ var hlayer = {
         this.data[key] = value;
     },
     addStyle: function() {
+        var _this = this;
         var scripts = document.getElementsByTagName('script');
         var hlayerSrc = '';
         for(var i = 0, max = scripts.length; i < max; i++) {
@@ -28,20 +30,29 @@ var hlayer = {
             ele.style[key] = cssJson[key];
         }
     },
-    creEle: function(ele) {
-        return document.createElement(ele);
+    creEle: function(ele,cl,id) {
+        var e = document.createElement(ele);
+        if(cl) {
+            e.className = cl;
+        }
+        if(id) {
+            e.id = id;
+        }
+        return e;
     },
     rmEle: function(eleArr, parArr) {
         for(var i = 0, max = eleArr.length; i < max; i++) {
             parArr[i].removeChild(eleArr[i]);
         }
     },
+    creHlayer: function(){
+        var ele = this.creEle('div','hlayer','hlayer');
+        this.css(ele, {display:'block'});
+        return ele;
+    },
     rmHlayer: function() {
-        var hlayerEle = document.getElementsByClassName('hlayer');
-        var body = document.getElementsByTagName('body');
-        for(var i = 0, max = halyerEle.length; i < max; i++) {
-            body.removeChild(halyerEle[i]);
-        }
+        var layer = document.getElementById('hlayer');
+        this.docBody.removeChild(layer);
     },
     getStyle: function(ele, attr) {
         if(ele.currentStyle) {
@@ -68,26 +79,36 @@ var hlayer = {
         }
         return ele.addEventListener(event, fn, false);
     },
-    timingCancer: function(eleArr, parArr, time) {
-        var time = 1000;
-        var that = this;
+    timingCancel: function(time) {
+        time = 1000;
+        var _this = this;
         setTimeout(function() {
-            eleArr.forEach(function(ele) {
-                ele.style.display = 'none';
-            });
-            that.rmEle(eleArr, parArr);
+            _this.rmHlayer();
         }, time);
     },
+    center: function(ele) {
+        var childWid = parseInt(this.getStyle(ele, 'width'));
+        console.log(childWid);
+        var childHei = parseInt(this.getStyle(ele, 'height'));
+        var winWidth = window.innerWidth;
+        var winHeight = window.innerHeight;
+        var setTop = (winHeight - childHei) / 2 + 'px';
+        var setLeft = (winWidth - childWid) / 2 + 'px';
+        this.css(ele, {position:'fixed',top:setTop,left:setLeft});
+    },
     appendNodes: function(par, childArr) {
-      for(var i = 0, max = childArr.length; i < max; i++) {
-          par.appendChild(childArr[i]);
-      }
+        if(Array.isArray(childArr)) {
+            for (var i = 0, max = childArr.length; i < max; i++) {
+                par.appendChild(childArr[i]);
+            }
+        }else{
+            par.appendChild(childArr);
+        }
     },
     creShadow: function() {
         var shadow = this.creEle('div');
         shadow.className = 'hlayer-shadow';
         this.css(shadow, {position: 'fixed',top:0,left:0,width: '100%',height:'100%',backgroundColor:'#000',opacity:'0.3',zIndex: 10000});
-        document.getElementsByTagName('body')[0].appendChild(shadow);
         return shadow;
     },
     creMsg: function(msg) {
@@ -96,7 +117,6 @@ var hlayer = {
         var msg = msg || '我是信息';
         msgCon.textContent = msg;
         this.css(msgCon, {minWidth:'60px',height: '30px',lineHeight:'30px',fontSize:'14px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
-        document.getElementsByTagName('body')[0].appendChild(msgCon);
         return msgCon;
     },
     creBtn: function(options) {
@@ -172,7 +192,7 @@ var hlayer = {
         var width = cfg.width;
         var height = cfg.height;
         var iframeCon = this.creEle('div');
-        this.css(iframeCon,{padding: '10px', width: width, height: height,zIndex:10010,position:'fixed',backgroundColor:'#fff',borderRadius:'5px'});
+        this.css(iframeCon,{padding: '10px', width: width, height: height,zIndex:10010,position:'fixed',backgroundColor:'#eee',borderRadius:'5px'});
         var iframeTitle = this.creEle('div');
         iframeTitle.textContent = title;
         this.css(iframeTitle, {height:'32px',lineHeight:'32px',fontSize:'14px',borderBottom:'1px solid #333'});
@@ -182,8 +202,25 @@ var hlayer = {
         iframe.src = cfg.url;
         this.appendNodes(iframeContent,[iframe]);
         this.appendNodes(iframeCon, [iframeTitle, iframeContent]);
+        var closeBtn = this.creCloseBtn();
+        this.appendNodes(iframeCon,[closeBtn]);
+        console.log(closeBtn);
         document.getElementsByTagName('body')[0].appendChild(iframeCon);
+        var _this = this;
+        this.addEvent(closeBtn, 'click', function () {
+            _this.timingCancel(cfg.disNone.concat(iframeCon),[_this.docBody,_this.docBody],0);
+        });
         return iframeCon;
+    },
+    creCloseBtn:function() {
+        var closeCon = this.creEle('div');
+        var icon1 = this.creEle('span');
+        var icon2 = this.creEle('span');
+        this.css(closeCon,{position:'absolute', right: '10px',top:'10px',height:'20px',width:'20px', cursor:'pointer',border:'1px solid #000'});
+        this.appendNodes(closeCon, [icon1,icon2]);
+        this.css(icon1,{width:'2px',height:'28px',transform:'rotate(45deg)',position:'absolute',left:'9px',top:'-4px',background:'#000'});
+        this.css(icon2,{width:'2px',height:'28px',transform:'rotate(-45deg)',position:'absolute',left:'9px',top:'-4px',background:'#000'});
+        return closeCon;
     },
     /*cfg:{
         text: '内容'，
@@ -193,14 +230,16 @@ var hlayer = {
     */
     msg: function(cfg) {
         var cfg = cfg || {};
+        var layer = this.creHlayer();
         var shadow = this.creShadow();
         var msgCon = this.creMsg(cfg.text);
-        this.posCenter(msgCon, shadow);
+        this.appendNodes(layer,[shadow, msgCon]);
+        this.appendNodes(this.docBody,layer);
+        this.center(msgCon);
         if(cfg.css) {
-          this.css(msgCon, cfg.css);
+            this.css(msgCon, cfg.css);
         }
-        var body = document.getElementsByTagName('body')[0];
-        this.timingCancer([shadow, msgCon],[body, body], cfg.time);
+        this.timingCancel(cfg.time);
     },
     /*
     cfg:{
@@ -236,6 +275,12 @@ var hlayer = {
         var loadCon = this.creLoad();
         this.posCenter(loadCon, shadow);
     },
+    /*cfg:{
+        title:'标题',
+        width:宽度,
+        height:高度,
+    }
+    */
     iframe: function(cfg) {
         var cfg = cfg || {};
         cfg.width = cfg.width || '700px';
@@ -243,6 +288,7 @@ var hlayer = {
         /*if(cfg.shadow !== false || cfg.shadow !== undefined) {
             var shadow = this.creShadow();
         }*/
+        cfg.disNone = [shadow];
         var shadow = this.creShadow();
         var iframeCon = this.creIframe(cfg);
         this.posCenter(iframeCon, shadow);
