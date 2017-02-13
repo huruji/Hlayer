@@ -299,7 +299,8 @@ var hlayer = {
         confirmCb: 点击确认按钮时触发的事件函数,
         cancelBtn: 是否需要取消按钮，默认为false,
         cancelCb: 点击取消按钮时触发的事件函数,
-        animateType:动画类型1,2，3中的一种
+        animateType:动画类型1,2，3中的一种,
+        position:位置，默认为屏幕中间
      }
     */
     alert: function(cfg) {
@@ -313,12 +314,13 @@ var hlayer = {
         cfg.confirmBtn = cfg.confirmBtn || true;
         cfg.cancelBtn = cfg.cancelBtn || false;
         cfg.animateType = cfg.animateType || 1;
+        cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
         var shadow = this.creShadow();
         var alertCon = this.creAlert(cfg);
         this.appendNodes(layer,[shadow, alertCon]);
         this.appendNodes(this.docBody,layer);
-        this.center(alertCon);
+        this.position(alertCon,shadow,cfg.position);
     },
     /*
     cfg:{
@@ -326,6 +328,7 @@ var hlayer = {
         width:宽度,
         height:高度,
         time:时间,
+        position:位置，默认为屏幕中间
     }
     */
     loading: function(cfg) {
@@ -333,12 +336,13 @@ var hlayer = {
         cfg.type = cfg.type || 1;
         cfg.width = cfg.width || '100px';
         cfg.height = cfg.height || '100px';
+        cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
         var shadow = this.creShadow();
         var loadCon = this.creLoad(cfg);
         this.appendNodes(layer,[shadow, loadCon]);
         this.appendNodes(this.docBody,layer);
-        this.posCenter(loadCon, shadow);
+        this.position(loadCon, shadow, cfg.position);
         if(cfg.time) {
             this.timingCancel(cfg.time);
         }
@@ -359,6 +363,6 @@ var hlayer = {
         cfg.disNone = [shadow];
         var shadow = this.creShadow();
         var iframeCon = this.creIframe(cfg);
-        this.posCenter(iframeCon, shadow);
+        this.position(iframeCon,shadow,cfg.position);
     }
 };
