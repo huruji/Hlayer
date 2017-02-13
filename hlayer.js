@@ -171,15 +171,17 @@ var hlayer = {
       }
       return alertCon;
     },
-    creLoad: function() {
+    creLoad: function(cfg) {
         var loadCon = this.creEle('div');
-        loadCon.className = 'halyer-load hlayer';
-        for(var i = 0; i < 8; i++) {
-            var div = this.creEle('div');
-            loadCon.appendChild(div);
+        if(typeof cfg.type === 'number') {
+            loadCon.className = 'hlayer' + ' hlayer-load' + cfg.type;
+            for (var i = 0; i < 8; i++) {
+                var div = this.creEle('div');
+                loadCon.appendChild(div);
+            }
+            this.css(loadCon, {width: cfg.width, height: cfg.height});
+            this.css(loadCon, {zIndex: 10010});
         }
-        this.css(loadCon,{width:'100px',height:'100px',zIndex:10010});
-        document.getElementsByTagName('body')[0].appendChild(loadCon);
         return loadCon;
     },
     creIframe: function(cfg) {
@@ -278,15 +280,26 @@ var hlayer = {
     },
     /*
     cfg:{
-        
+        type:类型，
+        width:宽度,
+        height:高度,
+        time:时间,
     }
     */
     loading: function(cfg) {
         var cfg = cfg || {};
+        cfg.type = cfg.type || 1;
+        cfg.width = cfg.width || '100px';
+        cfg.height = cfg.height || '100px';
+        var layer = this.creHlayer();
         var shadow = this.creShadow();
-        cfg.disNone = [shadow];
-        var loadCon = this.creLoad();
+        var loadCon = this.creLoad(cfg);
+        this.appendNodes(layer,[shadow, loadCon]);
+        this.appendNodes(this.docBody,layer);
         this.posCenter(loadCon, shadow);
+        if(cfg.time) {
+            this.timingCancel(cfg.time);
+        }
     },
     /*cfg:{
         title:'标题',

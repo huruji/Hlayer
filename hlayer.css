@@ -1,4 +1,4 @@
-.halyer-load div {
+.hlayer-load1 div {
     width: 5px;
     height: 15px;
     background: #fff;
@@ -17,48 +17,48 @@
         opacity: 1;
     }
 }
-.hlayer-load div:nth-child(1) {
+.hlayer-load1 div:nth-child(1) {
     top: -20px;
     left: 0;
     -webkit-animation: loader1 0.5s -0.4s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(2) {
+.hlayer-load1 div:nth-child(2) {
     top: -13px;
     left: 13px;
     -webkit-transform: rotate(45deg);
     -webkit-animation: loader1 0.5s -0.35s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(3) {
+.hlayer-load1 div:nth-child(3) {
     top: 0px;
     left: 20px;
     -webkit-transform: rotate(90deg);
     -webkit-animation: loader1 0.5s -0.30s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(4) {
+.hlayer-load1 div:nth-child(4) {
     top: 13px;
     left: 13px;
     -webkit-transform: rotate(-45deg);
     -webkit-animation: loader1 0.5s -0.25s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(5) {
+.hlayer-load1 div:nth-child(5) {
     top: 20px;
     left: 0px;
     -webkit-transform: rotate(0deg);
     -webkit-animation: loader1 0.5s -0.2s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(6) {
+.hlayer-load1 div:nth-child(6) {
     top: 13px;
     left: -13px;
     -webkit-transform: rotate(45deg);
     -webkit-animation: loader1 0.5s -0.15s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(7) {
+.hlayer-load1 div:nth-child(7) {
     top: 0px;
     left: -20px;
     -webkit-transform: rotate(90deg);
     -webkit-animation: loader1 0.5s -0.1s infinite ease-in-out;
 }
-.hlayer-load div:nth-child(8) {
+.hlayer-load1 div:nth-child(8) {
     top: -13px;
     left: -13px;
     -webkit-transform: rotate(-45deg);
