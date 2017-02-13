@@ -73,6 +73,45 @@ var hlayer = {
         var setLeft = (parentWid - childWid) / 2 + 'px';
         this.css(child, {position:'fixed',top:setTop,left:setLeft});
     },
+    position: function(child, parent, type) {
+        var _this = this;
+        var type = type || 0;
+        var childWid = parseInt(this.getStyle(child, 'width'));
+        var childHei = parseInt(this.getStyle(child, 'height'));
+        var parentWid = parseInt(this.getStyle(parent, 'width'));
+        var parentHei = parseInt(this.getStyle(parent, 'height'));
+        var setTop, setLeft, setBottom, setRight;
+        this.css(child, {position:'fixed'});
+        if(type === 0) {
+            setTop = (parentHei - childHei) / 2 + 'px';
+            setLeft = (parentWid - childWid) / 2 + 'px';
+            _this.css(child,{top:setTop,left:setLeft});
+        } else if(type === 1){
+            setTop = '0px';
+            setLeft = '0px';
+            _this.css(child,{top:setTop,left:setLeft});
+        } else if(type === 2) {
+            setTop = '0px';
+            setLeft = (parentWid - childWid) / 2 + 'px';
+            _this.css(child,{top:setTop,left:setLeft});
+        } else if(type === 3) {
+            setTop = '0px';
+            setRight = '0px';
+            _this.css(child,{top:setTop,right:setRight});
+        } else if(type === 4) {
+            setBottom = '0px';
+            setLeft = '0px';
+            _this.css(child,{bottom:setBottom,left:setLeft});
+        } else if(type === 5) {
+            setBottom = '0px';
+            setRight = (parentWid - childWid) / 2 + 'px';
+            _this.css(child,{bottom:setBottom,right:setRight});
+        } else if(type === 6) {
+            setBottom = '0px';
+            setRight = '0px';
+            _this.css(child,{bottom:setBottom,right:setRight});
+        }
+    },
     addEvent: function(ele, event, fn){
         if(ele.attachEvent) {
             return ele.attachEvent('on' + event, fn);
@@ -80,7 +119,7 @@ var hlayer = {
         return ele.addEventListener(event, fn, false);
     },
     timingCancel: function(time) {
-        time = 1000;
+        time = time || 1000;
         var _this = this;
         setTimeout(function() {
             _this.rmHlayer();
@@ -225,6 +264,7 @@ var hlayer = {
         width: 宽度,
         height: 高度,
         time: msg消失的时间，毫秒计，默认为1s,
+        position:位置，默认为屏幕中间
       }
     */
     msg: function(cfg) {
@@ -233,13 +273,15 @@ var hlayer = {
         cfg.height =  cfg.height || '30px';
         cfg.text = cfg.text || '提示信息';
         cfg.time = cfg.time || 1000;
+        console.log('time:' + cfg.time);
         cfg.css = cfg.css || '';
+        cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
         var shadow = this.creShadow();
         var msgCon = this.creMsg(cfg);
         this.appendNodes(layer,[shadow, msgCon]);
         this.appendNodes(this.docBody,layer);
-        this.center(msgCon);
+        this.position(msgCon, shadow, cfg.position);
         if(cfg.css) {
             this.css(msgCon, cfg.css);
         }
