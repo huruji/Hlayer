@@ -364,5 +364,5 @@ var hlayer = {
         var shadow = this.creShadow();
         var iframeCon = this.creIframe(cfg);
         this.position(iframeCon,shadow,cfg.position);
-    }
+    },
 };
