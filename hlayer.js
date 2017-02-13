@@ -159,6 +159,11 @@ var hlayer = {
             this.css(msgCon, {width: cfg.width});
         }
         this.css(msgCon, {minWidth:'60px',fontSize:'14px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
+        if(cfg.icon && typeof cfg.icon === 'number') {
+            var icon = this.creIcon(cfg.icon);
+            this.appendNodes(msgCon,icon);
+            this.css(msgCon, {paddingLeft:'48px'});
+        }
         if(cfg.css) {
             this.css(msgCon,css);
         }
@@ -223,6 +228,13 @@ var hlayer = {
         }
         return loadCon;
     },
+    creIcon: function(type){
+        var iconCon = this.creEle('div','hlayer-icon');
+        iconCon.className += ' hlayer-icon' + type;
+        var i = this.creEle('i');
+        this.appendNodes(iconCon,i);
+        return iconCon;
+    },
     creIframe: function(cfg) {
         var title = cfg.title || '信息';
         var width = cfg.width;
@@ -264,7 +276,8 @@ var hlayer = {
         width: 宽度,
         height: 高度,
         time: msg消失的时间，毫秒计，默认为1s,
-        position:位置，默认为屏幕中间
+        position:位置，默认为屏幕中间,
+        icon:1;
       }
     */
     msg: function(cfg) {

@@ -33,11 +33,11 @@
         hlayer.loading();
     };*/
     btn.onclick = function() {
-       hlayer.msg({text:'前端真奇葩',position:3,time:10000000});
+       hlayer.msg({text:'前端真奇葩',icon:2,time:1000});
     };
     btn2.onclick = function() {
         hlayer.alert({
-            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:3,confirmCb:function(){
+            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:2,confirmCb:function(){
                 hlayer.msg();
             }
         })
