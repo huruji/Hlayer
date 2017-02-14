@@ -151,14 +151,19 @@ var hlayer = {
         return shadow;
     },
     creMsg: function(cfg) {
-        var msgCon = this.creEle('div');
-        msgCon.className = 'hlayer hlayer-msg';
-        msgCon.textContent = cfg.text;
+        var msgCon = this.creEle('div','hlayer-msg');
+        var msgContent = this.creEle('div','hlayer-msg-content');
+        msgContent.textContent = cfg.text;
+        if(cfg.animateType && typeof cfg.animateType === "number") {
+            msgCon.className += ' hlayer-animate' + cfg.animateType;
+        }
         this.css(msgCon, {height:cfg.height,lineHeight:cfg.height});
         if(cfg.width) {
             this.css(msgCon, {width: cfg.width});
         }
-        this.css(msgCon, {minWidth:'60px',fontSize:'14px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
+        this.css(msgCon,{minWidth:'60px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
+        this.css(msgContent, {fontSize:'14px'});
+        this.appendNodes(msgCon,msgContent);
         if(cfg.icon && typeof cfg.icon === 'number') {
             var icon = this.creIcon(cfg.icon);
             this.appendNodes(msgCon,icon);
@@ -282,7 +287,8 @@ var hlayer = {
         height: 高度,
         time: msg消失的时间，毫秒计，默认为1s,
         position:位置，默认为屏幕中间,
-        icon:1;
+        icon:1,
+        animateType:动画类型1,2，3中的一种,
       }
     */
     msg: function(cfg) {
@@ -294,6 +300,7 @@ var hlayer = {
         console.log('time:' + cfg.time);
         cfg.css = cfg.css || '';
         cfg.position = cfg.position || 0;
+        cfg.animateType = cfg.animateType || 3;
         var layer = this.creHlayer();
         var shadow = this.creShadow();
         var msgCon = this.creMsg(cfg);
@@ -331,7 +338,7 @@ var hlayer = {
         cfg.height = cfg.height || '148px';
         cfg.confirmBtn = cfg.confirmBtn || true;
         cfg.cancelBtn = cfg.cancelBtn || false;
-        cfg.animateType = cfg.animateType || 1;
+        cfg.animateType = cfg.animateType || 3;
         cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
         var shadow = this.creShadow();
