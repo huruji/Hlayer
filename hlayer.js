@@ -47,7 +47,8 @@ var hlayer = {
     },
     creHlayer: function(){
         var ele = this.creEle('div','hlayer','hlayer');
-        this.css(ele, {display:'block'});
+        this.css(ele, {display:'block',position:'fixed',width:'100%',height:'100%'});
+        this.appendNodes(this.docBody, ele);
         return ele;
     },
     rmHlayer: function() {
@@ -148,6 +149,7 @@ var hlayer = {
         var shadow = this.creEle('div');
         shadow.className = 'hlayer-shadow';
         this.css(shadow, {position: 'fixed',top:0,left:0,width: '100%',height:'100%',backgroundColor:'#000',opacity:'0.3',zIndex: 10000});
+        document.getElementById('hlayer').appendChild(shadow);
         return shadow;
     },
     creMsg: function(cfg) {
@@ -161,7 +163,7 @@ var hlayer = {
         if(cfg.width) {
             this.css(msgCon, {width: cfg.width});
         }
-        this.css(msgCon,{minWidth:'60px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010});
+        this.css(msgCon,{minWidth:'60px',padding: '5px',borderRadius:'3px',display:'inline-block',background:'#fff',zIndex:10010,border:'1px solid #999',boxShadow:'0px 0px 10px #777'});
         this.css(msgContent, {fontSize:'14px'});
         this.appendNodes(msgCon,msgContent);
         if(cfg.icon && typeof cfg.icon === 'number') {
@@ -172,6 +174,7 @@ var hlayer = {
         if(cfg.css) {
             this.css(msgCon,css);
         }
+        document.getElementById('hlayer').appendChild(msgCon);
         return msgCon;
     },
     creBtn: function(options) {
@@ -196,7 +199,7 @@ var hlayer = {
       var alertTitle = this.creEle('div','hlayer-alert-title');
       var alertContent = this.creEle('div', 'hlayer-alert-content');
       this.css(alertCon,{width:cfg.width,height:cfg.height});
-      this.css(alertCon, {borderRadius: '5px',backgroundColor:'#fff',zIndex:10010});
+      this.css(alertCon, {borderRadius: '5px',backgroundColor:'#fff',zIndex:10010,boxShadow:'0 0 10px #777'});
       this.css(alertTitle, {height:'42px', padding: '0 10px', borderRadius:'5px 5px 0px 0px',lineHeight: '42px',fontSize: '16px',backgroundColor:cfg.mainBg,color:cfg.mainColor});
       alertTitle.textContent = cfg.title;
       this.css(alertContent, {height:'70px',padding: '18px 10px',fontSize: '14px',lineHeight: '20px'});
@@ -223,6 +226,7 @@ var hlayer = {
             this.appendNodes(alertContent,icon);
             this.css(alertContent, {paddingLeft:'48px'});
         }
+        document.getElementById('hlayer').appendChild(alertCon);
       return alertCon;
     },
     creLoad: function(cfg) {
@@ -289,12 +293,13 @@ var hlayer = {
         position:位置，默认为屏幕中间,
         icon:1,
         animateType:动画类型1,2，3中的一种,
+        shadow:是否需要遮罩层,默认为false
       }
     */
     msg: function(cfg) {
         var cfg = cfg || {};
         cfg.width = cfg.width || '';
-        cfg.height =  cfg.height || '30px';
+        cfg.height =  cfg.height || '40px';
         cfg.text = cfg.text || '提示信息';
         cfg.time = cfg.time || 1000;
         console.log('time:' + cfg.time);
@@ -302,11 +307,11 @@ var hlayer = {
         cfg.position = cfg.position || 0;
         cfg.animateType = cfg.animateType || 3;
         var layer = this.creHlayer();
-        var shadow = this.creShadow();
+        if(cfg.shadow && cfg.shadow === true){
+            var shadow = this.creShadow();
+        }
         var msgCon = this.creMsg(cfg);
-        this.appendNodes(layer,[shadow, msgCon]);
-        this.appendNodes(this.docBody,layer);
-        this.position(msgCon, shadow, cfg.position);
+        this.position(msgCon, layer, cfg.position);
         if(cfg.css) {
             this.css(msgCon, cfg.css);
         }
@@ -325,7 +330,9 @@ var hlayer = {
         cancelBtn: 是否需要取消按钮，默认为false,
         cancelCb: 点击取消按钮时触发的事件函数,
         animateType:动画类型1,2，3中的一种,
-        position:位置，默认为屏幕中间
+        position:位置，默认为屏幕中间,
+        shadow:是否需要遮罩，默认为true，
+        time: alert消失的时间，毫秒计，默认为false,也就是不自动消失,
      }
     */
     alert: function(cfg) {
@@ -341,11 +348,14 @@ var hlayer = {
         cfg.animateType = cfg.animateType || 3;
         cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
-        var shadow = this.creShadow();
+        if(cfg.shadow !== false){
+            var shadow = this.creShadow();
+        }
         var alertCon = this.creAlert(cfg);
-        this.appendNodes(layer,[shadow, alertCon]);
-        this.appendNodes(this.docBody,layer);
-        this.position(alertCon,shadow,cfg.position);
+        this.position(alertCon,layer,cfg.position);
+        if(cfg.time && typeof cfg.time === 'number') {
+            this.timingCancel(cfg.time);
+        }
     },
     /*
     cfg:{
