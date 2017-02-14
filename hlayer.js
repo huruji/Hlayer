@@ -213,6 +213,11 @@ var hlayer = {
               cfg.cancelCb && cfg.cancelCb();
           })
       }
+        if(cfg.icon && typeof cfg.icon === 'number') {
+            var icon = this.creIcon(cfg.icon);
+            this.appendNodes(alertContent,icon);
+            this.css(alertContent, {paddingLeft:'48px'});
+        }
       return alertCon;
     },
     creLoad: function(cfg) {
