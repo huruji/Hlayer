@@ -248,6 +248,9 @@ var hlayer = {
                 loadCon.appendChild(loadContent);
             }
         }
+        if(cfg.animateType && typeof cfg.animateType === "number") {
+            loadCon.className += ' hlayer-animate' + cfg.animateType;
+        }
         this.css(loadCon, {width: cfg.width, height: cfg.height, backgroundColor:'rgba(0,0,0,0.3)', boxShadow:'0px 0px solid #777',borderRadius:'5px'});
         this.css(loadCon, {zIndex: 10010});
         cfg.parent.appendChild(loadCon);
@@ -379,7 +382,8 @@ var hlayer = {
         position:位置，默认为屏幕中间,
         shadow:是否需要遮罩，默认为true，
         time: alert消失的时间，毫秒计，默认为1s,
-        type:loading的类型
+        type:loading的类型,
+        animateType:动画类型1,2，3中的一种,
     }
     */
     loading: function(cfg) {
@@ -388,6 +392,7 @@ var hlayer = {
         cfg.width = cfg.width || '100px';
         cfg.height = cfg.height || '100px';
         cfg.position = cfg.position || 0;
+        cfg.animateType = cfg.animateType || 3;
         var layer = this.creHlayer();
         cfg.parent = layer;
         if(cfg.shadow !== false){
