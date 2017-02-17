@@ -268,7 +268,7 @@ var hlayer = {
         var width = cfg.width;
         var height = cfg.height;
         var iframeCon = this.creEle('div');
-        this.css(iframeCon,{padding: '10px', width: width, height: height,zIndex:10010,position:'fixed',backgroundColor:'#eee',borderRadius:'5px'});
+        this.css(iframeCon,{padding: '10px', width: width, height: height,zIndex:10010,position:'fixed',backgroundColor:'#eee',borderRadius:'5px',boxShadow:'0px 0px 10px #777'});
         var iframeTitle = this.creEle('div');
         iframeTitle.textContent = title;
         this.css(iframeTitle, {height:'32px',lineHeight:'32px',fontSize:'14px',borderBottom:'1px solid #333'});
@@ -280,12 +280,14 @@ var hlayer = {
         this.appendNodes(iframeCon, [iframeTitle, iframeContent]);
         var closeBtn = this.creCloseBtn();
         this.appendNodes(iframeCon,[closeBtn]);
-        console.log(closeBtn);
-        document.getElementsByTagName('body')[0].appendChild(iframeCon);
+        if(cfg.animateType && typeof cfg.animateType === "number") {
+            iframeCon.className += ' hlayer-animate' + cfg.animateType;
+        }
         var _this = this;
         this.addEvent(closeBtn, 'click', function () {
-            _this.timingCancel(cfg.disNone.concat(iframeCon),[_this.docBody,_this.docBody],0);
+            _this.rmHlayer(cfg.parent);
         });
+        cfg.parent.appendChild(iframeCon);
         return iframeCon;
     },
     creCloseBtn:function() {
@@ -408,18 +410,22 @@ var hlayer = {
         title:'标题',
         width:宽度,
         height:高度,
+     animateType:动画类型1,2，3中的一种,
     }
     */
     iframe: function(cfg) {
         var cfg = cfg || {};
         cfg.width = cfg.width || '700px';
         cfg.height = cfg.height || '486px';
-        /*if(cfg.shadow !== false || cfg.shadow !== undefined) {
-            var shadow = this.creShadow();
-        }*/
-        cfg.disNone = [shadow];
-        var shadow = this.creShadow();
+        cfg.position = cfg.position || 0;
+        var layer = this.creHlayer();
+        cfg.parent = layer;
+        if(cfg.shadow !== false){
+            var shadow = this.creShadow(layer);
+        }
+        cfg.position = cfg.position || 0;
+        cfg.animateType = cfg.animateType || 3;
         var iframeCon = this.creIframe(cfg);
-        this.position(iframeCon,shadow,cfg.position);
+        this.position(iframeCon,layer,cfg.position);
     },
 };
