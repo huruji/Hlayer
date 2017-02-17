@@ -238,14 +238,19 @@ var hlayer = {
     creLoad: function(cfg) {
         var loadCon = this.creEle('div');
         if(typeof cfg.type === 'number') {
-            loadCon.className = 'hlayer' + ' hlayer-load' + cfg.type;
-            for (var i = 0; i < 8; i++) {
-                var div = this.creEle('div');
-                loadCon.appendChild(div);
+            loadCon.className = 'hlayer-load' + ' hlayer-load' + cfg.type;
+            if(cfg.type === 1){
+                var loadContent = this.creEle('div', 'load-content');
+                for (var i = 0; i < 8; i++) {
+                    var div = this.creEle('div');
+                    loadContent.appendChild(div);
+                }
+                loadCon.appendChild(loadContent);
             }
-            this.css(loadCon, {width: cfg.width, height: cfg.height});
-            this.css(loadCon, {zIndex: 10010});
         }
+        this.css(loadCon, {width: cfg.width, height: cfg.height, backgroundColor:'rgba(255,255,255,0.3)', boxShadow:'0px 0px solid #777'});
+        this.css(loadCon, {zIndex: 10010});
+        cfg.parent.appendChild(loadCon);
         return loadCon;
     },
     creIcon: function(type){
@@ -381,13 +386,16 @@ var hlayer = {
         cfg.height = cfg.height || '100px';
         cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
-        var shadow = this.creShadow();
+        cfg.parent = layer;
+        if(cfg.shadow !== false){
+            var shadow = this.creShadow(layer);
+        }
         var loadCon = this.creLoad(cfg);
         this.appendNodes(layer,[shadow, loadCon]);
         this.appendNodes(this.docBody,layer);
         this.position(loadCon, shadow, cfg.position);
         if(cfg.time) {
-            this.timingCancel(cfg.time);
+            this.timingCancel(cfg.time,layer);
         }
     },
     /*cfg:{
