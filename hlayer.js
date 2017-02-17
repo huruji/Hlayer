@@ -248,7 +248,7 @@ var hlayer = {
                 loadCon.appendChild(loadContent);
             }
         }
-        this.css(loadCon, {width: cfg.width, height: cfg.height, backgroundColor:'rgba(255,255,255,0.3)', boxShadow:'0px 0px solid #777'});
+        this.css(loadCon, {width: cfg.width, height: cfg.height, backgroundColor:'rgba(0,0,0,0.3)', boxShadow:'0px 0px solid #777',borderRadius:'5px'});
         this.css(loadCon, {zIndex: 10010});
         cfg.parent.appendChild(loadCon);
         return loadCon;
@@ -376,7 +376,10 @@ var hlayer = {
         width:宽度,
         height:高度,
         time:时间,
-        position:位置，默认为屏幕中间
+        position:位置，默认为屏幕中间,
+        shadow:是否需要遮罩，默认为true，
+        time: alert消失的时间，毫秒计，默认为1s,
+        type:loading的类型
     }
     */
     loading: function(cfg) {
@@ -391,9 +394,7 @@ var hlayer = {
             var shadow = this.creShadow(layer);
         }
         var loadCon = this.creLoad(cfg);
-        this.appendNodes(layer,[shadow, loadCon]);
-        this.appendNodes(this.docBody,layer);
-        this.position(loadCon, shadow, cfg.position);
+        this.position(loadCon,layer,cfg.position);
         if(cfg.time) {
             this.timingCancel(cfg.time,layer);
         }
