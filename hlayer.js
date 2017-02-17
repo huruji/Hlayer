@@ -151,11 +151,11 @@ var hlayer = {
             par.appendChild(childArr);
         }
     },
-    creShadow: function() {
+    creShadow: function(layer) {
         var shadow = this.creEle('div');
         shadow.className = 'hlayer-shadow';
         this.css(shadow, {position: 'fixed',top:0,left:0,width: '100%',height:'100%',backgroundColor:'#000',opacity:'0.3',zIndex: 10000});
-        document.getElementById('hlayer').appendChild(shadow);
+        layer.appendChild(shadow);
         return shadow;
     },
     creMsg: function(cfg) {
@@ -215,7 +215,7 @@ var hlayer = {
           var btn  = this.creBtn({mainBg:cfg.mainBg,mainColor:cfg.mainColor});
           alertCon.appendChild(btn);
           this.addEvent(btn,'click',function() {
-              _this.rmHlayer();
+              _this.rmHlayer(cfg.parent);
               cfg.confirmCb && cfg.confirmCb();
           })
       }
@@ -223,7 +223,7 @@ var hlayer = {
           var btn = this.creBtn({text:'取消',mainBg:cfg.mainBg,mainColor:cfg.mainColor,css:{left:'10px'}});
           alertCon.appendChild(btn);
           this.addEvent(btn,'click',function() {
-              _this.rmHlayer();
+              _this.rmHlayer(cfg.parent);
               cfg.cancelCb && cfg.cancelCb();
           })
       }
@@ -232,7 +232,7 @@ var hlayer = {
             this.appendNodes(alertContent,icon);
             this.css(alertContent, {paddingLeft:'48px'});
         }
-        document.getElementById('hlayer').appendChild(alertCon);
+        cfg.parent.appendChild(alertCon);
       return alertCon;
     },
     creLoad: function(cfg) {
@@ -355,13 +355,14 @@ var hlayer = {
         cfg.animateType = cfg.animateType || 3;
         cfg.position = cfg.position || 0;
         var layer = this.creHlayer();
+        cfg.parent = layer;
         if(cfg.shadow !== false){
-            var shadow = this.creShadow();
+            var shadow = this.creShadow(layer);
         }
         var alertCon = this.creAlert(cfg);
         this.position(alertCon,layer,cfg.position);
         if(cfg.time && typeof cfg.time === 'number') {
-            this.timingCancel(cfg.time);
+            this.timingCancel(cfg.time, layer);
         }
     },
     /*
