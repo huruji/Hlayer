@@ -1,5 +1,5 @@
 var hlayer = {
-    docBody: document.getElementsByTagName('body')[0],
+    docBody: document.body,
     mainBg:'#51B1D9',
     mainColor: '#fff',
     data:{},
@@ -46,13 +46,19 @@ var hlayer = {
         }
     },
     creHlayer: function(){
-        var ele = this.creEle('div','hlayer','hlayer');
+        var preLayer = document.getElementsByClassName('hlayer');
+        var id = 0;
+        if(preLayer.length > 0){
+            var preId = preLayer[preLayer.length -1].getAttribute('id').toString().replace(/\D/g,'');
+            console.log(preId);
+            id = Number(preId) + 1;
+        }
+        var ele = this.creEle('div','hlayer hlayer' + id,'hlayer' + id );
         this.css(ele, {display:'block',position:'fixed',width:'100%',height:'100%'});
         this.appendNodes(this.docBody, ele);
         return ele;
     },
-    rmHlayer: function() {
-        var layer = document.getElementById('hlayer');
+    rmHlayer: function(layer) {
         this.docBody.removeChild(layer);
     },
     getStyle: function(ele, attr) {
@@ -119,11 +125,11 @@ var hlayer = {
         }
         return ele.addEventListener(event, fn, false);
     },
-    timingCancel: function(time) {
+    timingCancel: function(time,hlayer) {
         time = time || 1000;
         var _this = this;
         setTimeout(function() {
-            _this.rmHlayer();
+            _this.rmHlayer(hlayer);
         }, time);
     },
     center: function(ele) {
@@ -174,7 +180,7 @@ var hlayer = {
         if(cfg.css) {
             this.css(msgCon,css);
         }
-        document.getElementById('hlayer').appendChild(msgCon);
+        cfg.parent.appendChild(msgCon);
         return msgCon;
     },
     creBtn: function(options) {
@@ -307,6 +313,7 @@ var hlayer = {
         cfg.position = cfg.position || 0;
         cfg.animateType = cfg.animateType || 3;
         var layer = this.creHlayer();
+        cfg.parent = layer;
         if(cfg.shadow && cfg.shadow === true){
             var shadow = this.creShadow();
         }
@@ -315,7 +322,7 @@ var hlayer = {
         if(cfg.css) {
             this.css(msgCon, cfg.css);
         }
-        this.timingCancel(cfg.time);
+        this.timingCancel(cfg.time, layer);
     },
     /*
     cfg:{
