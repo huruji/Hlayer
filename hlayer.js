@@ -428,4 +428,98 @@ var hlayer = {
         var iframeCon = this.creIframe(cfg);
         this.position(iframeCon,layer,cfg.position);
     },
+    /*cfg:{
+        mainBg: 主要的背景颜色,
+        mainColor: 主要的字体颜色,
+        title: alert框的标题,
+        text: alert框的内容,
+        width: 宽度,
+        height: 高度,
+        confirmBtn: 是否需要确认按钮，默认为true,
+        confirmCb: 点击确认按钮时触发的事件函数,
+        cancelBtn: 是否需要取消按钮，默认为false,
+        cancelCb: 点击取消按钮时触发的事件函数,
+        animateType:动画类型1,2，3中的一种,
+        position:位置，默认为屏幕中间,
+        shadow:是否需要遮罩，默认为true，
+        time: alert消失的时间，毫秒计，默认为false,也就是不自动消失,
+    }*/
+    crePrompt: function(cfg){
+        var _this = this;
+        var promptCon = this.creEle('div','hlayer-prompt');
+        if(cfg.animateType && typeof cfg.animateType === "number") {
+            promptCon.className += ' hlayer-animate' + cfg.animateType;
+        }
+        var promptTitle = this.creEle('div','hlayer-prompt-title');
+        var promptContent = this.creEle('div', 'hlayer-prompt-content');
+        this.css(promptCon,{width:cfg.width,height:cfg.height});
+        this.css(promptCon, {borderRadius: '5px',backgroundColor:'#fff',zIndex:10010,boxShadow:'0 0 10px #777'});
+        this.css(promptTitle, {height:'42px', padding: '0 10px', borderRadius:'5px 5px 0px 0px',lineHeight: '42px',fontSize: '16px',backgroundColor:cfg.mainBg,color:cfg.mainColor});
+        promptTitle.textContent = cfg.title;
+        this.css(promptContent, {height:'70px',padding: '18px 10px',fontSize: '14px',lineHeight: '20px'});
+        var input;
+        if(cfg.formType === 1){
+            input = this.creEle('input');
+            input.type = 'text';
+            promptContent.appendChild(input);
+            this.css(input,{display:'block',width: '100%',height:'36px', padding:'6px 5px',boxSizing:'border-box',border:'1px solid #aaa',borderRadius:'3px'});
+        } else if(cfg.formType === 2){
+            input = this.creEle('input');
+            input.type = 'password';
+            promptContent.appendChild(input);
+            this.css(input,{display:'block',width: '100%',height: '36px', padding:'6px 5px',boxSizing:'border-box',border:'1px solid #aaa',borderRadius:'3px'});
+        } else if(cfg.formType === 3) {
+            input = this.creEle('textarea');
+            promptContent.appendChild(input);
+            var height = parseInt(cfg.height) - 108 + 'px';
+            console.log(height);
+            this.css(input,{display:'block',width: '100%',height:height, padding:'6px 5px',boxSizing:'border-box',border:'1px solid #aaa',borderRadius:'3px'});
+        }
+        this.appendNodes(promptCon, [promptTitle, promptContent]);
+        if(cfg.confirmBtn !== false) {
+            var btn  = this.creBtn({mainBg:cfg.mainBg,mainColor:cfg.mainColor});
+            promptCon.appendChild(btn);
+            this.addEvent(btn,'click',function() {
+                _this.rmHlayer(cfg.parent);
+                var value = input.value;
+                console.log(value);
+                cfg.confirmCb && cfg.confirmCb(value);
+            });
+        }
+        if(cfg.cancelBtn === true) {
+            var btn = this.creBtn({text:'取消',mainBg:cfg.mainBg,mainColor:cfg.mainColor,css:{left:'10px'}});
+            promptCon.appendChild(btn);
+            this.addEvent(btn,'click',function() {
+                _this.rmHlayer(cfg.parent);
+                cfg.cancelCb && cfg.cancelCb();
+            })
+        }
+        cfg.parent.appendChild(promptCon);
+        return promptCon;
+    },
+    prompt: function(cfg){
+        var cfg = cfg || {};
+        cfg.mainBg = cfg.mainBg || this.mainBg;
+        cfg.mainColor = cfg.mainColor || this.mainColor;
+        cfg.title = cfg.title || '信息';
+        cfg.text = cfg.text || '提示信息';
+        cfg.width = cfg.width || '260px';
+        cfg.height = cfg.height || '148px';
+        cfg.confirmBtn = cfg.confirmBtn || true;
+        cfg.cancelBtn = cfg.cancelBtn || true;
+        cfg.animateType = cfg.animateType || 3;
+        cfg.position = cfg.position || 0;
+        cfg.formType = cfg.formType || 1;
+        cfg.data = '';
+        var layer = this.creHlayer();
+        cfg.parent = layer;
+        if(cfg.shadow !== false){
+            var shadow = this.creShadow(layer);
+        }
+        var promptCon = this.crePrompt(cfg);
+        this.position(promptCon,layer,cfg.position);
+        if(cfg.time && typeof cfg.time === 'number') {
+            this.timingCancel(cfg.time, layer);
+        }
+    }
 };

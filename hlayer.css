@@ -169,14 +169,14 @@
     top:3px;
 }
 .hlayer-icon3{
-    border-color: yellow;
+    border-color: #F97B07;
 }
 .hlayer-icon3:before{
     content: '';
     position: absolute;
     width: 9px;
     height: 9px;
-    border: 2px solid yellow;
+    border: 2px solid #F97B07;
     border-bottom-color: transparent;
     background: transparent;
     border-radius: 50%;
@@ -188,7 +188,7 @@
     content: "";
     width: 2px;
     height: 5px;
-    background: yellow;
+    background: #F97B07;
     display: inline-block;
     left: 13px;
     position: absolute;
@@ -201,7 +201,7 @@
     border-radius: 50%;
     left: 13px;
     top: 21px;
-    background-color: yellow;
+    background-color: #F97B07;
 }
 .hlayer-icon4{
     border-color: #4fc08d;
