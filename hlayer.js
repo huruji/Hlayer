@@ -452,11 +452,19 @@ var hlayer = {
         }
         var promptTitle = this.creEle('div','hlayer-prompt-title');
         var promptContent = this.creEle('div', 'hlayer-prompt-content');
+        cfg.parent.appendChild(promptCon);
+        this.appendNodes(promptCon, [promptTitle, promptContent]);
         this.css(promptCon,{width:cfg.width,height:cfg.height});
         this.css(promptCon, {borderRadius: '5px',backgroundColor:'#fff',zIndex:10010,boxShadow:'0 0 10px #777'});
         this.css(promptTitle, {height:'42px', padding: '0 10px', borderRadius:'5px 5px 0px 0px',lineHeight: '42px',fontSize: '16px',backgroundColor:cfg.mainBg,color:cfg.mainColor});
         promptTitle.textContent = cfg.title;
         this.css(promptContent, {height:'70px',padding: '18px 10px',fontSize: '14px',lineHeight: '20px'});
+        if(cfg.text){
+            var promptText = this.creEle('div', 'hlayer-prompt-content-text');
+            promptText.textContent = cfg.text;
+            this.css(promptText,{textIndent:'2em',fontSize:'14px',lineHeight:'20px'});
+            promptContent.appendChild(promptText);
+        }
         var input;
         if(cfg.formType === 1){
             input = this.creEle('input');
@@ -473,9 +481,12 @@ var hlayer = {
             promptContent.appendChild(input);
             var height = parseInt(cfg.height) - 108 + 'px';
             console.log(height);
+            if(promptText){
+                height = parseInt(height) - parseInt(this.getStyle(promptText,'height')) + 'px';
+                console.log('height2' +height);
+            }
             this.css(input,{display:'block',width: '100%',height:height, padding:'6px 5px',boxSizing:'border-box',border:'1px solid #aaa',borderRadius:'3px'});
         }
-        this.appendNodes(promptCon, [promptTitle, promptContent]);
         if(cfg.confirmBtn !== false) {
             var btn  = this.creBtn({mainBg:cfg.mainBg,mainColor:cfg.mainColor});
             promptCon.appendChild(btn);
@@ -494,7 +505,6 @@ var hlayer = {
                 cfg.cancelCb && cfg.cancelCb();
             })
         }
-        cfg.parent.appendChild(promptCon);
         return promptCon;
     },
     prompt: function(cfg){
