@@ -1,3 +1,117 @@
+(function(){
+   var type = ['mag','alert','loading','iframe','tips'],
+       utils = {
+       css: function(ele, cssJson) {
+           for(var key in cssJson){
+               ele.style[key] = cssJson[key];
+           }
+       },
+       addEvent: function(ele, event, fn) {
+           if(ele.addEventListener) {
+               return ele.addEventListener(event, fn, false);
+           } else if(ele.attachEvent) {
+               return ele.attachEvent('on' + event, fn);
+           } else {
+               return ele['on' + event] = fn;
+           }
+       },
+       removeEvent: function(ele, event, fn) {
+           if(ele.removeEventListener){
+               ele.removeEventListener(event, fn);
+           } else if(ele.detachEvent){
+               ele.detachEvent('on' + event, fn);
+           } else {
+               ele['on' + event] = null
+           }
+       },
+       mergeJson: function() {
+           var json = {};
+           for(var i = 0, max = arguments.length; i < max; i++) {
+               for(var j in arguments[i]){
+                   json[j] = arguments[i][j];
+               }
+           }
+           return json;
+       },
+       creEle: function(ele,cl,id) {
+           var e = document.createElement(ele);
+           if(cl) {
+               e.className = cl;
+           }
+           if(id) {
+               e.id = id;
+           }
+           return e;
+       },
+   };
+   var hlayer = {
+       index: 100000,
+       times:0
+   };
+   var Dialog = function(setting){
+       var Cla = function (setting) {
+           this.index = ++hlayer.index;
+           this.config = utils.mergeJson(this.defaultConfig, setting, this.index);
+           this.init();
+       };
+       Cla.prototype = {
+           init:function(){
+               var body = document.body;
+               this.times = ++hlayer.times;
+               this.layer = utils.creEle('div', 'hlayer hlayer' + this.times, 'hlayer' + this.times);
+               this.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + this.config.type + ' hlayer-animate' + this.config.animateType);
+               this.layer.appendChild(this.layerCon);
+               this.layout();
+           },
+           layout:function(){
+               if(this.config.title!==false){
+                   this.layerTitle = utils.creEle('div', 'hlayer-content-title hlayer-' + this.config.type);
+                   this.layerTitle.textContent = this.config.title;
+                   utils.css(this.layerTitle,{backgroundColor:this.config.mainBg,color:this.config.mainColor});
+                   this.layerCon.appendChild(this.layerTitle);
+               }
+               this.layerMain = utils.creEle('div', 'hlayer-content-main hlayer-' + this.config.type + '-content');
+               this.layerCon.appendChild(this.layerMain);
+               if(this.config.type == type[0]){
+                   utils.css(this.layer,{height:'100%',lineHeight:this.config.height,textAlign:'center'});
+               }
+               if(this.config.icon!== false){
+                   this.layerMain.style.paddingLeft = '48px';
+                   this.layerIcon = utils.creEle('div','hlayer-icon hlayer-icon' + this.config.icon);
+                   this.layerMain.appendChild(this.layerIcon);
+               }
+               if(this.config.btn) {
+                   this.config.btns = [];
+                   this.layerBtnCON = utils.creEle('div', 'hlayer-content-btns hlayer-' + this.config.type + '-content-btns');
+                   for(var i = 0, max = this.config.btn; i < max; i++) {
+                        var btn = utils.creEle('span','hlayer-content-btns-item hlayer-content-btns-item' + i);
+                        btn.textContent = this.config.btn[i];
+                        utils.css(btn,{backgroundColor:this.config.mainBg,color:this.config.mainColor});
+                        this.layerBtnCON.appendChild(btn);
+                        this.config.btns.push(btn);
+                   }
+               }
+           },
+           defaultConfig: {
+               mainBg: '#51B1D9',
+               mainColor: '#fff',
+               title: '信息',
+               text: '提示信息',
+               width: '260px',
+               height: '148px',
+               confirmBtn: true,
+               confirmCb: false,
+               cancelBtn: false,
+               cancelCb: false,
+               animateType: 1,
+               position: 0,
+               shadow:true,
+               time: false
+           },
+       }
+    }
+})();
+
 var hlayer = {
     docBody: document.body,
     mainBg:'#51B1D9',
