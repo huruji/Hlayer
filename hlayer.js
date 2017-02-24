@@ -44,9 +44,16 @@
            return e;
        },
    };
+   var dom = {
+       body: document.body
+   };
    var hlayer = {
        index: 100000,
-       times:0
+       times:0,
+       msg: function(config) {
+           var setting = utils.mergeJson(config);
+           new Dialog(setting);
+       }
    };
    var Dialog = function(setting){
        var Cla = function (setting) {
@@ -56,14 +63,25 @@
        };
        Cla.prototype = {
            init:function(){
-               var body = document.body;
                this.times = ++hlayer.times;
                this.layer = utils.creEle('div', 'hlayer hlayer' + this.times, 'hlayer' + this.times);
+               dom.body.appendChild(this.layer);
                this.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + this.config.type + ' hlayer-animate' + this.config.animateType);
                this.layer.appendChild(this.layerCon);
                this.layout();
            },
+           close: function() {
+               this.layer.style.display = 'none';
+               
+           },
            layout:function(){
+               this.layerCon = '';
+               this.layerTitle = '';
+               this.layerMain = '';
+               this.layerIcon = '';
+               this.layerBtnCON = '';
+               this.closeBtn = '';
+               this.layerBtns = [];
                if(this.config.title!==false){
                    this.layerTitle = utils.creEle('div', 'hlayer-content-title hlayer-' + this.config.type);
                    this.layerTitle.textContent = this.config.title;
@@ -81,15 +99,17 @@
                    this.layerMain.appendChild(this.layerIcon);
                }
                if(this.config.btn) {
-                   this.config.btns = [];
                    this.layerBtnCON = utils.creEle('div', 'hlayer-content-btns hlayer-' + this.config.type + '-content-btns');
                    for(var i = 0, max = this.config.btn; i < max; i++) {
                         var btn = utils.creEle('span','hlayer-content-btns-item hlayer-content-btns-item' + i);
                         btn.textContent = this.config.btn[i];
                         utils.css(btn,{backgroundColor:this.config.mainBg,color:this.config.mainColor});
                         this.layerBtnCON.appendChild(btn);
-                        this.config.btns.push(btn);
+                        this.layerBtns.push(btn);
                    }
+               }
+               if(this.config.closeBtn){
+                   this.closeBtn = utils.creEle('div', 'hlayer-close hlayer-' + this.config.type + 'close');
                }
            },
            defaultConfig: {
@@ -109,8 +129,10 @@
                time: false
            },
        }
+       return Cla;
     }
-})();
+    window.hlayer = hlayer
+})(window);
 
 var hlayer = {
     docBody: document.body,

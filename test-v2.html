@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+    </style>
+    <link href="hlayer.css" rel="stylesheet">
+</head>
+<body>
+<input type="button" value="msg">
+<input type="button" value="alert">
+<input type="button" value="loading">
+<input type="button" value="iframe">
+<input type="button" value="prompt">
+<script src="hlayer-v2.js"></script>
+<script>
+    /*hlayer.msg({text:'我是测试safdasfasfasf',css:{backgroundColor:'red'}});*/
+    /*hlayer.alert({confirmCb:function() {
+     alert(12123);
+     }});*/
+    var btn = document.getElementsByTagName('input')[0];
+    var btn2 = document.getElementsByTagName('input')[1];
+    var btn3 = document.getElementsByTagName('input')[2];
+    var btn4 = document.getElementsByTagName('input')[3];
+    var btn5 = document.getElementsByTagName('input')[4];
+    /*btn.onclick=function() {
+     hlayer.alert({mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true});
+     };*/
+    /*btn.onclick=function() {
+     hlayer.loading();
+     };*/
+    btn.onclick = function() {
+        hlayer.msg({text:'前端真奇葩',icon:2});
+    };
+    btn2.onclick = function() {
+        hlayer.alert({
+            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,shadow:false,animateType:2,icon:2,confirmCb:function(){
+                hlayer.msg();
+            }
+        })
+    };
+    btn3.onclick = function () {
+        hlayer.loading({time:1000,position:1,shadow:false});
+    };
+    btn4.onclick = function () {
+        hlayer.iframe({url:'http://www.loveqiao.com/',shadow:false,position:1});
+    };
+    btn5.onclick = function () {
+        hlayer.prompt({formType:3,height:'350px',text:'用户名错搜偶',width:'500px',confirmCb:function(value){
+            console.log(value);
+            hlayer.msg({text:value});
+        }});
+    };
+</script>
+</body>
+</html>
