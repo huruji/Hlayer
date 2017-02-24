@@ -57,7 +57,7 @@
         index: 100000,
         times:0,
         msg: function(config) {
-            var noChangeCfg = {type:'msg',title:false};
+            var noChangeCfg = {type:'msg',title:false,btn:false};
             var changeCfg = {icon:false,height:'40px',time:2000};
             var setting = utils.mergeJson(changeCfg, config, noChangeCfg);
             new Cla(setting);
@@ -66,11 +66,18 @@
             var noChangeCfg = {type:'alert'};
             var changeCfg = {icon:false,height:'148px',width:'260px',closeBtn:true};
             changeCfg.btn = [];
+            changeCfg.btnCb = [];
             if(config.confirmBtn !== false){
                 changeCfg.btn.push('确定');
             }
             if(config.cancelBtn) {
                 changeCfg.btn.push('取消');
+            }
+            if(config.confirmCb){
+                changeCfg.btnCb.push(config.confirmCb);
+            }
+            if(config.cancelCb) {
+                changeCfg.btnCb.push(config.cancelCb);
             }
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
@@ -171,6 +178,22 @@
                 }
                 if(this.closeBtn){
                     this.closeBtnHandle();
+                }
+                this.btnsHandle();
+            },
+            btnsHandle:function(){
+                var that = this;
+                if(this.layerBtns && this.config.btnCb) {
+                    for(var i = 0, max = this.layerBtns.length; i<max; i++){
+                        if(this.layerBtns[i] && this.config.btnCb[i]){
+                            (function(i){
+                                utils.addEvent(that.layerBtns[i],'click',function(){
+                                    that.close();
+                                    that.config.btnCb[i]();
+                                });
+                            })(i)
+                        }
+                    }
                 }
             },
             layout:function(){
