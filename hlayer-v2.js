@@ -58,7 +58,7 @@
         times:0,
         msg: function(config) {
             var noChangeCfg = {type:'msg',title:false};
-            var changeCfg = {icon:false,height:'40px'};
+            var changeCfg = {icon:false,height:'40px',time:2000};
             var setting = utils.mergeJson(changeCfg, config, noChangeCfg);
             new Cla(setting);
         },
@@ -72,6 +72,12 @@
             if(config.cancelBtn) {
                 changeCfg.btn.push('取消');
             }
+            var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
+            new Cla(setting);
+        },
+        loading: function(config){
+            var noChangeCfg = {type:'loading',icon:false,title:false,btn:false,text:false};
+            var changeCfg = {height:'100px',width:'100px',time:2000,shadow:false};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         }
@@ -88,17 +94,28 @@
                 dom.body.appendChild(this.layer);
                 this.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + this.config.type + ' hlayer-animate' + this.config.animateType);
                 this.layer.appendChild(this.layerCon);
+                this.layer.style.zIndex = ++hlayer.index;
                 console.dir(this.config);
                 this.layout();
                 this.setStyle();
+                this.eventHandle();
             },
             close: function() {
-                this.layer.style.display = 'none';
+                var that = this;
+                that.layer.style.display = 'none';
+                dom.body.removeChild(that.layer);
+            },
+            closeBtnHandle:function() {
+                var that = this;
+                utils.addEvent(this.closeBtn,'click',function(){
+                    that.layer.style.display = 'none';
+                    dom.body.removeChild(that.layer);
+                });
             },
             position: function() {
                 var positionType = this.config.position;
-                var layerHeight = this.config.height;
-                var layerWidth = this.config.width;
+                var layerHeight = this.layerCon.offsetHeight;
+                var layerWidth = this.layerCon.offsetWidth;
                 var winHeight = window.innerHeight;
                 var winWidth = window.innerWidth;
                 var setTop = '';
@@ -106,6 +123,7 @@
                 if(positionType === 0) {
                     setTop = (winHeight - layerHeight) / 2 + 'px';
                     setLeft = (winWidth - layerWidth) / 2 + 'px';
+                    console.log(setTop);
                     utils.css(this.layerCon, {left:setLeft,top:setTop})
                 } else if(positionType === 1){
                     utils.css(this.layerCon,{top:'0px',left:'0px'});
@@ -144,6 +162,17 @@
                 }
                 this.position();
             },
+            eventHandle: function(){
+                var that = this;
+                if(this.config.time) {
+                    setTimeout(function(){
+                        that.close();
+                    },this.config.time);
+                }
+                if(this.closeBtn){
+                    this.closeBtnHandle();
+                }
+            },
             layout:function(){
                 this.layerTitle = '';
                 this.layerMain = '';
@@ -151,15 +180,22 @@
                 this.layerBtnCON = '';
                 this.closeBtn = '';
                 this.layerBtns = [];
+                this.layerShadow = '';
                 if(this.config.title!==false){
                     this.layerTitle = utils.creEle('div', 'hlayer-content-title hlayer-' + this.config.type);
                     this.layerTitle.textContent = this.config.title;
                     utils.css(this.layerTitle,{backgroundColor:this.config.mainBg,color:this.config.mainColor});
                     this.layerCon.appendChild(this.layerTitle);
                 }
+                if(this.config.shadow) {
+                    this.layerShadow = utils.creEle('div', 'hlayer-shadow');
+                    this.layer.insertBefore(this.layerShadow,this.layerCon);
+                }
                 this.layerMain = utils.creEle('div', 'hlayer-content-main hlayer-' + this.config.type + '-content');
                 this.layerCon.appendChild(this.layerMain);
-                this.layerMain.textContent = this.config.text;
+                if(this.config.text){
+                    this.layerMain.textContent = this.config.text;
+                }
                 if(this.config.icon!== false){
                     this.layerMain.style.paddingLeft = '48px';
                     this.layerIcon = utils.creEle('div','hlayer-icon hlayer-icon' + this.config.icon);
@@ -180,6 +216,16 @@
                     this.closeBtn = utils.creEle('div', 'hlayer-close hlayer-' + this.config.type + 'close');
                     this.layerCon.appendChild(this.closeBtn);
                 }
+                if(this.config.loadingType && this.config.type == type[2]){
+                    this.loading = utils.creEle('div','hlayer-content-load hlayer-content-load' + this.config.loadingType);
+                    if(this.config.loadingType === 1){
+                        for (var i = 0; i < 8; i++) {
+                            var div = utils.creEle('div');
+                            this.loading.appendChild(div);
+                        }
+                        this.layerMain.appendChild(this.loading);
+                    }
+                }
             },
             defaultConfig: {
                 mainBg: '#51B1D9',
@@ -195,7 +241,8 @@
                 animateType: 1,
                 position: 0,
                 shadow:true,
-                time: false
+                time: false,
+                loadingType:1
             },
         }
     window.hlayer = hlayer
