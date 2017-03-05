@@ -48,10 +48,10 @@
         hlayer.loading({position:1});
     };
     btn4.onclick = function () {
-        hlayer.iframe({url:'http://www.loveqiao.com/',shadow:false,position:1});
+        hlayer.iframe({url:'http://www.loveqiao.com/',shadow:false});
     };
     btn5.onclick = function () {
-        hlayer.prompt({formType:3,height:'350px',text:'用户名错搜偶',width:'500px',confirmCb:function(value){
+        hlayer.prompt({formType:1,text:'用户名错搜偶',confirmCb:function(value){
             console.log(value);
             hlayer.msg({text:value});
         }});

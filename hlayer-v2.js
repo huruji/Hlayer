@@ -1,5 +1,5 @@
 (function(){
-    var type = ['msg','alert','loading','iframe','tips'],
+    var type = ['msg','alert','loading','iframe','prompt','tips'],
         utils = {
             css: function(ele, cssJson) {
                 for(var key in cssJson){
@@ -87,6 +87,32 @@
             var changeCfg = {height:'100px',width:'100px',time:2000,shadow:false};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
+        },
+        iframe: function(config) {
+            var noChangeCfg = {type:'iframe',icon:false,btn:false,text:false};
+            var changeCfg = {height:'500px',width:'700px',time:false,shadow:false,closeBtn:true};
+            var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
+            new Cla(setting);
+        },
+        prompt: function(config) {
+            var noChangeCfg = {type:'prompt',icon:false};
+            var changeCfg = {height:'160px',width:'270px',time:false,shadow:false,closeBtn:true};
+            changeCfg.btn = [];
+            changeCfg.btnCb = [];
+            if(config.confirmBtn !== false){
+                changeCfg.btn.push('确定');
+            }
+            if(config.cancelBtn) {
+                changeCfg.btn.push('取消');
+            }
+            if(config.confirmCb){
+                changeCfg.btnCb.push(config.confirmCb);
+            }
+            if(config.cancelCb) {
+                changeCfg.btnCb.push(config.cancelCb);
+            }
+            var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
+            new Cla(setting);
         }
     };
          function Cla(setting) {
@@ -107,95 +133,6 @@
                 this.setStyle();
                 this.eventHandle();
             },
-            close: function() {
-                var that = this;
-                that.layer.style.display = 'none';
-                dom.body.removeChild(that.layer);
-            },
-            closeBtnHandle:function() {
-                var that = this;
-                utils.addEvent(this.closeBtn,'click',function(){
-                    that.layer.style.display = 'none';
-                    dom.body.removeChild(that.layer);
-                });
-            },
-            position: function() {
-                var positionType = this.config.position;
-                var layerHeight = this.layerCon.offsetHeight;
-                var layerWidth = this.layerCon.offsetWidth;
-                var winHeight = window.innerHeight;
-                var winWidth = window.innerWidth;
-                var setTop = '';
-                var setLeft = '';
-                if(positionType === 0) {
-                    setTop = (winHeight - layerHeight) / 2 + 'px';
-                    setLeft = (winWidth - layerWidth) / 2 + 'px';
-                    console.log(setTop);
-                    utils.css(this.layerCon, {left:setLeft,top:setTop})
-                } else if(positionType === 1){
-                    utils.css(this.layerCon,{top:'0px',left:'0px'});
-                } else if(positionType === 2) {
-                    setLeft = (winWidth - layerWidth) / 2 + 'px';
-                    utils.css(this.layerCon,{top:'0px',left:setLeft});
-                } else if(positionType === 3) {
-                    utils.css(this.layerCon,{top:'0px',right:'0px'});
-                } else if(positionType === 4) {
-                    utils.css(this.layerCon,{bottom:'0px',left:'0px'});
-                } else if(positionType === 5) {
-                    setLeft = (winWidth - layerWidth) / 2 + 'px';
-                    utils.css(this.layerCon,{bottom:'0px',left:setLeft});
-                } else if(positionType === 6) {
-                    utils.css(this.layerCon,{bottom:'0px',right:'0px'});
-                }
-            },
-            setStyle:function(){
-                if(this.config.width){
-                    this.layerCon.style.width = this.config.width;
-                }
-                if(this.config.height) {
-                    this.layerCon.style.height = this.config.height;
-                }
-                var setHeight = parseInt(this.config.height);
-                if(this.layerTitle){
-                    setHeight -= 42;
-                }
-                if(this.layerBtnCON){
-                    setHeight -= 40;
-                }
-                console.log(setHeight);
-                utils.css(this.layerMain,{height:setHeight + 'px',lineHeight:setHeight + 'px'});
-                if(this.config.type === type[0]){
-                    utils.css(this.layerMain,{textAlign:'center'});
-                }
-                this.position();
-            },
-            eventHandle: function(){
-                var that = this;
-                if(this.config.time) {
-                    setTimeout(function(){
-                        that.close();
-                    },this.config.time);
-                }
-                if(this.closeBtn){
-                    this.closeBtnHandle();
-                }
-                this.btnsHandle();
-            },
-            btnsHandle:function(){
-                var that = this;
-                if(this.layerBtns && this.config.btnCb) {
-                    for(var i = 0, max = this.layerBtns.length; i<max; i++){
-                        if(this.layerBtns[i] && this.config.btnCb[i]){
-                            (function(i){
-                                utils.addEvent(that.layerBtns[i],'click',function(){
-                                    that.close();
-                                    that.config.btnCb[i]();
-                                });
-                            })(i)
-                        }
-                    }
-                }
-            },
             layout:function(){
                 this.layerTitle = '';
                 this.layerMain = '';
@@ -204,6 +141,7 @@
                 this.closeBtn = '';
                 this.layerBtns = [];
                 this.layerShadow = '';
+                this.prompt = [];
                 if(this.config.title!==false){
                     this.layerTitle = utils.creEle('div', 'hlayer-content-title hlayer-' + this.config.type);
                     this.layerTitle.textContent = this.config.title;
@@ -249,6 +187,130 @@
                         this.layerMain.appendChild(this.loading);
                     }
                 }
+                if(this.config.type == type[3]){
+                    var iframe = utils.creEle('iframe','hlayer-content-iframe');
+                    utils.css(iframe,{height:parseInt(this.config.height) - 52 + 'px'});
+                    iframe.src = this.config.url;
+                    this.layerMain.appendChild(iframe);
+                }
+                if(this.config.type == type[4]){
+                    if(this.config.formType === 1 || this.config.formType === 2){
+                        var input = utils.creEle('input','hlayer-content-prompt hlayer-form-group hlayer-form-input');
+                        if(this.config.formType === 2){
+                            input.type = 'password';
+                        }
+                        this.prompt.push(input);
+                        this.layerMain.appendChild(input);
+                    }
+                    if(this.config.formType === 3) {
+                        var input = utils.creEle('textarea', 'hlayer-content-prompt hlayer-form-group hlayer-form-textarea');
+                        this.prompt.push(input);
+                        utils.css(input,{height:parseInt(this.config.height) - 125 + 'px'});
+                        this.layerMain.appendChild(input);
+                    }
+                }
+            },
+            setStyle:function(){
+                this.setHeight();
+                if(this.config.type === type[0]){
+                    utils.css(this.layerMain,{textAlign:'center'});
+                }
+                this.position();
+            },
+            eventHandle: function(){
+                var that = this;
+                if(this.config.time) {
+                    setTimeout(function(){
+                        that.close();
+                    },this.config.time);
+                }
+                if(this.closeBtn){
+                    this.closeBtnHandle();
+                }
+                this.btnsHandle();
+            },
+            setHeight:function(){
+                if(this.config.width){
+                    this.layerCon.style.width = this.config.width;
+                }
+                if(this.config.height) {
+                    this.layerCon.style.height = this.config.height;
+                }
+                var setHeight = parseInt(this.config.height);
+                if(this.layerTitle){
+                    setHeight -= 42;
+                }
+                if(this.layerBtnCON){
+                    setHeight -= 40;
+                }
+                utils.css(this.layerMain, {height: setHeight + 'px',lineHeight:'30px'});
+                if(this.config.type === type[0] || this.config.type === type[1]) {
+                    utils.css(this.layerMain, {height: setHeight + 'px', lineHeight: setHeight + 'px'});
+                }
+            },
+            close: function() {
+                var that = this;
+                that.layer.style.display = 'none';
+                dom.body.removeChild(that.layer);
+            },
+            closeBtnHandle:function() {
+                var that = this;
+                utils.addEvent(this.closeBtn,'click',function(){
+                    that.layer.style.display = 'none';
+                    dom.body.removeChild(that.layer);
+                });
+            },
+            btnsHandle:function(){
+                var that = this;
+                if(this.layerBtns && this.config.btnCb) {
+                    for(var i = 0, max = this.layerBtns.length; i<max; i++){
+                        if(this.layerBtns[i] && this.config.btnCb[i]){
+                            (function(i){
+                                utils.addEvent(that.layerBtns[i],'click',function(){
+                                    that.close();
+                                    if(that.config.type === type[4] && i===0){
+                                        var data = [];
+                                        that.prompt.forEach(function (ele) {
+                                            data.push(ele.value);
+                                        });
+                                        data.length === 1 ? that.config.btnCb[0](data[0]) : that.config.btnCb[0](data);
+                                    }else{
+                                        that.config.btnCb[i]();
+                                    }
+                                });
+                            })(i)
+                        }
+                    }
+                }
+            },
+            position: function() {
+                var positionType = this.config.position;
+                var layerHeight = this.layerCon.offsetHeight;
+                var layerWidth = this.layerCon.offsetWidth;
+                var winHeight = window.innerHeight;
+                var winWidth = window.innerWidth;
+                var setTop = '';
+                var setLeft = '';
+                if(positionType === 0) {
+                    setTop = (winHeight - layerHeight) / 2 + 'px';
+                    setLeft = (winWidth - layerWidth) / 2 + 'px';
+                    console.log(setTop);
+                    utils.css(this.layerCon, {left:setLeft,top:setTop})
+                } else if(positionType === 1){
+                    utils.css(this.layerCon,{top:'0px',left:'0px'});
+                } else if(positionType === 2) {
+                    setLeft = (winWidth - layerWidth) / 2 + 'px';
+                    utils.css(this.layerCon,{top:'0px',left:setLeft});
+                } else if(positionType === 3) {
+                    utils.css(this.layerCon,{top:'0px',right:'0px'});
+                } else if(positionType === 4) {
+                    utils.css(this.layerCon,{bottom:'0px',left:'0px'});
+                } else if(positionType === 5) {
+                    setLeft = (winWidth - layerWidth) / 2 + 'px';
+                    utils.css(this.layerCon,{bottom:'0px',left:setLeft});
+                } else if(positionType === 6) {
+                    utils.css(this.layerCon,{bottom:'0px',right:'0px'});
+                }
             },
             defaultConfig: {
                 mainBg: '#51B1D9',
@@ -265,7 +327,10 @@
                 position: 0,
                 shadow:true,
                 time: false,
-                loadingType:1
+                loadingType:1,
+                url:false,
+                closeBtn:false,
+                formType:1
             },
         }
     window.hlayer = hlayer
