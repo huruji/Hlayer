@@ -228,6 +228,38 @@
                     this.closeBtnHandle();
                 }
                 this.btnsHandle();
+                this.resize();
+                this.move();
+            },
+            resize:function() {
+                var that = this;
+                if(this.config.resize) {
+                    utils.addEvent(window,'resize',function() {
+                        that.position.apply(that);
+                    })
+                }
+            },
+            move:function(){
+                var that = this;
+                if(this.layerTitle && this.config.move){
+                    this.layerCon.onmousedown = function(ev){
+                        var event = ev || window.event;
+                        var disx = event.clientX -  that.layerCon.offsetLeft;
+                        var disy = event.clientY - that.layerCon.offsetTop;
+                        console.log(event.clientX,event.clientY);
+                        console.log(that.layerCon.offsetLeft,that.layerCon.offsetTop);
+                        console.log(disx,disy);
+                        document.onmousemove = function(ev) {
+                            var event = ev || window.event;
+                            var left = event.clientX - disx + 'px';
+                            var top = event.clientY - disy + 'px';
+                            utils.css(that.layerCon,{left:left,top:top});
+                            document.onmouseup = function(){
+                                document.onmousemove = null;
+                            }
+                        };
+                    }
+                }
             },
             setHeight:function(){
                 if(this.config.width){
@@ -324,13 +356,15 @@
                 cancelBtn: false,
                 cancelCb: false,
                 animateType: 1,
+                resize:true,
                 position: 0,
                 shadow:true,
                 time: false,
                 loadingType:1,
                 url:false,
                 closeBtn:false,
-                formType:1
+                formType:1,
+                move:true
             },
         }
     window.hlayer = hlayer
