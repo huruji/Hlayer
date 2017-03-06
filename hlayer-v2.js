@@ -116,7 +116,7 @@
         },
         photo:function(config){
             var noChangeCfg = {type:'photo',icon:false,move:false,title:false,closeBtn:true,text:false,closeType:2};
-            var changeCfg = {time:false,shadow:true};
+            var changeCfg = {time:false,shadow:true,animateType:3};``
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
             console.log(10000)

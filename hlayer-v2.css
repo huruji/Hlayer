@@ -106,7 +106,7 @@
     }
 }
 .hlayer-animate3 {
-    animation: hlayer-scaleIn 0.3s ease-in-out;
+    animation: hlayer-scaleIn 0.3s linear;
 }
 @keyframes hlayer-scaleIn {
     from{
