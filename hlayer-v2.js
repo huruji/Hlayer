@@ -1,5 +1,5 @@
 (function(){
-    var type = ['msg','alert','loading','iframe','prompt','tips'],
+    var type = ['msg','alert','loading','iframe','prompt','photo','tips'],
         utils = {
             css: function(ele, cssJson) {
                 for(var key in cssJson){
@@ -113,6 +113,13 @@
             }
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
+        },
+        photo:function(config){
+            var noChangeCfg = {type:'photo',icon:false,move:false,title:false,closeBtn:true,text:false,closeType:2};
+            var changeCfg = {time:false,shadow:true};
+            var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
+            new Cla(setting);
+            console.log(10000)
         }
     };
          function Cla(setting) {
@@ -174,7 +181,7 @@
                     }
                 }
                 if(this.config.closeBtn){
-                    this.closeBtn = utils.creEle('div', 'hlayer-close hlayer-' + this.config.type + 'close');
+                    this.closeBtn = utils.creEle('div', 'hlayer-close hlayer-' + this.config.type + 'close hlayer-close' + this.config.closeType);
                     this.layerCon.appendChild(this.closeBtn);
                 }
                 if(this.config.loadingType && this.config.type == type[2]){
@@ -208,6 +215,39 @@
                         utils.css(input,{height:parseInt(this.config.height) - 125 + 'px'});
                         this.layerMain.appendChild(input);
                     }
+                }
+                if(this.config.type == type[5]) {
+                    var that = this;
+                    var imgs = [];
+                    for(var i = 0 ,max = this.config.photos.length; i < max; i++) {
+                        var  img = utils.creEle('img');
+                        img.src = this.config.photos[i].img;
+                        imgs.push(img);
+                    }
+                    var timer = setInterval(function(){
+                        var complete = true;
+                        for(var  i = 0, max = imgs.length; i < max; i++) {
+                            if(!imgs[i].complete){
+                                complete = false;
+                                break
+                            }
+                        }
+                        if(complete) {
+                            clearInterval(timer);
+                            that.photosIndex = 0;
+                            console.log(2222);
+                            that.photoImg = utils.creEle('img','hlayer-content-photo');
+                            utils.photoImg = utils.css(that.photoImg,{display:'block'});
+                            utils.css(that.layerMain,{padding:'0px'});
+                            utils.css(that.layerCon,{padding:'10px'});
+                            that.photoText = utils.creEle('div', 'hlayer-content-photo-text');
+                            that.photoImg.src = that.config.photos[that.photosIndex].img;
+                            that.photoText.textContent = that.config.photos[that.photosIndex].text;
+                            that.layerMain.appendChild(that.photoImg);
+                            that.layerMain.appendChild(that.photoText);
+                            that.position();
+                        }
+                    },50);
                 }
             },
             setStyle:function(){
@@ -319,6 +359,7 @@
                 var positionType = this.config.position;
                 var layerHeight = this.layerCon.offsetHeight;
                 var layerWidth = this.layerCon.offsetWidth;
+                console.log('offsetHeight:'+this.layerCon.offsetHeight);
                 var winHeight = window.innerHeight;
                 var winWidth = window.innerWidth;
                 var setTop = '';
@@ -364,7 +405,9 @@
                 url:false,
                 closeBtn:false,
                 formType:1,
-                move:true
+                move:true,
+                photos:false,
+                closeType:1
             },
         }
     window.hlayer = hlayer

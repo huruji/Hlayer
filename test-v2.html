@@ -17,6 +17,7 @@
 <input type="button" value="loading">
 <input type="button" value="iframe">
 <input type="button" value="prompt">
+<input type="button" value="photo">
 <script src="hlayer-v2.js"></script>
 <script>
     /*hlayer.msg({text:'我是测试safdasfasfasf',css:{backgroundColor:'red'}});*/
@@ -28,6 +29,7 @@
     var btn3 = document.getElementsByTagName('input')[2];
     var btn4 = document.getElementsByTagName('input')[3];
     var btn5 = document.getElementsByTagName('input')[4];
+    var btn6 = document.getElementsByTagName('input')[5];
     /*btn.onclick=function() {
      hlayer.alert({mainBg:'#1c95ea',title:'提示信息',text:'用户名或者密码错误',cancelBtn:true});
      };*/
@@ -55,6 +57,9 @@
             console.log(value);
             hlayer.msg({text:value});
         }});
+    };
+    btn6.onclick = function () {
+        hlayer.photo({photos:[{img:'1.jpg',text:'不能说的秘密'}]})
     };
 </script>
 </body>
