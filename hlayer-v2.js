@@ -12,6 +12,41 @@
                 }
                 return getComputedStyle(ele, false)[attr];
             },
+            move:function (ele,json,fn){
+                clearInterval(ele.timer);
+                ele.timer=setInterval(function(){
+                    var btnstop=true;//用以解决多个属性变化不能到达目标值的问题
+                    for(attr in json){
+                        var cur;
+                        if(attr=="opacity"){
+                            cur=parseInt(parseFloat(utils.getStyle(ele,attr))*100);
+                        } else{
+                            cur=parseInt(utils.getStyle(ele,attr));//parseInt将getstyle的东西转换为整数，并将单位忽略
+                        }
+                        var ispeed=(json[attr]-cur)/7;
+                        if(ispeed>0){
+                            ispeed=Math.ceil(ispeed);
+                        }else{
+                            ispeed=Math.floor(ispeed);//解决当cur大于itarget时的问题
+                        }
+                        if(attr=="opacity"){
+                            ele.style[attr]=(cur+ispeed)/100;
+                            ele.style.filter="alpha(opacity:"+cur+ispeed+")";
+                        }else{
+                            ele.style[attr]=cur+ispeed+"px";
+                        }
+                        if(cur!=json[attr]){
+                            btnstop = false
+                        }
+                    }
+                    if(btnstop){
+                        clearInterval(ele.timer);
+                        if(fn){
+                            fn();
+                        }
+                    }
+                }, 16)
+            },
             addEvent: function(ele, event, fn) {
                 if(ele.addEventListener) {
                     return ele.addEventListener(event, fn, false);
@@ -49,6 +84,15 @@
                 }
                 return e;
             },
+            addChild: function(ele,childArr) {
+                if(childArr instanceof Array){
+                    for(var i = 0, max =childArr.length; i < max; i++) {
+                        ele.appendChild(childArr[i]);
+                    }
+                }else {
+                    ele.appendChild(childArr);
+                }
+            }
         };
     var dom = {
         body: document.body
@@ -116,7 +160,7 @@
         },
         photo:function(config){
             var noChangeCfg = {type:'photo',icon:false,move:false,title:false,closeBtn:true,text:false,closeType:2};
-            var changeCfg = {time:false,shadow:true,animateType:3};``
+            var changeCfg = {time:false,shadow:true,animateType:3};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
             console.log(10000)
@@ -238,6 +282,8 @@
                             console.log(2222);
                             that.photoImg = utils.creEle('img','hlayer-content-photo');
                             utils.photoImg = utils.css(that.photoImg,{display:'block'});
+                            that.photoImgNext = utils.creEle('div', 'hlayer-content-photo-next');
+                            that.photoImgPre = utils.creEle('div', 'hlayer-content-photo-pre');
                             utils.css(that.layerMain,{padding:'0px'});
                             utils.css(that.layerCon,{padding:'10px'});
                             that.photoText = utils.creEle('div', 'hlayer-content-photo-text');
@@ -245,7 +291,10 @@
                             that.photoText.textContent = that.config.photos[that.photosIndex].text;
                             that.layerMain.appendChild(that.photoImg);
                             that.layerMain.appendChild(that.photoText);
-                            that.position();
+                            that.layerMain.appendChild(that.photoImgNext);
+                            that.layerMain.appendChild(that.photoImgPre);
+                            that.setStyle();
+                            that.eventHandle();
                         }
                     },50);
                 }
@@ -270,6 +319,26 @@
                 this.btnsHandle();
                 this.resize();
                 this.move();
+                this.photoHover();
+            },
+            photoHover:function(){
+                var that = this;
+                console.log(666);
+                console.log(that.photoImg);
+                if(that.photoImg) {
+                    console.log(3353);
+                    utils.addEvent(that.layerCon, 'mouseover', function(){
+                        console.log(333);
+                        that.photoImgNext.style.display = 'block';
+                        that.photoImgPre.style.display = 'block';
+                        that.photoText.style.display = 'block';
+                    });
+                    utils.addEvent(that.layerCon, 'mouseleave', function(){
+                        that.photoImgNext.style.display = 'none';
+                        that.photoImgPre.style.display = 'none';
+                        that.photoText.style.display = 'none';
+                    });
+                }
             },
             resize:function() {
                 var that = this;

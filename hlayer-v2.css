@@ -490,4 +490,58 @@
     color:#fff;
     bottom:0;
     text-align:center;
+    display:none;
+    height: 40px;
+    line-height: 40px;
+}
+/*.hlayer-content-photo-next,.hlayer-content-photo-pre{
+    height:100%;
+    width:60px;
+    background:rgba(0,0,0,0.5);
+    position:absolute;
+    top:0;
+}
+.hlayer-content-photo-next{
+    right:0;
+}
+.hlayer-content-photo-pre{
+    left:0;
+}*/
+/*.hlayer-content-photo-next:before,.hlayer-content-photo-next:after{*/
+    /*content:"";*/
+    /*width:10px;*/
+    /*height:30px;*/
+    /*border:1px solid #333;*/
+    /*position:absolute;*/
+    /*background:#fff;*/
+    /*display:block;*/
+/*}*/
+/*.hlayer-content-photo-next:before{*/
+    /*transform: rotate(-45deg);*/
+    /*top:45%*/
+/*}*/
+
+.hlayer-content-photo-next,.hlayer-content-photo-pre{
+    height:25px;
+    width:25px;
+    background: transparent;
+    border:7px #d3d3d3 solid;
+    position:absolute;
+    top:50%;
+    margin-top:-17px;
+    border-radius:5px;
+    cursor:pointer;
+    display:none;
+}
+.hlayer-content-photo-next{
+    transform:rotate(45deg);
+    right:15px;
+    border-left-color:transparent;
+    border-bottom-color:transparent;
+}
+.hlayer-content-photo-pre{
+    transform:rotate(45deg);
+    left:15px;
+    border-right-color:transparent;
+    border-top-color:transparent;
 }
