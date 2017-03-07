@@ -278,7 +278,7 @@
                         }
                         if(complete) {
                             clearInterval(timer);
-                            that.photosIndex = 0;
+                            that.photosIndex = that.photosIndex || 0;
                             console.log(2222);
                             that.photoImg = utils.creEle('img','hlayer-content-photo');
                             utils.photoImg = utils.css(that.photoImg,{display:'block'});
@@ -320,6 +320,7 @@
                 this.resize();
                 this.move();
                 this.photoHover();
+                this.photoChange();
             },
             photoHover:function(){
                 var that = this;
@@ -338,6 +339,29 @@
                         that.photoImgPre.style.display = 'none';
                         that.photoText.style.display = 'none';
                     });
+                }
+            },
+            photoChange: function(){
+                var that = this;
+                if(that.photoImg) {
+                    utils.addEvent(that.photoImgNext,'click',function(){
+                        if(that.photosIndex == that.config.photos.length - 1) {
+                            that.photosIndex = 0;
+                        } else {
+                            that.photosIndex += 1;
+                        }
+                        that.close();
+                        that.init();
+                    });
+                    utils.addEvent(that.photoImgPre,'click',function(){
+                        if(that.photosIndex == 0) {
+                            that.photosIndex = that.config.photos.length - 1;
+                        } else {
+                            that.photosIndex -= 1;
+                        }
+                        that.close();
+                        that.init();
+                    })
                 }
             },
             resize:function() {

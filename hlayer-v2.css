@@ -106,7 +106,7 @@
     }
 }
 .hlayer-animate3 {
-    animation: hlayer-scaleIn 0.3s linear;
+    animation: hlayer-scaleIn 0.5s ease;
 }
 @keyframes hlayer-scaleIn {
     from{
@@ -116,8 +116,36 @@
         transform: scale(1,1);
     }
 }
-
-
+.hlayer-animate4 {
+    animation: hlayer-rollIn 0.5s ease;
+}
+@keyframes hlayer-rollIn {
+    from{
+        opacity:0;
+        transform:translate(-120%) rotate(-120deg);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+.hlayer-animate5 {
+    animation: hlayer-rollTransIn 0.5s linear;
+}
+@keyframes hlayer-rollTransIn {
+    from{
+        opacity:0;
+        transform:scale(0.1) ;
+    }
+    50%{
+        opacity:1;
+        transform:scale(0.5) translate(-120%);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
 
 .hlayer-icon{
     width:28px;
