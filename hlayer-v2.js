@@ -92,6 +92,9 @@
                 }else {
                     ele.appendChild(childArr);
                 }
+            },
+            random: function(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min)
             }
         };
     var dom = {
@@ -172,11 +175,17 @@
             this.init();
         };
         Cla.prototype = {
+            setConfig:function(){
+                if(this.config.animateType.toString().indexOf('random') > -1){
+                    this.config.animateType = utils.random(1,5) + 'random';
+                }
+            },
             init:function(){
+                this.setConfig();
                 this.times = ++hlayer.times;
                 this.layer = utils.creEle('div', 'hlayer hlayer' + this.times, 'hlayer' + this.times);
                 dom.body.appendChild(this.layer);
-                this.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + this.config.type + ' hlayer-animate' + this.config.animateType);
+                this.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + this.config.type + ' hlayer-animate' + parseInt(this.config.animateType));
                 this.layer.appendChild(this.layerCon);
                 this.layer.style.zIndex = ++hlayer.index;
                 console.dir(this.config);
@@ -377,7 +386,7 @@
             move:function(){
                 var that = this;
                 if(this.layerTitle && this.config.move){
-                    this.layerCon.onmousedown = function(ev){
+                    this.layerTitle.onmousedown = function(ev){
                         var event = ev || window.event;
                         var disx = event.clientX -  that.layerCon.offsetLeft;
                         var disy = event.clientY - that.layerCon.offsetTop;

@@ -22,7 +22,7 @@
             font-size:14px;
             display: block;
             float: left;
-            margin: 0 20px 0 0;
+            margin: 20px 20px 0 0;
         }
         .fast-watch{
             margin-top:50px;
@@ -49,6 +49,7 @@
         <input type="button" id="api-loading" class="test" value="loading">
         <input type="button" id="api-iframe" class="test" value="iframe">
         <input type="button" id="api-photo" class="test" value="相册层">
+        <input type="button" id="api-photo-random" class="test" value="随机动画相册">
     </div>
 </section>
 <script src="../hlayer-v2.js"></script>
@@ -219,7 +220,18 @@
     var apiPhoto = document.getElementById('api-photo');
     apiPhoto.onclick = function(){
         hlayer.photo({
-            animateType: 5,
+            animateType: '5',
+            position: 0,
+            photos: [{img: '../1.jpg', text: '不能说的秘密'}, {img: '../2.jpg', text: '你永远是我眼中的苹果'}, {
+                img: '../3.jpg',
+                text: '遇见你已经是不可思议了'
+            }, {img: '../4.jpg', text: '你不要在消失了'}, {img: '../5.jpg', text: '最美的不是下雨天'}]
+        })
+    };
+    var apiPhotoRandom = document.getElementById('api-photo-random');
+    apiPhotoRandom.onclick = function(){
+        hlayer.photo({
+            animateType: 'random',
             position: 0,
             photos: [{img: '../1.jpg', text: '不能说的秘密'}, {img: '../2.jpg', text: '你永远是我眼中的苹果'}, {
                 img: '../3.jpg',
