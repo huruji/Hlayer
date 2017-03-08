@@ -460,14 +460,13 @@
     height: 20px;
     width: 20px;
     cursor: pointer;
-    border: 1px solid #fff;
 }
 .hlayer-close1:after,.hlayer-close1:before{
     content:'';
     width: 2px;
-    height: 28px;
+    height: 20px;
     position: absolute;
-    left: 9px;
+    left: 13px;
     top: -4px;
     background: #fff;
 }

@@ -211,6 +211,8 @@
                 if(this.config.icon!== false){
                     this.layerMain.style.paddingLeft = '48px';
                     this.layerIcon = utils.creEle('div','hlayer-icon hlayer-icon' + this.config.icon);
+                    var iconHelp = utils.creEle('i');
+                    this.layerIcon.appendChild(iconHelp);
                     this.layerMain.appendChild(this.layerIcon);
                 }
                 if(this.config.btn) {
@@ -433,6 +435,9 @@
                             (function(i){
                                 utils.addEvent(that.layerBtns[i],'click',function(){
                                     that.close();
+                                    if(typeof that.config.btnCb[i] !== 'function' && that.config.btnCb[i]=='close'){
+                                        return;
+                                    }
                                     if(that.config.type === type[4] && i===0){
                                         var data = [];
                                         that.prompt.forEach(function (ele) {

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HLayer,简洁、无依赖的弹窗解决方案</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .container{
+            max-width:1200px;
+            margin:0 auto;
+        }
+        input.test {
+            height: 50px;
+            padding: 10px;
+            border: 1px solid #aaa;
+            background: #fff;
+            min-width: 100px;
+            cursor: pointer;
+            font-size:14px;
+            display: block;
+            float: left;
+            margin: 0 20px 0 0;
+        }
+        .fast-watch{
+            margin-top:50px;
+        }
+        header img{
+            display:block;
+            margin:0 auto;
+        }
+    </style>
+    <link rel="stylesheet" href="../hlayer-v2.css">
+</head>
+<body>
+<header>
+    <img src="hlayer.jpg" alt="hlayer">
+</header>
+<section class="fast-watch">
+    <div class="container">
+        <input type="button" id='api-icon' class="test" value="体验icon">
+        <input type="button" id="api-animate" class="test" value="体验动画">
+        <input type="button" id="api-position" class="test" value="体验位置">
+        <input type="button" id="api-msg" class="test" value="提示">
+        <input type="button" id="api-alert-ask" class="test" value="询问">
+        <input type="button" id="api-alert-warn" class="test" value="警告">
+        <input type="button" id="api-loading" class="test" value="loading">
+        <input type="button" id="api-iframe" class="test" value="iframe">
+        <input type="button" id="api-photo" class="test" value="相册层">
+    </div>
+</section>
+<script src="../hlayer-v2.js"></script>
+<script>
+    var apiIcon = document.getElementById('api-icon');
+    apiIcon.onclick = function() {
+        hlayer.alert({
+            text: '点击更换图标',
+            icon: 1,
+            confirmCb: function () {
+                hlayer.alert({
+                    text: '点击更换图标',
+                    icon: 2,
+                    confirmCb: function () {
+                        hlayer.alert({
+                            text: '点击更换图标',
+                            icon: 3,
+                            confirmCb: function () {
+                                hlayer.alert({
+                                    text: '点击更换图标',
+                                    icon: 4,
+                                    confirmCb:function(){
+                                        hlayer.alert({
+                                            text:'点击更换图标',
+                                            icon:5,
+                                            confirmCb:function(){
+                                                hlayer.alert({
+                                                    text:'点击更换图标',
+                                                    icon:6,
+                                                    confirmCb:function(){
+                                                        hlayer.alert({
+                                                            text:'点击更换图标',
+                                                            icon:7,
+                                                            confirmCb:function(){
+                                                                hlayer.alert({
+                                                                    text:'点击更换图标',
+                                                                    icon:8,
+                                                                    confirmCb:'close'
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+    var apiAnimate = document.getElementById('api-animate');
+    apiAnimate.onclick = function(){
+        hlayer.alert({
+            animateType:1,
+            text:'我从下面来哦',
+            confirmCb:function(){
+                hlayer.alert({
+                    animateType:2,
+                    text:'我从天上来的哦',
+                    confirmCb:function(){
+                        hlayer.alert({
+                            animateType:3,
+                            text:'哦哦，我可以变大变小哦',
+                            confirmCb:function(){
+                                hlayer.alert({
+                                    animateType:4,
+                                    text:'我翻个跟斗10万8千里',
+                                    confirmCb:function(){
+                                        hlayer.alert({
+                                            animateType:5,
+                                            text:'我绕个弯过来',
+                                            confirmCb:'close'
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+    var apiPosition = document.getElementById('api-position');
+    apiPosition.onclick = function(){
+        hlayer.alert({
+            position:0,
+            text:'猜猜我下次在哪里出现',
+            confirmCb:function(){
+                hlayer.alert({
+                    position:1,
+                    text:'猜猜我下次在哪里出现',
+                    confirmCb:function(){
+                        hlayer.alert({
+                            position:2,
+                            text:'猜猜我下次在哪里出现',
+                            confirmCb:function(){
+                                hlayer.alert({
+                                    position:3,
+                                    text:'猜猜我下次在哪里出现',
+                                    confirmCb:function(){
+                                        hlayer.alert({
+                                            position:4,
+                                            text:'猜猜我下次在哪里出现',
+                                            confirmCb:function(){
+                                                hlayer.alert({
+                                                    position:5,
+                                                    text:'猜猜我下次在哪里出现',
+                                                    confirmCb:function(){
+                                                        hlayer.alert({
+                                                            position:6,
+                                                            text:'猜猜我下次在哪里出现',
+                                                            confirmCb:'close'
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+    var apiMsg = document.getElementById('api-msg');
+    apiMsg.onclick = function(){
+        hlayer.msg({
+            text:'又是一个好苗子',
+            icon: 4
+        })
+    }
+    var apiAlertAsk = document.getElementById('api-alert-ask');
+    apiAlertAsk.onclick = function(){
+        hlayer.alert({
+            icon: 3,
+            text: '你觉得你帅吗',
+            btn: ['帅','很帅'],
+            btnCb: [function(){hlayer.msg({text:'我也这么觉得'})},function(){hlayer.msg({text:'你真是倾国倾城呐！'})}]
+        })
+    }
+    var apiAlertWarn = document.getElementById('api-alert-warn');
+    apiAlertWarn.onclick = function(){
+        hlayer.alert({
+            text:'上课再玩手机，就送你去编程',
+            icon:7,
+            confirmCb:'close'
+        })
+    }
+    var apiAlertLoad = document.getElementById('api-loading');
+    apiAlertLoad.onclick = function(){
+        hlayer.loading({
+            time:1000
+        })
+    }
+    var apiIframe = document.getElementById('api-iframe');
+    apiIframe.onclick = function(){
+        hlayer.iframe({
+            title:'厚朴工作室图书设备管理系统',
+            url:'http://library.huruji3.com'
+        })
+    }
+    var apiPhoto = document.getElementById('api-photo');
+    apiPhoto.onclick = function(){
+        hlayer.photo({
+            animateType: 5,
+            position: 0,
+            photos: [{img: '../1.jpg', text: '不能说的秘密'}, {img: '../2.jpg', text: '你永远是我眼中的苹果'}, {
+                img: '../3.jpg',
+                text: '遇见你已经是不可思议了'
+            }, {img: '../4.jpg', text: '你不要在消失了'}, {img: '../5.jpg', text: '最美的不是下雨天'}]
+        })
+    }
+</script>
+</body>
+</html>

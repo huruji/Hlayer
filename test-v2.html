@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 100px;
+        }
+
+        input.test {
+            height: 40px;
+            padding: 5px;
+            border: 1px solid #aaa;
+            background: #fff;
+            width: 60px;
+            cursor: pointer;
+        }
+        .container{
+            margin:0 auto;
+            width:1200px;
         }
     </style>
     <link href="hlayer-v2.css" rel="stylesheet">
 </head>
 <body>
-<input type="button" value="msg">
-<input type="button" value="alert">
-<input type="button" value="loading">
-<input type="button" value="iframe">
-<input type="button" value="prompt">
-<input type="button" value="photo">
+<div class="container">
+<input type="button" value="msg" class="test">
+<input type="button" value="alert" class="test">
+<input type="button" value="loading" class="test">
+<input type="button" value="iframe" class="test">
+<input type="button" value="prompt" class="test">
+<input type="button" value="photo" class="test">
+</div>
 <script src="hlayer-v2.js"></script>
 <script>
     /*hlayer.msg({text:'我是测试safdasfasfasf',css:{backgroundColor:'red'}});*/
@@ -36,30 +55,45 @@
     /*btn.onclick=function() {
      hlayer.loading();
      };*/
-    btn.onclick = function() {
-        hlayer.msg({text:'前端真奇葩',icon:2});
+    btn.onclick = function () {
+        hlayer.msg({text: '前端真奇葩', icon: 2});
     };
-    btn2.onclick = function() {
+    btn2.onclick = function () {
         hlayer.alert({
-            mainBg:'#1c95ea',title:'提示信息',text:'用户名错误',cancelBtn:true,animateType:4,icon:2,confirmCb:function(){
+            mainBg: '#1c95ea',
+            title: '提示信息',
+            text: '用户名错误',
+            cancelBtn: true,
+            animateType: 5,
+            icon: 2,
+            confirmCb: function () {
                 hlayer.msg();
             }
         })
     };
     btn3.onclick = function () {
-        hlayer.loading({position:1});
+        hlayer.loading({position: 1});
     };
     btn4.onclick = function () {
-        hlayer.iframe({url:'http://www.loveqiao.com/',shadow:false});
+        hlayer.iframe({url: 'http://www.loveqiao.com/', shadow: false});
     };
     btn5.onclick = function () {
-        hlayer.prompt({formType:1,text:'用户名错搜偶',confirmCb:function(value){
-            console.log(value);
-            hlayer.msg({text:value});
-        }});
+        hlayer.prompt({
+            formType: 1, text: '用户名错搜偶', confirmCb: function (value) {
+                console.log(value);
+                hlayer.msg({text: value});
+            }
+        });
     };
     btn6.onclick = function () {
-        hlayer.photo({animateType:5,photos:[{img:'1.jpg',text:'不能说的秘密'},{img:'2.jpg',text:'你永远是我眼中的苹果'},{img:'3.jpg',text:'遇见你已经是不可思议了'},{img:'4.jpg',text:'你不要在消失了'},{img:'5.jpg',text:'最美的不是下雨天'}]})
+        hlayer.photo({
+            animateType: 5,
+            position: 0,
+            photos: [{img: '1.jpg', text: '不能说的秘密'}, {img: '2.jpg', text: '你永远是我眼中的苹果'}, {
+                img: '3.jpg',
+                text: '遇见你已经是不可思议了'
+            }, {img: '4.jpg', text: '你不要在消失了'}, {img: '5.jpg', text: '最美的不是下雨天'}]
+        })
     };
 </script>
 </body>
