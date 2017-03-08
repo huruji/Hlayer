@@ -105,7 +105,7 @@
         times:0,
         msg: function(config) {
             var noChangeCfg = {type:'msg',title:false,btn:false};
-            var changeCfg = {icon:false,height:'40px',time:2000};
+            var changeCfg = {icon:false,time:2000,height:'50px'};
             var setting = utils.mergeJson(changeCfg, config, noChangeCfg);
             new Cla(setting);
         },
@@ -167,6 +167,12 @@
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
             console.log(10000)
+        },
+        tips: function(config) {
+            var noChangeCfg = {type:'tips',move:false,title:false,closeBtn:false,shadow:false};
+            var changeCfg = {time:1000,shadow:true,animateType:3,icon:false,height:'40px'};
+            var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
+            new Cla(setting);
         }
     };
          function Cla(setting) {
@@ -178,6 +184,9 @@
             setConfig:function(){
                 if(this.config.animateType.toString().indexOf('random') > -1){
                     this.config.animateType = utils.random(1,5) + 'random';
+                }
+                if(this.config.type===type[2]){
+                    this.config.contentBg = 'rgba(0, 0, 0, 0.298039);'
                 }
             },
             init:function(){
@@ -192,6 +201,7 @@
                 this.layout();
                 this.setStyle();
                 this.eventHandle();
+                this.autoPlay();
             },
             layout:function(){
                 this.layerTitle = '';
@@ -215,7 +225,7 @@
                 this.layerMain = utils.creEle('div', 'hlayer-content-main hlayer-' + this.config.type + '-content');
                 this.layerCon.appendChild(this.layerMain);
                 if(this.config.text){
-                    this.layerMain.textContent = this.config.text;
+                    this.layerMain.innerHTML = this.config.text;
                 }
                 if(this.config.icon!== false){
                     this.layerMain.style.paddingLeft = '48px';
@@ -271,6 +281,10 @@
                         this.layerMain.appendChild(input);
                     }
                 }
+                if(this.config.type === type[6]) {
+                    this.tipsArrow = utils.creEle('i',this.config.tipsPosition);
+                    this.layerMain.appendChild(this.tipsArrow);
+                }
                 if(this.config.type == type[5]) {
                     var that = this;
                     var imgs = [];
@@ -311,9 +325,13 @@
                 }
             },
             setStyle:function(){
+                utils.css(this.layerMain,{background:this.config.contentBg,color:this.config.contentColor});
                 this.setHeight();
                 if(this.config.type === type[0]){
                     utils.css(this.layerMain,{textAlign:'center'});
+                }
+                if(this.tipsArrow){
+                    utils.css(this.tipsArrow,{borderRightColor:this.config.contentBg});
                 }
                 this.position();
             },
@@ -361,6 +379,9 @@
                         } else {
                             that.photosIndex += 1;
                         }
+                        if(this.photoTimer){
+                            clearTimeout(this.photoTimer)
+                        }
                         that.close();
                         that.init();
                     });
@@ -370,9 +391,27 @@
                         } else {
                             that.photosIndex -= 1;
                         }
+                        if(this.photoTimer){
+                            clearTimeout(this.photoTimer)
+                        }
                         that.close();
                         that.init();
                     })
+                }
+            },
+            autoPlay: function(){
+                var that = this;
+                if(this.config.autoPlay){
+                    this.photoTimer = setTimeout(function(){
+                        /*if(that.photosIndex == that.config.photos.length - 1) {
+                            that.photosIndex = 0;
+                        } else {
+                            that.photosIndex += 1;
+                        }
+                        that.close();
+                        that.init();*/
+                        that.photoImgNext.click();
+                    },this.config.playTime)
                 }
             },
             resize:function() {
@@ -420,8 +459,11 @@
                     setHeight -= 40;
                 }
                 utils.css(this.layerMain, {height: setHeight + 'px',lineHeight:'30px'});
-                if(this.config.type === type[0] || this.config.type === type[1]) {
-                    utils.css(this.layerMain, {height: setHeight + 'px', lineHeight: setHeight + 'px'});
+                if(this.config.type === type[0] || this.config.type === type[1] || this.config.type === type[6]) {
+                    if(setHeight){
+                        utils.css(this.layerMain, {height: setHeight + 'px'});
+                        utils.css(this.layerMain, {lineHeight: setHeight + 'px'});
+                    }
                 }
             },
             close: function() {
@@ -463,14 +505,45 @@
                 }
             },
             position: function() {
+                var setTop = '';
+                var setLeft = '';
+                if(this.config.type === type[6]) {
+                    var parent = document.getElementById(this.config.tipsCon);
+                    var parentTop = parent.offsetTop;
+                    var parentLeft = parent.offsetLeft;
+                    var parentHeight = parent.offsetHeight;
+                    var parentWidth = parent.offsetWidth;
+                    var layerConHeight = this.layerCon.offsetHeight;
+                    var layerConWidth = this.layerCon.offsetWidth;
+                    console.log('parentTop' + parentTop);
+                    console.log('parentLeft' + parentLeft);
+                    console.log('parentHeight' + parentHeight);
+                    console.log('parentWidth' + parentWidth);
+                    if(this.config.tipsPosition === 'left'){
+                        setLeft = parentLeft - layerConWidth - 10 + 'px';
+                        setTop = parentTop + (parentHeight-layerConHeight)/2 + 'px';
+                        utils.css(this.layerCon, {left:setLeft,top:setTop})
+                    } else if(this.config.tipsPosition === 'top'){
+                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 + 'px';
+                        setTop = parentTop - layerConHeight - 10 + 'px';
+                        utils.css(this.layerCon, {left:setLeft,top:setTop})
+                    } else if(this.config.tipsPosition === 'right'){
+                        setLeft = parentLeft + parentWidth + 10 + 'px';
+                        setTop = parentTop + (parentHeight-layerConHeight)/2 + 'px';
+                        utils.css(this.layerCon, {left:setLeft,top:setTop})
+                    }else if(this.config.tipsPosition === 'bottom'){
+                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 + 'px';
+                        setTop = parentTop + parentHeight + 10+ 'px';
+                        utils.css(this.layerCon, {left:setLeft,top:setTop})
+                    }
+                    return;
+                }
                 var positionType = this.config.position;
                 var layerHeight = this.layerCon.offsetHeight;
                 var layerWidth = this.layerCon.offsetWidth;
                 console.log('offsetHeight:'+this.layerCon.offsetHeight);
                 var winHeight = window.innerHeight;
                 var winWidth = window.innerWidth;
-                var setTop = '';
-                var setLeft = '';
                 if(positionType === 0) {
                     setTop = (winHeight - layerHeight) / 2 + 'px';
                     setLeft = (winWidth - layerWidth) / 2 + 'px';
@@ -495,6 +568,8 @@
             defaultConfig: {
                 mainBg: '#51B1D9',
                 mainColor: '#fff',
+                contentBg:'#fff',
+                contentColor:'#000',
                 title: '信息',
                 text: '提示信息',
                 width: '',
@@ -514,7 +589,11 @@
                 formType:1,
                 move:true,
                 photos:false,
-                closeType:1
+                closeType:1,
+                tipsPosition:'right',
+                tipsCon:'',
+                autoPlay:false,
+                playTime:5000
             },
         }
     window.hlayer = hlayer
