@@ -183,7 +183,7 @@
         Cla.prototype = {
             setConfig:function(){
                 if(this.config.animateType.toString().indexOf('random') > -1){
-                    this.config.animateType = utils.random(1,5) + 'random';
+                    this.config.animateType = utils.random(1,9) + 'random';
                 }
                 if(this.config.type===type[2]){
                     this.config.contentBg = 'rgba(0, 0, 0, 0.298039);'
@@ -201,7 +201,6 @@
                 this.layout();
                 this.setStyle();
                 this.eventHandle();
-                this.autoPlay();
             },
             layout:function(){
                 this.layerTitle = '';
@@ -319,7 +318,7 @@
                             that.layerMain.appendChild(that.photoImgNext);
                             that.layerMain.appendChild(that.photoImgPre);
                             that.setStyle();
-                            that.eventHandle();
+                            that.photoEventHandle();
                         }
                     },50);
                 }
@@ -348,8 +347,11 @@
                 this.btnsHandle();
                 this.resize();
                 this.move();
+            },
+            photoEventHandle:function(){
                 this.photoHover();
                 this.photoChange();
+                this.autoPlay();
             },
             photoHover:function(){
                 var that = this;
@@ -382,6 +384,7 @@
                         if(this.photoTimer){
                             clearTimeout(this.photoTimer)
                         }
+                        console.log('next photo');
                         that.close();
                         that.init();
                     });
@@ -401,6 +404,7 @@
             },
             autoPlay: function(){
                 var that = this;
+                console.log('playtime:'+this.config.playTime);
                 if(this.config.autoPlay){
                     this.photoTimer = setTimeout(function(){
                         /*if(that.photosIndex == that.config.photos.length - 1) {
@@ -474,6 +478,7 @@
             closeBtnHandle:function() {
                 var that = this;
                 utils.addEvent(this.closeBtn,'click',function(){
+                    console.log(that.layer);
                     that.layer.style.display = 'none';
                     dom.body.removeChild(that.layer);
                 });
@@ -544,6 +549,11 @@
                 console.log('offsetHeight:'+this.layerCon.offsetHeight);
                 var winHeight = window.innerHeight;
                 var winWidth = window.innerWidth;
+                if(positionType === 'random'){
+                    setTop = utils.random(0,winHeight-layerHeight) + 'px';
+                    setLeft = utils.random(0,winWidth - layerWidth) + 'px';
+                    utils.css(this.layerCon, {left:setLeft,top:setTop})
+                }
                 if(positionType === 0) {
                     setTop = (winHeight - layerHeight) / 2 + 'px';
                     setLeft = (winWidth - layerWidth) / 2 + 'px';
@@ -566,7 +576,8 @@
                 }
             },
             defaultConfig: {
-                mainBg: '#51B1D9',
+                // mainBg: '#51B1D9',
+                mainBg:'#169FE6',
                 mainColor: '#fff',
                 contentBg:'#fff',
                 contentColor:'#000',

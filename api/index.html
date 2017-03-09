@@ -32,6 +32,27 @@
             margin:0 auto;
             width:100%;
         }
+        .title{
+            border-bottom: 2px solid #aaa;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .title span{
+            width: 85px;
+            position: absolute;
+            background: #fff;
+            height: 40px;
+            left: 50%;
+            text-align: center;
+            margin-left: -45px;
+            top: -20px;
+            line-height: 40px;
+            padding-left: 5px;
+            font-size: 20px;
+            font-family: "icrosoft yahei";
+            color: #333;
+            letter-spacing: 5px;
+        }
     </style>
     <link rel="stylesheet" href="../hlayer-v2.css">
 </head>
@@ -41,6 +62,7 @@
 </header>
 <section class="fast-watch">
     <div class="container">
+        <section class="title"><span>体验区</span></section>
         <input type="button" id='api-icon' class="test" value="体验icon">
         <input type="button" id="api-animate" class="test" value="体验动画">
         <input type="button" id="api-position" class="test" value="体验位置">
@@ -198,6 +220,7 @@
             icon: 3,
             text: '你觉得你帅吗',
             btn: ['帅','很帅'],
+            animateType:9,
             btnCb: [function(){hlayer.msg({text:'我也这么觉得'})},function(){hlayer.msg({text:'你真是倾国倾城呐！'})}]
         })
     }
@@ -218,14 +241,14 @@
     var apiIframe = document.getElementById('api-iframe');
     apiIframe.onclick = function(){
         hlayer.iframe({
-            title:'厚朴工作室图书设备管理系统',
-            url:'http://library.huruji3.com'
+            title:'厚朴工作室',
+            url:'http://ce.sysu.edu.cn/hope/'
         })
     }
     var apiPhoto = document.getElementById('api-photo');
     apiPhoto.onclick = function(){
         hlayer.photo({
-            animateType: '5',
+            animateType: 9,
             position: 0,
             photos: [{img: '../1.jpg', text: '不能说的秘密'}, {img: '../2.jpg', text: '你永远是我眼中的苹果'}, {
                 img: '../3.jpg',
@@ -237,9 +260,10 @@
     apiPhotoRandom.onclick = function(){
         hlayer.photo({
             animateType: 'random',
-            position: 0,
+            position: 'random',
             autoPlay:true,
             playTime:5000,
+            shadow:false,
             photos: [{img: '../1.jpg', text: '不能说的秘密'}, {img: '../2.jpg', text: '你永远是我眼中的苹果'}, {
                 img: '../3.jpg',
                 text: '遇见你已经是不可思议了'
