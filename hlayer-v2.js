@@ -137,7 +137,7 @@
         },
         iframe: function(config) {
             var noChangeCfg = {type:'iframe',icon:false,btn:false,text:false};
-            var changeCfg = {height:'500px',width:'700px',time:false,shadow:false,closeBtn:true};
+            var changeCfg = {height:'500px',width:'700px',time:false,shadow:false,closeBtn:true,url:'https://github.com/huruji/Hlayer'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         },
@@ -525,20 +525,22 @@
                     console.log('parentHeight' + parentHeight);
                     console.log('parentWidth' + parentWidth);
                     if(this.config.tipsPosition === 'left'){
-                        setLeft = parentLeft - layerConWidth - 10 + 'px';
-                        setTop = parentTop + (parentHeight-layerConHeight)/2 + 'px';
+                        console.log('document.scrollLeft' + document.scrollLeft);
+                        console.log('document.scrollTop' + document.scrollTop);
+                        setLeft = parentLeft - layerConWidth - 10 - document.body.scrollLeft+ 'px';
+                        setTop = parentTop + (parentHeight-layerConHeight)/2 - document.body.scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     } else if(this.config.tipsPosition === 'top'){
-                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 + 'px';
-                        setTop = parentTop - layerConHeight - 10 + 'px';
+                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 -document.body.scrollLeft+ 'px';
+                        setTop = parentTop - layerConHeight - 10 - document.body.scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     } else if(this.config.tipsPosition === 'right'){
-                        setLeft = parentLeft + parentWidth + 10 + 'px';
-                        setTop = parentTop + (parentHeight-layerConHeight)/2 + 'px';
+                        setLeft =parentLeft + parentWidth + 10 -document.body.scrollLeft+ 'px';
+                        setTop = parentTop + (parentHeight-layerConHeight)/2 - document.body.scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     }else if(this.config.tipsPosition === 'bottom'){
-                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 + 'px';
-                        setTop = parentTop + parentHeight + 10+ 'px';
+                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 -document.body.scrollLeft+ 'px';
+                        setTop = parentTop + parentHeight + 10- document.body.scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     }
                     return;

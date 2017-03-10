@@ -9,8 +9,23 @@
             padding:0;
         }
         .container{
-            max-width:1200px;
+            max-width:1000px;
             margin:0 auto;
+            margin-bottom:100px;
+        }
+        p{
+            text-indent: 2em;
+        }
+        .floatfix:after{
+            content:'';
+            clear:both;
+            display:table;
+        }
+        .floatfix{
+            *zoom:1;
+        }
+        ul,li{
+            list-style:none;
         }
         input.test {
             height: 50px;
@@ -23,6 +38,7 @@
             display: block;
             float: left;
             margin: 20px 20px 0 0;
+            border-radius: 2px;
         }
         .fast-watch{
             margin-top:50px;
@@ -32,6 +48,7 @@
             margin:0 auto;
             width:100%;
         }
+
         .title{
             border-bottom: 2px solid #aaa;
             position: relative;
@@ -53,6 +70,36 @@
             color: #333;
             letter-spacing: 5px;
         }
+        code{
+            background:#eee;
+            border:1px solid #aaa;
+            display:block;
+            padding:10px;
+            border-radius:5px;
+        }
+        code li{
+            line-height:1.5em;
+            color:#333;
+        }
+        .container .part{
+            margin-bottom:20px;
+        }
+        input.learn{
+            height: 40px;
+            padding: 5px;
+            border: 1px solid #aaa;
+            background: #fff;
+            min-width: 80px;
+            cursor: pointer;
+            font-size:14px;
+            display: block;
+            float: left;
+            margin: 8px 0px 8px 8px;
+            border-radius: 2px;
+        }
+        .part input.learn.first{
+            margin-left:30px;
+        }
     </style>
     <link rel="stylesheet" href="../hlayer-v2.css">
 </head>
@@ -61,7 +108,7 @@
     <img src="hlayer.jpg" alt="hlayer">
 </header>
 <section class="fast-watch">
-    <div class="container">
+    <div class="container floatfix">
         <section class="title"><span>体验区</span></section>
         <input type="button" id='api-icon' class="test" value="体验icon">
         <input type="button" id="api-animate" class="test" value="体验动画">
@@ -77,6 +124,40 @@
         <input type="button" id="api-prompt-password" class="test" value="prompt密码">
         <input type="button" id="api-prompt-textarea" class="test" value="prompt文本">
         <input type="button" id="api-tips" class="test" value="一个tips">
+    </div>
+    <div class="container">
+        <section class="title"><span>上手区</span></section>
+        <section class="part">
+            <p>HLayer被定位为一个简洁、无依赖的前端弹层组件，使用起来非常简单，你只需要将hlayer.js和hlayer.css文件引入到你的项目中，便可开始使用。</p>
+            <code>
+                <ul>
+                    <li>&lt;link rel="stylesheet" href="hlayer/hlayer.css"&gt;</li>
+                    <li>&lt;link type="text/javascript" src="hlayer/hlayer.js"&gt;</li>
+                </ul>
+            </code>
+        </section>
+        <section class="part">
+            <p>引入之后你可以不传入参数，直接调用内置的方法，HLayer.js已经为每种方法配置了基本的参数，如下：</p>
+            <section class="buttons floatfix">
+                <input type="button" id='fast-msg' class="learn first" value="msg">
+                <input type="button" id="fast-alert" class="learn" value="alert">
+                <input type="button" id="fast-loading" class="learn" value="loading">
+                <input type="button" id='fast-iframe' class="learn" value="iframe">
+                <input type="button" id="fast-tips" class="learn" value="tips">
+                <input type="button" id="fast-prompt" class="learn" value="prompt">
+            </section>
+            <code>
+                <ul>
+                    <li>hlayer.msg();</li>
+                    <li>hlayer.alert();</li>
+                    <li>hlayer.loading();</li>
+                    <li>hlayer.iframe();</li>
+                    <li>hlayer.tips();</li>
+                    <li>hlayer.prompt();</li>
+                </ul>
+            </code>
+        </section>
+        <p></p>
     </div>
 </section>
 <script src="../hlayer-v2.js"></script>
