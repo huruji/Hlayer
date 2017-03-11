@@ -131,7 +131,7 @@
         },
         loading: function(config){
             var noChangeCfg = {type:'loading',icon:false,title:false,btn:false,text:false};
-            var changeCfg = {height:'100px',width:'100px',time:2000,shadow:false};
+            var changeCfg = {height:'100px',width:'100px',time:2000,shadow:false,loadingColor:'#169fe6'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         },
@@ -186,7 +186,7 @@
                     this.config.animateType = utils.random(1,9) + 'random';
                 }
                 if(this.config.type===type[2]){
-                    this.config.contentBg = 'rgba(0, 0, 0, 0.298039);'
+                    this.config.contentBg = 'transparent'
                 }
             },
             init:function(){
@@ -253,10 +253,30 @@
                     if(this.config.loadingType === 1){
                         for (var i = 0; i < 8; i++) {
                             var div = utils.creEle('div');
+                            utils.css(div,{backgroundColor:this.config.loadingColor});
                             this.loading.appendChild(div);
                         }
-                        this.layerMain.appendChild(this.loading);
+                    } else if(this.config.loadingType === 2) {
+                        for(var i =0; i < 2; i++) {
+                            var div = utils.creEle('div');
+                            utils.css(div,{backgroundColor:this.config.loadingColor});
+                            this.loading.appendChild(div);
+                        }
+                    } else if(this.config.loadingType === 3) {
+                        for(var i =0; i < 5; i++) {
+                            var div = utils.creEle('div','div'+(i+1));
+                            utils.css(div,{backgroundColor:this.config.loadingColor});
+                            this.loading.appendChild(div);
+                        }
+                    } else if(this.config.loadingType === 4) {
+                        for(var i =0; i < 5; i++) {
+                            var div = utils.creEle('div','div'+(i+1));
+                            utils.css(div,{backgroundColor:this.config.loadingColor});
+                            this.loading.appendChild(div);
+                        }
                     }
+                    this.layerMain.appendChild(this.loading);
+                    utils.css(this.layerCon,{boxShadow:'none',background:'transparent'});
                 }
                 if(this.config.type == type[3]){
                     var iframe = utils.creEle('iframe','hlayer-content-iframe');
@@ -265,19 +285,42 @@
                     this.layerMain.appendChild(iframe);
                 }
                 if(this.config.type == type[4]){
-                    if(this.config.formType === 1 || this.config.formType === 2){
-                        var input = utils.creEle('input','hlayer-content-prompt hlayer-form-group hlayer-form-input');
-                        if(this.config.formType === 2){
+                    if(this.config.formType === 1 || this.config.formType === 2) {
+                        var input = utils.creEle('input', 'hlayer-content-prompt hlayer-form-group hlayer-form-input');
+                        if (this.config.formType === 2) {
                             input.type = 'password';
                         }
                         this.prompt.push(input);
                         this.layerMain.appendChild(input);
-                    }
-                    if(this.config.formType === 3) {
+                    }else if(this.config.formType === 3) {
                         var input = utils.creEle('textarea', 'hlayer-content-prompt hlayer-form-group hlayer-form-textarea');
                         this.prompt.push(input);
                         utils.css(input,{height:parseInt(this.config.height) - 125 + 'px'});
                         this.layerMain.appendChild(input);
+                    }else if(this.config.formType===4){
+                        for(var i = 0, max = this.config.options.inputs.length; i < max; i++){
+                            var label  = utils.creEle('label', 'hlayer-prompt-content-label');
+                            var input = utils.creEle('input');
+                            input.type = 'radio';
+                            input.name = this.config.options.name;
+                            label.appendChild(input);
+                            this.prompt.push(input);
+                            var textNode = document.createTextNode(this.config.options.inputs[i]);
+                            label.appendChild(textNode);
+                            this.layerMain.appendChild(label);
+                        }
+                    } else if(this.config.formType === 5) {
+                        for(var i = 0, max = this.config.options.inputs.length; i < max; i++){
+                            var label  = utils.creEle('label', 'hlayer-prompt-content-label');
+                            var input = utils.creEle('input');
+                            input.type = 'checkbox';
+                            input.name = this.config.options.name;
+                            label.appendChild(input);
+                            this.prompt.push(input);
+                            var textNode = document.createTextNode(this.config.options.inputs[i]);
+                            label.appendChild(textNode);
+                            this.layerMain.appendChild(label);
+                        }
                     }
                 }
                 if(this.config.type === type[6]) {
@@ -496,9 +539,17 @@
                                     }
                                     if(that.config.type === type[4] && i===0){
                                         var data = [];
-                                        that.prompt.forEach(function (ele) {
-                                            data.push(ele.value);
-                                        });
+                                        if(that.config.formType === 1 || that.config.formType === 2 ||　that.config.formType === 3){
+                                            that.prompt.forEach(function (ele) {
+                                                data.push(ele.value);
+                                            });
+                                        } else if(that.config.formType === 4 ||　that.config.formType === 5){
+                                            that.prompt.forEach(function(ele,i){
+                                                if(ele.checked){
+                                                    data.push({index:i,value:that.config.options.inputs[i]});
+                                                }
+                                            })
+                                        }
                                         data.length === 1 ? that.config.btnCb[0](data[0]) : that.config.btnCb[0](data);
                                     }else{
                                         that.config.btnCb[i]();

@@ -115,7 +115,7 @@
 </head>
 <body>
 <header>
-    <img src="hlayer.jpg" alt="hlayer">
+    <img src="hlayer2.jpg" alt="hlayer">
 </header>
 <section class="fast-watch">
     <div class="container floatfix">
@@ -127,13 +127,18 @@
         <input type="button" id="api-alert-ask" class="test" value="询问">
         <input type="button" id="api-alert-warn" class="test" value="警告">
         <input type="button" id="api-loading" class="test" value="loading">
+        <input type="button" id="api-loading2" class="test" value="另一个加载">
         <input type="button" id="api-iframe" class="test" value="iframe">
         <input type="button" id="api-photo" class="test" value="相册层">
         <input type="button" id="api-photo-random" class="test" value="随机动画相册">
         <input type="button" id="api-prompt-text" class="test" value="prompt明文">
         <input type="button" id="api-prompt-password" class="test" value="prompt密码">
         <input type="button" id="api-prompt-textarea" class="test" value="prompt文本">
+        <input type="button" id="api-prompt-radio" class="test" value="单选框">
+        <input type="button" id="api-prompt-checkbox" class="test" value="复选框">
         <input type="button" id="api-tips" class="test" value="一个tips">
+        <input type="button" id="api-prompt-vedio" class="test" value="多媒体视频">
+        <input type="button" id="api-prompt-ques" class="test" value="调查问卷">
     </div>
     <div class="container">
         <section class="title"><span>上手区</span></section>
@@ -492,14 +497,22 @@
     var apiAlertLoad = document.getElementById('api-loading');
     apiAlertLoad.onclick = function(){
         hlayer.loading({
-            time:1000
+            time:1000000
+        })
+    }
+    var apiAlertLoad2 = document.getElementById('api-loading2');
+    apiAlertLoad2.onclick = function(){
+        hlayer.loading({
+            time:100000,
+            loadingType:4,
+            animateType:3
         })
     }
     var apiIframe = document.getElementById('api-iframe');
     apiIframe.onclick = function(){
         hlayer.iframe({
             title:'厚朴工作室',
-            url:'http://ce.sysu.edu.cn/hope/'
+            url:'http://ce.sysu.edu.cn/hope'
         })
     }
     var apiPhoto = document.getElementById('api-photo');
@@ -582,6 +595,138 @@
             tipsPosition:'right',
             animateType:5
         })
+    }
+    var apiIframeVedio = document.getElementById('api-prompt-vedio');
+    apiIframeVedio.onclick = function(){
+        hlayer.iframe({
+            title:'送给宅男们的福利',
+            url:'http://player.youku.com/embed/XMTc2OTI3ODUyNA=='
+        })
+    }
+    var apiPromptRadio = document.getElementById('api-prompt-radio');
+    apiPromptRadio.onclick = function(){
+        hlayer.prompt({
+            formType:4,
+            height:'200px',
+            text:'你的性别是：',
+            options:{
+                name:'sex',
+                inputs:['男','女','保密']
+            },
+            position:0,
+            confirmCb:function(data){
+                hlayer.alert({
+                    text:'你的性别是' + data.value,
+                    confirmCb:'close'
+                })
+            }
+        })
+    }
+    var apiPromptCheckbox = document.getElementById('api-prompt-checkbox');
+    apiPromptCheckbox.onclick = function(){
+        hlayer.prompt({
+            formType:5,
+            text:'你了解的学校有：',
+            options:{
+                name:'school',
+                inputs:['中山大学','大山中学','南方某高校']
+            },
+            height:'200px',
+            width:'300px',
+            position:0,
+            confirmCb:function(data){
+                if(!data){
+                    return;
+                }
+                var text = '你选的是';
+                if(data.length > 0){
+                    data.forEach(function(ele,i){
+                        text = text + ele.value;
+                        if(i!==data.length-1){
+                            text += '、';
+                        }
+                    })
+                } else{
+                    text = text + data.value;
+                }
+                hlayer.msg({
+                    text: text
+                })
+            }
+        })
+    }
+    var apiPromptQues = document.getElementById('api-prompt-ques');
+    apiPromptQues.onclick = function(){
+        hlayer.loading({
+            loadingType:1,
+            loadingColor:'#d8527f',
+            time:500
+        });
+        setTimeout(ques,500);
+    }
+    function ques(){
+        hlayer.prompt({
+            title:'调查问卷示例',
+            formType:4,
+            text:'你的性别：',
+            options:{name:'sex',inputs:['汉纸','妹纸']},
+            height:'250px',
+            width:'400px',
+            confirmCb:function(data){
+                if(data){
+                    hlayer.prompt({
+                        title:'调查问卷示例',
+                        formType:5,
+                        text:'你的兴趣是：',
+                        options:{name:'interesting',inputs:['设计','摄影','Coding','打机','我选择睡觉']},
+                        height:'250px',
+                        width:'400px',
+                        confirmCb:function(data){
+                            if(data){
+                                hlayer.prompt({
+                                    title:'调查问卷示例',
+                                    formType:4,
+                                    text:'你觉得HLayer.js如何：',
+                                    options:{name:'how',inputs:['渣渣','酷炫']},
+                                    height:'250px',
+                                    width:'400px',
+                                    confirmCb:function(data){
+                                        if(data){
+                                            hlayer.prompt({
+                                                title:'调查问卷示例',
+                                                formType:4,
+                                                text:'你觉得作者帅吗：',
+                                                options:{name:'author',inputs:['帅','很帅','没见过，但肯定很帅']},
+                                                height:'250px',
+                                                width:'400px',
+                                                confirmCb:function(data){
+                                                    if(data){
+                                                        hlayer.prompt({
+                                                            title:'调查问卷示例',
+                                                            formType:3,
+                                                            text:'你还有啥想说的吗：',
+                                                            height:'250px',
+                                                            width:'400px',
+                                                            confirmCb:function(data){
+                                                                hlayer.msg({
+                                                                    text:'感谢您的填写',
+                                                                    icon:1,
+                                                                    time:2000
+                                                                })
+                                                            }
+                                                        })
+                                                    }
+                                                }
+                                            })
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+        });
     }
 </script>
 </body>

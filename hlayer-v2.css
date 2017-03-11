@@ -80,6 +80,136 @@
     -webkit-transform: rotate(-45deg);
     -webkit-animation: loader1 0.5s 0s infinite ease-in-out;
 }
+.hlayer-content-load2 div{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    background: #f25d8e;
+    opacity: 0.5;
+    left: -20px;
+    top: -20px;
+}
+.hlayer-content-load2 div:first-child{
+    animation: loader2 2s 0s infinite ease-in-out;
+}
+.hlayer-content-load2 div:last-child{
+    animation: loader2 2s -1s infinite ease-in-out;
+}
+@keyframes loader2 {
+    0% {
+        -webkit-transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        -webkit-transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 0.5;
+    }
+}
+@-webkit-keyframes loader3-1 {
+    0% {
+        -webkit-transform: rotate(270deg);
+    }
+    50% {
+        -webkit-transform: rotate(360deg);
+    }
+    100% {
+        -webkit-transform: rotate(270deg);
+    }
+}
+@-webkit-keyframes loader3-2 {
+    0% {
+        -webkit-transform: rotate(90deg);
+    }
+    50% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(90deg);
+    }
+}
+@keyframes loader3-3{
+    0% {
+        left: 100px;
+    }
+    100% {
+        left: 20px;
+    }
+}
+.hlayer-content-load3 .div1, .hlayer-content-load3 .div2 {
+    width: 0px;
+    height: 0px;
+    border: 25px solid #169fe6;
+    border-right: 25px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+}
+.hlayer-content-load3 .div1 {
+    -webkit-animation: loader3-1 0.5s 0s infinite linear;
+}
+.hlayer-content-load3 .div2 {
+    -webkit-animation: loader3-2 0.5s 0s infinite linear;
+}
+.hlayer-content-load3 .div3, .hlayer-content-load3 .div4, .hlayer-content-load3 .div5 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #169fe6;
+    position: absolute;
+    left: 100px;
+    top: 20px;
+    opacity: 0.7;
+}
+.hlayer-content-load3 .div3 {
+    -webkit-animation: loader3-3 1s -0.66s linear infinite;
+}
+.hlayer-content-load3 .div4 {
+    -webkit-animation: loader3-3 1s -0.33s linear infinite;
+}
+.hlayer-content-load3 .div5 {
+    -webkit-animation: loader3-3 1s 0s linear infinite;
+}
+@keyframes loader4 {
+    0% {
+        -webkit-transform: scale(1, 1);
+    }
+    100% {
+        -webkit-transform: scale(1, 0.3);
+    }
+}
+.hlayer-content-load4{
+    top: -20px;
+    left: -20px;
+}
+.hlayer-content-load4 div {
+    width: 5px;
+    height: 35px;
+    background: #169fe6;
+    border-radius: 2px;
+    display: inline-block;
+    margin-left:5px;
+}
+.hlayer-content-load4 .div1 {
+    -webkit-animation: loader4 0.5s -0.3s ease-in-out infinite alternate;
+    margin-left:0px;
+}
+.hlayer-content-load4 .div2 {
+    -webkit-animation: loader4 0.5s -0.15s ease-in-out infinite alternate;
+}
+.hlayer-content-load4 .div3 {
+    -webkit-animation: loader4 0.5s 0s ease-in-out infinite alternate;
+}
+.hlayer-content-load4 .div4 {
+    -webkit-animation: loader4 0.5s -0.15s ease-in-out infinite alternate;
+}
+.hlayer-content-load4 .div5 {
+    -webkit-animation: loader4 0.5s -0.4s ease-in-out infinite alternate;
+}
+
 
 /*各大进入函数的类*/
 .hlayer-animate1 {
@@ -585,6 +715,16 @@
     height: 36px;
     padding: 6px 5px;
     box-sizing: border-box;
+}
+.hlayer-prompt-content-label{
+    display:block;
+    padding-left:15px;
+    position:relative;
+}
+.hlayer-prompt-content-label input{
+    margin-right:8px;
+    position:relative;
+    top:2px;
 }
 .hlayer-content-photo-text{
     position:absolute;
