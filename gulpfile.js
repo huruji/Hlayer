@@ -9,7 +9,7 @@ const del = require('del');
 const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-
+const htmlmin = require('gulp-htmlmin');
 gulp.task('default', function() {
     return runSequence(['clean'],['build'],['server','watch']);
 })
@@ -87,6 +87,7 @@ gulp.task('testCss', function() {
 gulp.task('html', function() {
     return gulp.src('./src/html/*.html')
         .pipe(include())
+        .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('./test/'));
 });
 gulp.task('testjs', function(){
