@@ -3,3 +3,4 @@ sources/
 .sass-cache/
 src/
 .idea/
+test/index.html
