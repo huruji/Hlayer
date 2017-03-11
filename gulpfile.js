@@ -10,6 +10,8 @@ const autoprefixer = require('gulp-autoprefixer');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const htmlmin = require('gulp-htmlmin');
+const imageisux = require('gulp-imageisux');
+const imagemin = require('gulp-imagemin');
 gulp.task('default', function() {
     return runSequence(['clean'],['build'],['server','watch']);
 })
@@ -19,14 +21,15 @@ gulp.task('clean', function() {
     })
 })
 gulp.task('build', function () {
-    return runSequence(['uglifyHlayerjs', 'hlayerCss','testCss','img','testjs', 'html'], function() {
+    return runSequence(['uglifyHlayerjs', 'hlayerCss','testCss','img','testjs', 'html','assets'], function() {
         console.log('task build is completed!');
     });
 });
 
 gulp.task('img', function() {
     return gulp.src('./src/img/**/*.*')
-        .pipe(gulp.dest('./test/img/'))
+        .pipe(imagemin())
+        .pipe(gulp.dest('./test/img'))
 });
 gulp.task('server', function() {
     browserSync.init({
@@ -40,7 +43,7 @@ gulp.task('reload', function() {
 });
 gulp.task('uglifyHlayerjs', function(){
     return gulp.src('./src/hlayer/*.js')
-        .pipe(uglify({mangle: {except: ['this' ,'that','dom']}}))
+        /*.pipe(uglify({mangle: {except: ['this' ,'that','dom']}}))*/
         .pipe(gulp.dest('./dist/'))
         .pipe(gulp.dest('./test/js/'))
 });
@@ -95,7 +98,10 @@ gulp.task('testjs', function(){
         .pipe(uglify({mangle: false}))
         .pipe(gulp.dest('./test/js/'))
 });
-
+gulp.task('assets', function(){
+    return gulp.src('./src/assets/**/*')
+        .pipe(gulp.dest('./test/assets/'))
+})
 gulp.task('watch', function() {
     return gulp.watch([
         './src/**/*.*'
