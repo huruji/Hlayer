@@ -43,7 +43,7 @@ gulp.task('reload', function() {
 });
 gulp.task('uglifyHlayerjs', function(){
     return gulp.src('./src/hlayer/*.js')
-        /*.pipe(uglify({mangle: {except: ['this' ,'that','dom']}}))*/
+        .pipe(uglify({mangle: {except: ['this' ,'that','dom']}}))
         .pipe(gulp.dest('./dist/'))
         .pipe(gulp.dest('./test/js/'))
 });
