@@ -172,7 +172,6 @@
             var changeCfg = {time:false,shadow:true,animateType:3};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
-            console.log(10000)
         },
         tips: function(config) {
             var config = config || {};
@@ -208,17 +207,50 @@
                 }
             },
             init:function(){
+                var that = this;
                 this.setConfig();
                 this.times = ++hlayer.times;
-                this.layer = utils.creEle('div', 'hlayer hlayer' + this.times, 'hlayer' + this.times);
-                dom.body.appendChild(this.layer);
-                this.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + this.config.type + ' hlayer-animate' + parseInt(this.config.animateType));
-                this.layer.appendChild(this.layerCon);
-                this.layer.style.zIndex = ++hlayer.index;
-                console.dir(this.config);
-                this.layout();
-                this.setStyle();
-                this.eventHandle();
+                console.log(this);
+                this.start(function(){
+                    that.layer = utils.creEle('div', 'hlayer hlayer' + that.times, 'hlayer' + that.times);
+                    dom.body.appendChild(that.layer);
+                    that.layerCon = utils.creEle('div', 'hlayer-content hlayer-' + that.config.type + ' hlayer-animate' + parseInt(that.config.animateType));
+                    that.layer.appendChild(that.layerCon);
+                    that.layer.style.zIndex = ++hlayer.index;
+                    that.layout();
+                    that.setStyle();
+                    that.eventHandle();
+                })
+            },
+            start:function(cb){
+                console.log('111')
+                this.complete = true;
+                var that = this;
+                if(this.config.type == type[5]) {
+                    var imgs = [];
+                    that.complete = false;
+                    for(var i = 0 ,max = this.config.photos.length; i < max; i++) {
+                        var  img = utils.creEle('img');
+                        img.src = this.config.photos[i].img;
+                        imgs.push(img);
+                    }
+                    var timer = setInterval(function() {
+                        that.complete = true;
+                        for (var i = 0, max = imgs.length; i < max; i++) {
+                            if (!imgs[i].complete) {
+                                that.complete = false;
+                                break
+                            }
+                        }
+                        if (that.complete) {
+                            clearInterval(timer);
+                            cb();
+                        }
+                    },50);
+                }
+                if (that.complete) {
+                    cb();
+                }
             },
             layout:function(){
                 this.layerTitle = '';
@@ -348,41 +380,22 @@
                 }
                 if(this.config.type == type[5]) {
                     var that = this;
-                    var imgs = [];
-                    for(var i = 0 ,max = this.config.photos.length; i < max; i++) {
-                        var  img = utils.creEle('img');
-                        img.src = this.config.photos[i].img;
-                        imgs.push(img);
-                    }
-                    var timer = setInterval(function(){
-                        var complete = true;
-                        for(var  i = 0, max = imgs.length; i < max; i++) {
-                            if(!imgs[i].complete){
-                                complete = false;
-                                break
-                            }
-                        }
-                        if(complete) {
-                            clearInterval(timer);
-                            that.photosIndex = that.photosIndex || 0;
-                            console.log(2222);
-                            that.photoImg = utils.creEle('img','hlayer-content-photo');
-                            utils.photoImg = utils.css(that.photoImg,{display:'block'});
-                            that.photoImgNext = utils.creEle('div', 'hlayer-content-photo-next');
-                            that.photoImgPre = utils.creEle('div', 'hlayer-content-photo-pre');
-                            utils.css(that.layerMain,{padding:'0px'});
-                            utils.css(that.layerCon,{padding:'10px'});
-                            that.photoText = utils.creEle('div', 'hlayer-content-photo-text');
-                            that.photoImg.src = that.config.photos[that.photosIndex].img;
-                            that.photoText.textContent = that.config.photos[that.photosIndex].text;
-                            that.layerMain.appendChild(that.photoImg);
-                            that.layerMain.appendChild(that.photoText);
-                            that.layerMain.appendChild(that.photoImgNext);
-                            that.layerMain.appendChild(that.photoImgPre);
-                            that.setStyle();
-                            that.photoEventHandle();
-                        }
-                    },50);
+                    that.photosIndex = that.photosIndex || 0;
+                    that.photoImg = utils.creEle('img','hlayer-content-photo');
+                    utils.photoImg = utils.css(that.photoImg,{display:'block'});
+                    that.photoImgNext = utils.creEle('div', 'hlayer-content-photo-next');
+                    that.photoImgPre = utils.creEle('div', 'hlayer-content-photo-pre');
+                    utils.css(that.layerMain,{padding:'0px'});
+                    utils.css(that.layerCon,{padding:'10px'});
+                    that.photoText = utils.creEle('div', 'hlayer-content-photo-text');
+                    that.photoImg.src = that.config.photos[that.photosIndex].img;
+                    that.photoText.textContent = that.config.photos[that.photosIndex].text;
+                    that.layerMain.appendChild(that.photoImg);
+                    that.layerMain.appendChild(that.photoText);
+                    that.layerMain.appendChild(that.photoImgNext);
+                    that.layerMain.appendChild(that.photoImgPre);
+                    that.setStyle();
+                    that.photoEventHandle();
                 }
                 if(this.config.type == type[7]){
                     this.musicImgCon = utils.creEle('div','hlayer-content-music-img');
@@ -443,12 +456,8 @@
             },
             photoHover:function(){
                 var that = this;
-                console.log(666);
-                console.log(that.photoImg);
                 if(that.photoImg) {
-                    console.log(3353);
                     utils.addEvent(that.layerCon, 'mouseover', function(){
-                        console.log(333);
                         that.photoImgNext.style.display = 'block';
                         that.photoImgPre.style.display = 'block';
                         that.photoText.style.display = 'block';
@@ -472,7 +481,6 @@
                         if(this.photoTimer){
                             clearTimeout(this.photoTimer)
                         }
-                        console.log('next photo');
                         that.close();
                         that.init();
                     });
@@ -492,16 +500,9 @@
             },
             autoPlay: function(){
                 var that = this;
-                console.log('playtime:'+this.config.playTime);
                 if(this.config.autoPlay){
                     this.photoTimer = setTimeout(function(){
-                        /*if(that.photosIndex == that.config.photos.length - 1) {
-                            that.photosIndex = 0;
-                        } else {
-                            that.photosIndex += 1;
-                        }
-                        that.close();
-                        that.init();*/
+                        
                         that.photoImgNext.click();
                     },this.config.playTime)
                 }
@@ -521,9 +522,6 @@
                         var event = ev || window.event;
                         var disx = event.clientX -  that.layerCon.offsetLeft;
                         var disy = event.clientY - that.layerCon.offsetTop;
-                        console.log(event.clientX,event.clientY);
-                        console.log(that.layerCon.offsetLeft,that.layerCon.offsetTop);
-                        console.log(disx,disy);
                         document.onmousemove = function(ev) {
                             var event = ev || window.event;
                             var left = event.clientX - disx + 'px';
@@ -566,7 +564,6 @@
             closeBtnHandle:function() {
                 var that = this;
                 utils.addEvent(this.closeBtn,'click',function(){
-                    console.log(that.layer);
                     that.layer.style.display = 'none';
                     dom.body.removeChild(that.layer);
                 });
@@ -639,27 +636,23 @@
                     var parentWidth = parent.offsetWidth;
                     var layerConHeight = this.layerCon.offsetHeight;
                     var layerConWidth = this.layerCon.offsetWidth;
-                    console.log('parentTop' + parentTop);
-                    console.log('parentLeft' + parentLeft);
-                    console.log('parentHeight' + parentHeight);
-                    console.log('parentWidth' + parentWidth);
+                    var scrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
+                    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
                     if(this.config.tipsPosition === 'left'){
-                        console.log('document.scrollLeft' + document.scrollLeft);
-                        console.log('document.scrollTop' + document.scrollTop);
-                        setLeft = parentLeft - layerConWidth - 10 - document.body.scrollLeft+ 'px';
-                        setTop = parentTop + (parentHeight-layerConHeight)/2 - document.body.scrollTop + 'px';
+                        setLeft = parentLeft - layerConWidth - 10 - scrollLeft+ 'px';
+                        setTop = parentTop + (parentHeight-layerConHeight)/2 - scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     } else if(this.config.tipsPosition === 'top'){
-                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 -document.body.scrollLeft+ 'px';
-                        setTop = parentTop - layerConHeight - 10 - document.body.scrollTop + 'px';
+                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 -scrollLeft+ 'px';
+                        setTop = parentTop - layerConHeight - 10 - scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     } else if(this.config.tipsPosition === 'right'){
-                        setLeft =parentLeft + parentWidth + 10 -document.body.scrollLeft+ 'px';
-                        setTop = parentTop + (parentHeight-layerConHeight)/2 - document.body.scrollTop + 'px';
+                        setLeft =parentLeft + parentWidth + 10 -scrollLeft+ 'px';
+                        setTop = parentTop + (parentHeight-layerConHeight)/2 - scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     }else if(this.config.tipsPosition === 'bottom'){
-                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 -document.body.scrollLeft+ 'px';
-                        setTop = parentTop + parentHeight + 10- document.body.scrollTop + 'px';
+                        setLeft = parentLeft + (parentWidth-layerConWidth)/2 -scrollLeft+ 'px';
+                        setTop = parentTop + parentHeight + 10- scrollTop + 'px';
                         utils.css(this.layerCon, {left:setLeft,top:setTop})
                     }
                     return;
@@ -667,7 +660,6 @@
                 var positionType = this.config.position;
                 var layerHeight = this.layerCon.offsetHeight;
                 var layerWidth = this.layerCon.offsetWidth;
-                console.log('offsetHeight:'+this.layerCon.offsetHeight);
                 var winHeight = window.innerHeight;
                 var winWidth = window.innerWidth;
                 if(positionType === 'random'){
@@ -678,7 +670,6 @@
                 if(positionType === 0) {
                     setTop = (winHeight - layerHeight) / 2 + 'px';
                     setLeft = (winWidth - layerWidth) / 2 + 'px';
-                    console.log(setTop);
                     utils.css(this.layerCon, {left:setLeft,top:setTop})
                 } else if(positionType === 1){
                     utils.css(this.layerCon,{top:'0px',left:'0px'});
