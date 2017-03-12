@@ -104,12 +104,14 @@
         index: 100000,
         times:0,
         msg: function(config) {
+            var config = config || {};
             var noChangeCfg = {type:'msg',title:false,btn:false};
             var changeCfg = {icon:false,time:2000,height:'50px'};
             var setting = utils.mergeJson(changeCfg, config, noChangeCfg);
             new Cla(setting);
         },
         alert: function(config) {
+            var config = config || {};
             var noChangeCfg = {type:'alert'};
             var changeCfg = {icon:false,height:'148px',width:'260px',closeBtn:true};
             changeCfg.btn = [];
@@ -130,18 +132,21 @@
             new Cla(setting);
         },
         loading: function(config){
+            var config = config || {};
             var noChangeCfg = {type:'loading',icon:false,title:false,btn:false,text:false};
             var changeCfg = {height:'100px',width:'100px',time:2000,shadow:false,loadingColor:'#169fe6'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         },
         iframe: function(config) {
+            var config = config || {};
             var noChangeCfg = {type:'iframe',icon:false,btn:false,text:false};
-            var changeCfg = {height:'500px',width:'700px',time:false,shadow:false,closeBtn:true,url:'https://github.com/huruji/Hlayer'};
+            var changeCfg = {height:'500px',width:'700px',time:false,shadow:false,closeBtn:true,url:'http://ce.sysu.edu.cn/hope/'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         },
         prompt: function(config) {
+            var config = config || {};
             var noChangeCfg = {type:'prompt',icon:false};
             var changeCfg = {height:'160px',width:'270px',time:false,shadow:false,closeBtn:true,confirmCb:false};
             changeCfg.btn = [];
@@ -162,6 +167,7 @@
             new Cla(setting);
         },
         photo:function(config){
+            var config = config || {};
             var noChangeCfg = {type:'photo',icon:false,move:false,title:false,closeBtn:true,text:false,closeType:2};
             var changeCfg = {time:false,shadow:true,animateType:3};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
@@ -169,18 +175,21 @@
             console.log(10000)
         },
         tips: function(config) {
+            var config = config || {};
             var noChangeCfg = {type:'tips',move:false,title:false,closeBtn:false,shadow:false};
             var changeCfg = {time:1000,shadow:true,animateType:3,icon:false,height:'40px',position:'right'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         },
         music:function(config) {
+            var config = config || {};
             var noChangeCfg = {type:'music',icon:false};
             var changeCfg = {time:false,shadow:false,closeBtn:1,animateType:3,height:'142px',width:'320px',text:false,autoPlay:true};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
             new Cla(setting);
         },
         open: function(config) {
+            var config = config || {};
             hlayer[config.type](config);
         }
     };
@@ -244,6 +253,7 @@
                 }
                 if(this.config.btn) {
                     this.layerBtnCON = utils.creEle('div', 'hlayer-content-btns hlayer-' + this.config.type + '-content-btns');
+                    utils.css(this.layerBtnCON,{background:this.config.contentBg});
                     this.layerCon.appendChild(this.layerBtnCON);
                     for(var i = 0, max = this.config.btn.length; i < max; i++) {
                         var btn = utils.creEle('span','hlayer-content-btns-item hlayer-content-btns-item' + i);
@@ -574,14 +584,33 @@
                                     } else if(that.config.btnCb[i] === false){
                                         return;
                                     }
-                                    that.close();
                                     if(that.config.type === type[4] && i===0){
                                         var data = [];
                                         if(that.config.formType === 1 || that.config.formType === 2 ||　that.config.formType === 3){
+                                            var close = true;
+                                            if(!that.config.allowEmpty){
+                                                var close = that.prompt.some(function(ele){
+                                                    return ele.value;
+                                                })
+                                            }
+                                            if(!close){
+                                                return
+                                            }
+                                            that.close();
                                             that.prompt.forEach(function (ele) {
                                                 data.push(ele.value);
                                             });
                                         } else if(that.config.formType === 4 ||　that.config.formType === 5){
+                                            var close = true;
+                                            if(!that.config.allowEmpty){
+                                                var close = that.prompt.some(function(ele){
+                                                    return ele.checked;
+                                                })
+                                            }
+                                            if(!close){
+                                                return
+                                            }
+                                            that.close();
                                             that.prompt.forEach(function(ele,i){
                                                 if(ele.checked){
                                                     data.push({index:i,value:that.config.options.inputs[i]});
@@ -590,6 +619,7 @@
                                         }
                                         data.length === 1 ? that.config.btnCb[0](data[0]) : that.config.btnCb[0](data);
                                     }else{
+                                        that.close();
                                         that.config.btnCb[i]();
                                     }
                                 });
@@ -696,7 +726,8 @@
                 tipsPosition:'right',
                 tipsCon:'',
                 autoPlay:false,
-                playTime:5000
+                playTime:5000,
+                allowEmpty:true
             },
         }
     window.hlayer = hlayer
