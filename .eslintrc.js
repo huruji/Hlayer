@@ -19,6 +19,9 @@ module.exports = {
         "semi": [
             "error",
             "always"
+        ],
+        "no-redeclare":[
+            "off"
         ]
     }
 };
