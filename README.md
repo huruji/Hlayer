@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="./egerLogo.png"
+    <img src="./hlayer.png"
          height="130">
 </p>
 <p align="center">
