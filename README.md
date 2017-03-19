@@ -1,6 +1,5 @@
 <p align="center">
-    <img src="./hlayer.png"
-         height="250">
+    <img src="./hlayer.png">
 </p>
 <p align="center">
     <a href="https://github.com/huruji/Hlayer/network">
