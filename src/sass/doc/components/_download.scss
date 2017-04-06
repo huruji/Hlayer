@@ -1,0 +1,27 @@
+.downloadcon{
+  margin-top:10px;
+}
+.downloadcon .star,.downloadcon .download{
+  width:100px;
+  padding:10px;
+  height:30px;
+  background:#4aa8d8;
+  text-align:center;
+  border-radius:5px;
+  cursor:pointer;
+}
+.downloadcon .star:hover,.downloadcon .download:hover{
+  background: #169fe6;
+}
+.downloadcon .star{
+  float:left;
+}
+.downloadcon .download{
+  float:right;
+}
+.downloadcon .star a,.downloadcon .download a{
+  line-height: 30px;
+  display:inline-block;
+  color:#fff;
+  font-size:20px;
+}

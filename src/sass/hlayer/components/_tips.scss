@@ -1,0 +1,36 @@
+.hlayer {
+  .hlayer-tips-content i {
+    content: "";
+    height: 0px;
+    display: block;
+    width: 0px;
+    position: absolute;
+    border: 10px solid indianred;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left-color: transparent;
+  }
+  .hlayer-tips-content i.right {
+    top: 50%;
+    margin-top: -10px;
+    left: -20px;
+  }
+  .hlayer-tips-content i.left {
+    top: 50%;
+    margin-top: -10px;
+    right: -20px;
+    transform: rotate(180deg);
+  }
+  .hlayer-tips-content i.top {
+    bottom: -16px;
+    margin-left: -10px;
+    left: 50%;
+    transform: rotate(-90deg);
+  }
+  .hlayer-tips-content i.bottom {
+    top: -16px;
+    margin-left: -10px;
+    left: 50%;
+    transform: rotate(90deg);
+  }
+}

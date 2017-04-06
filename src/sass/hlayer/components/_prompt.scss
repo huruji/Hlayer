@@ -1,0 +1,23 @@
+.hlayer{
+  .hlayer-form-group{
+    display: block;
+    width: 100%;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: 3px;
+  }
+  .hlayer-form-input{
+    height: 36px;
+    padding: 6px 5px;
+    box-sizing: border-box;
+  }
+  .hlayer-prompt-content-label{
+    display:block;
+    padding-left:15px;
+    position:relative;
+  }
+  .hlayer-prompt-content-label input{
+    margin-right:8px;
+    position:relative;
+    top:2px;
+  }
+}

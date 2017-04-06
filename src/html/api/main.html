@@ -1,0 +1,1003 @@
+<div class="container">
+    <section class="title">
+        <span>API区</span>
+    </section>
+    <p>HLayer.js使用起来非常简单，相信通过以上示例的展示，你已经能够开始使用HLayer.js了，那接下来将为你展示HLayer.js的所有方法的完整参数。</p>
+    <section class="part">
+        <p>hlayer.msg()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    icon：<span class="type">Number</span>
+                    <span class="note">//图标类型，可选1~8默认没有即false</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为自动</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为50px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为2000，为false时意为不自动关闭</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.alert()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为1</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    icon：<span class="type">Number</span>
+                    <span class="note">//图标类型，可选1~8默认没有即false</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为260px</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为148px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要确定按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmCb<span class="type">Function</span>
+                    <span class="note">//点击确定按钮时的回调函数，默认为false，即无反应，当为字符串close时意为关闭</span>
+                </li>
+                <li class="indent1">
+                    cancelBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要取消按钮，默认false</span>
+                </li>
+                <li class="indent1">
+                    btn<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮，这是一个由按钮文字组成的字符串</span>
+                </li>
+                <li class="indent1">
+                    btnCb<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮的回调函数，这是一个由函数组成的字符串</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.loading()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为false</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为2000</span>
+                </li>
+                <li class="indent1">
+                    loadingType：<span class="type">Number</span>
+                    <span class="note">//加载层的类型，可选1~4，默认为1</span>
+                </li>
+                <li class="indent1">
+                    loadingColor：<span class="type">String</span>
+                    <span class="note">//加载层的颜色，默认为#169fe6</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.iframe()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为700px</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为500px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    url<span class="type">String</span>
+                    <span class="note">//iframe的URL地址，默认为HLayer.js的主页</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.alert()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为260px</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为148px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要确定按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmCb<span class="type">Function</span>
+                    <span class="note">//点击确定按钮时的回调函数，默认为false，即无反应，当为字符串close时意为关闭</span>
+                </li>
+                <li class="indent1">
+                    cancelBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要取消按钮，默认false</span>
+                </li>
+                <li class="indent1">
+                    btn<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮，这是一个由按钮文字组成的字符串</span>
+                </li>
+                <li class="indent1">
+                    btnCb<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮的回调函数，这是一个由函数组成的字符串</span>
+                </li>
+                <li class="indent1">
+                    formType<span class="type">Number</span>
+                    <span class="note">//prompt的类型，可选1~5，默认为1</span>
+                </li>
+                <li class="indent1">
+                    options<span class="type">Object</span>
+                    <span class="note">//这个值只有formType为4和5时起作用，name属性为input标签的name属性，inputs意为单选或多选框的值</span>
+                </li>
+                <li class="indent1">
+                    allowEmpty<span class="type">Bollean</span>
+                    <span class="note">//是否允许为空，默认为true</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.photo()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    autoPlay: <span class="type">Boolean</span>
+                    <span class="note">//是否自动播放，默认为false</span>
+                </li>
+                <li class="indent1">
+                    playTime: <span class="type">Number</span>
+                    <span class="note">//自动切换的时间，以毫秒计，默认为5000</span>
+                </li>
+                <li class="indent1">
+                    photos: <span class="type">Array</span>
+                    <span class="note">//以对象组成的数组，img属性意为相册的图片地址，text属性意为相册图片说明</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.tips()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为3</span>
+                </li>
+                <li class="indent1">
+                    icon：<span class="type">Number</span>
+                    <span class="note">//图标类型，可选1~8默认没有即false</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为auto</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为40px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为100，为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    position：<span class="type">String</span>
+                    <span class="note">//left、top、right、bottom四个可选，默认为right</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.alert()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为1</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    photos<span class="type">String</span>
+                    <span class="note">//音乐图片地址</span>
+                </li>
+                <li class="indent1">
+                    url<span class="type">String OR Array</span>
+                    <span class="note">//音乐地址，可以是字符串或者由字符串组成的数组，使用数组是为了兼容各个浏览器</span>
+                </li>
+                <li class="indent1">
+                    autoPlay<span class="type">Bollean</span>
+                    <span class="note">//是否自动播放，默认为true</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+</div><div class="container">
+    <section class="title">
+        <span>API区</span>
+    </section>
+    <p>HLayer.js使用起来非常简单，相信通过以上示例的展示，你已经能够开始使用HLayer.js了，那接下来将为你展示HLayer.js的所有方法的完整参数。</p>
+    <section class="part">
+        <p>hlayer.msg()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    icon：<span class="type">Number</span>
+                    <span class="note">//图标类型，可选1~8默认没有即false</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为自动</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为50px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为2000，为false时意为不自动关闭</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.alert()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为1</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    icon：<span class="type">Number</span>
+                    <span class="note">//图标类型，可选1~8默认没有即false</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为260px</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为148px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要确定按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmCb<span class="type">Function</span>
+                    <span class="note">//点击确定按钮时的回调函数，默认为false，即无反应，当为字符串close时意为关闭</span>
+                </li>
+                <li class="indent1">
+                    cancelBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要取消按钮，默认false</span>
+                </li>
+                <li class="indent1">
+                    btn<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮，这是一个由按钮文字组成的字符串</span>
+                </li>
+                <li class="indent1">
+                    btnCb<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮的回调函数，这是一个由函数组成的字符串</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.loading()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为false</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为2000</span>
+                </li>
+                <li class="indent1">
+                    loadingType：<span class="type">Number</span>
+                    <span class="note">//加载层的类型，可选1~4，默认为1</span>
+                </li>
+                <li class="indent1">
+                    loadingColor：<span class="type">String</span>
+                    <span class="note">//加载层的颜色，默认为#169fe6</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.iframe()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为700px</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为500px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    url<span class="type">String</span>
+                    <span class="note">//iframe的URL地址，默认为HLayer.js的主页</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.alert()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为260px</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为148px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要确定按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    confirmCb<span class="type">Function</span>
+                    <span class="note">//点击确定按钮时的回调函数，默认为false，即无反应，当为字符串close时意为关闭</span>
+                </li>
+                <li class="indent1">
+                    cancelBtn<span class="type">Bollean</span>
+                    <span class="note">//是允许需要取消按钮，默认false</span>
+                </li>
+                <li class="indent1">
+                    btn<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮，这是一个由按钮文字组成的字符串</span>
+                </li>
+                <li class="indent1">
+                    btnCb<span class="type">Array</span>
+                    <span class="note">//用于自定义按钮的回调函数，这是一个由函数组成的字符串</span>
+                </li>
+                <li class="indent1">
+                    formType<span class="type">Number</span>
+                    <span class="note">//prompt的类型，可选1~5，默认为1</span>
+                </li>
+                <li class="indent1">
+                    options<span class="type">Object</span>
+                    <span class="note">//这个值只有formType为4和5时起作用，name属性为input标签的name属性，inputs意为单选或多选框的值</span>
+                </li>
+                <li class="indent1">
+                    allowEmpty<span class="type">Bollean</span>
+                    <span class="note">//是否允许为空，默认为true</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.photo()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为#000</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    autoPlay: <span class="type">Boolean</span>
+                    <span class="note">//是否自动播放，默认为false</span>
+                </li>
+                <li class="indent1">
+                    playTime: <span class="type">Number</span>
+                    <span class="note">//自动切换的时间，以毫秒计，默认为5000</span>
+                </li>
+                <li class="indent1">
+                    photos: <span class="type">Array</span>
+                    <span class="note">//以对象组成的数组，img属性意为相册的图片地址，text属性意为相册图片说明</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.tips()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为3</span>
+                </li>
+                <li class="indent1">
+                    icon：<span class="type">Number</span>
+                    <span class="note">//图标类型，可选1~8默认没有即false</span>
+                </li>
+                <li class="indent1">
+                    text：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为”提示信息“</span>
+                </li>
+                <li class="indent1">
+                    width：<span class="type">String</span>
+                    <span class="note">//弹出框宽度，默认为auto</span>
+                </li>
+                <li class="indent1">
+                    height：<span class="type">String</span>
+                    <span class="note">//文字内容，默认为40px</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为100，为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    position：<span class="type">String</span>
+                    <span class="note">//left、top、right、bottom四个可选，默认为right</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+    <section class="part">
+        <p>hlayer.alert()可配置参数如下：</p>
+        <code>
+            <ul>
+                <li>{</li>
+                <li class="indent1">
+                    contentBg: <span class="type">String</span>
+                    <span class="note">//内容背景颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    contentColor:<span class="type">String</span>
+                    <span class="note">//内容文字颜色，默认为#000</span>
+                </li>
+                <li class="indent1">
+                    animateType:<span class="type">Number</span>
+                    <span class="note">//动画类型，可选1~9默认为1</span>
+                </li>
+                <li class="indent1">
+                    position:<span class="type">Number OR 'random'</span>
+                    <span class="note">//位置类型，可选0~6或者字符串random，random意为位置随机，默认0</span>
+                </li>
+                <li class="indent1">
+                    shadow：<span class="type">Bollean</span>
+                    <span class="note">//是否需要遮罩层，默认为true</span>
+                </li>
+                <li class="indent1">
+                    resize：<span class="type">Bollean</span>
+                    <span class="note">//窗口调整时是否自动调整弹出框位置，默认为true</span>
+                </li>
+                <li class="indent1">
+                    time：<span class="type">Number</span>
+                    <span class="note">//弹出框显示时间，以毫秒计，默认为false时意为不自动关闭</span>
+                </li>
+                <li class="indent1">
+                    mainBg: <span class="type">String</span>
+                    <span class="note">//标题背景颜色，默认为#169FE6</span>
+                </li>
+                <li class="indent1">
+                    mainColor: <span class="type">String</span>
+                    <span class="note">//标题文字颜色，默认为#fff</span>
+                </li>
+                <li class="indent1">
+                    title: <span class="type">String</span>
+                    <span class="note">//标题内容，默认为提示</span>
+                </li>
+                <li class="indent1">
+                    closeBtn<span class="type">Bollean</span>
+                    <span class="note">//是否需要关闭按钮，默认true</span>
+                </li>
+                <li class="indent1">
+                    move<span class="type">Bollean</span>
+                    <span class="note">//是允许拖动弹出框，默认true</span>
+                </li>
+                <li class="indent1">
+                    photos<span class="type">String</span>
+                    <span class="note">//音乐图片地址</span>
+                </li>
+                <li class="indent1">
+                    url<span class="type">String OR Array</span>
+                    <span class="note">//音乐地址，可以是字符串或者由字符串组成的数组，使用数组是为了兼容各个浏览器</span>
+                </li>
+                <li class="indent1">
+                    autoPlay<span class="type">Bollean</span>
+                    <span class="note">//是否自动播放，默认为true</span>
+                </li>
+                <li>}</li>
+            </ul>
+        </code>
+    </section>
+</div>

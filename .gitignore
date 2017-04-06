@@ -1,6 +1,8 @@
 node_modules/
 sources/
 .sass-cache/
-src/
+#src/
 .idea/
 test/index.html
+dist/hlayer.0.0.1.js
+test/js/hlayer.0.0.1.js
