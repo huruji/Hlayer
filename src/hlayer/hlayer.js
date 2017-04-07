@@ -108,7 +108,7 @@
             var noChangeCfg = {type:'msg',title:false,btn:false};
             var changeCfg = {icon:false,time:2000,height:'50px'};
             var setting = utils.mergeJson(changeCfg, config, noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         alert: function(cfg) {
             var config = cfg || {};
@@ -129,21 +129,21 @@
                 changeCfg.btnCb.push(config.cancelCb);
             }
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         loading: function(cfg) {
             var config = cfg || {};
             var noChangeCfg = {type:'loading',icon:false,title:false,btn:false,text:false};
             var changeCfg = {height:'100px',width:'100px',time:2000,shadow:false,loadingColor:'#169fe6'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         iframe: function(cfg) {
             var config = cfg || {};
             var noChangeCfg = {type:'iframe',icon:false,btn:false,text:false};
             var changeCfg = {height:'500px',width:'700px',time:false,shadow:false,closeBtn:true,url:'http://ce.sysu.edu.cn/hope/'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         prompt:function(cfg) {
             var config = cfg || {};
@@ -164,36 +164,38 @@
                 changeCfg.btnCb.push(config.cancelCb);
             }
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         photo:function(cfg) {
             var config = cfg || {};
             var noChangeCfg = {type:'photo',icon:false,move:false,title:false,closeBtn:true,text:false,closeType:2};
             var changeCfg = {time:false,shadow:true,animateType:3};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         tips: function(cfg) {
             var config = cfg || {};
             var noChangeCfg = {type:'tips',move:false,title:false,closeBtn:false,shadow:false};
             var changeCfg = {time:1000,shadow:true,animateType:3,icon:false,height:'40px',position:'right'};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         music:function(cfg) {
             var config = cfg || {};
             var noChangeCfg = {type:'music',icon:false};
             var changeCfg = {time:false,shadow:false,closeBtn:1,animateType:3,height:'142px',width:'320px',text:false,autoPlay:true};
             var setting = utils.mergeJson(changeCfg,config,noChangeCfg);
-            new Cla(setting);
+            return new Cla(setting);
         },
         open: function(cfg) {
             var config = cfg || {};
-            hlayer[config.type](config);
+            return hlayer[config.type](config);
         },
         remove: function(dom) {
-            if(dom){
-              dom.parentNode.removeChild(dom);
+            if(arguments.length > 0){
+             [].slice.call(arguments).forEach(function(ele){
+                 ele.parentNode.removeChild(ele);
+             })
             }
             var eles = document.getElementsByClassName('hlayer');
             // 因为每次删除元素的时候，其实这个eles都会随着更新，
