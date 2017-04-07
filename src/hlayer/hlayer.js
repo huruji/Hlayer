@@ -196,14 +196,10 @@
               dom.parentNode.removeChild(dom);
             }
             var eles = document.getElementsByClassName('hlayer');
-            console.log(eles);
+            // 因为每次删除元素的时候，其实这个eles都会随着更新，
             while(eles[0]){
               eles[0].parentNode.removeChild(eles[0]);
             }
-            /*[].slice.call(this).forEach(function(ele) {
-              ele.parentNode.removeChild(ele);
-              console.log('remove');
-            });*/
         }
     };
     function Cla(setting) {
