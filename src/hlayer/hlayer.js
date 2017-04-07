@@ -191,23 +191,25 @@
             var config = cfg || {};
             hlayer[config.type](config);
         },
-        remove: function(dom, parent) {
-            if(arguments.length===0){
-                var eles = document.getElementsByClassName('hlayer');
-                [].forEach.call(eles,function(ele){
-                    document.body.removeChild(ele);
-                });
-            } else if(arguments.length === 1) {
-                document.body.removeChild(dom);
-            } else if(arguments.length === 2) {
-                parent.removeChild(dom);
+        remove: function(dom) {
+            if(dom){
+              dom.parentNode.removeChild(dom);
             }
+            var eles = document.getElementsByClassName('hlayer');
+            console.log(eles);
+            while(eles[0]){
+              eles[0].parentNode.removeChild(eles[0]);
+            }
+            /*[].slice.call(this).forEach(function(ele) {
+              ele.parentNode.removeChild(ele);
+              console.log('remove');
+            });*/
         }
     };
     function Cla(setting) {
         this.index = ++hlayer.index;
         this.config = utils.mergeJson(this.defaultConfig, setting, this.index);
-        this.init();
+        return this.init();
     }
     Cla.prototype = {
         setConfig:function(){
@@ -232,6 +234,7 @@
                 that.setStyle();
                 that.eventHandle();
             });
+            return that.layer;
         },
         start:function(cb){
             this.complete = true;
