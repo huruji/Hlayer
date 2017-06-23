@@ -329,7 +329,11 @@
                 } else if(that.config.loadingType === 3) {
                     for(var i =0; i < 5; i++) {
                         var div = utils.creEle('div','div'+(i+1));
-                        utils.css(div,{backgroundColor:that.config.loadingColor});
+                        if(i < 2){
+                          utils.css(div,{borderColor: this.config.loadingColor});
+                        } else if( i >= 2){
+                          utils.css(div,{backgroundColor:that.config.loadingColor});
+                        }
                         that.loading.appendChild(div);
                     }
                 } else if(that.config.loadingType === 4) {

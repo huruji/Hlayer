@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const browserSync = require('browser-sync').create();
-const compass = require('gulp-compass');
+const sass = require('gulp-sass');
 const runSequence = require('run-sequence');
 const cleanCSS = require('gulp-clean-css');
 const include = require('gulp-include');
@@ -50,15 +50,7 @@ gulp.task('uglifyHlayerjs', function(){
 
 gulp.task('hlayerCss', function() {
     return gulp.src('./src/sass/hlayer/**/*.scss')
-        .pipe(compass({
-            config_file: './config.rb',
-            css: './src/css',
-            sass: './src/sass/hlayer'
-        }))
-        .on('error', function(err) {
-            console.log(err);
-            this.emit('end');
-        })
+        .pipe(sass({outputStyle:'compressed'}).on('error',sass.logError))
         .pipe(cleanCSS())
         .pipe(autoprefixer({
             browsers: ['last 5 versions'],
@@ -70,15 +62,7 @@ gulp.task('hlayerCss', function() {
 });
 gulp.task('testCss', function() {
     return gulp.src('./src/sass/doc/**/*.scss')
-        .pipe(compass({
-            config_file: './config.rb',
-            css: './src/css',
-            sass: './src/sass/doc'
-        }))
-        .on('error', function(err) {
-            console.log(err);
-            this.emit('end');
-        })
+        .pipe(sass({outputStyle:'compressed'}).on('error',sass.logError))
         .pipe(cleanCSS())
         .pipe(autoprefixer({
             browsers: ['last 5 versions'],
@@ -108,4 +92,4 @@ gulp.task('watch', function() {
     ], function() {
         return runSequence(['build'],['reload']);
     });
-})
+});

@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "gulp-imageisux": "^1.0.5",
-    "gulp-imagemin": "^3.1.1"
+    "gulp-imagemin": "^3.1.1",
+    "gulp-sass": "^3.1.0"
   }
 }
