@@ -75,6 +75,12 @@ or link as a `script` and `link` in an html file.
 <script src="dist/hlayer.js"></script>
 ```
 
+or with require.js
+```js
+define(['hlayer'], function(hlayer){
+  // your code
+})
+```
 ## How to use
 
 Hlayer include a global variable 'hlayer', and this variable include all APIS.

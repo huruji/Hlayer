@@ -1,6 +1,6 @@
 {
   "name": "hlayer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "easy to use, no-dependence web layer ",
   "main": "./dist/hlayer.js",
   "keywords": [

@@ -740,5 +740,8 @@
             allowEmpty:true
         },
     };
-    window.hlayer = hlayer;
+    /*window.hlayer = hlayer;*/
+  (typeof define === 'function'  && define.amd) ? define('hlayer', function() {
+      return hlayer
+  }) : window.hlayer = hlayer;
 })(window);
