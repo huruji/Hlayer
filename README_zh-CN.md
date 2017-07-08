@@ -75,6 +75,13 @@ import 'hlayer/dist/hlayer.css'
 <script src="dist/hlayer.js"></script>
 ```
 
+或者使用require.js
+```js
+define(['hlayer'], function(hlayer){
+  // your code
+})
+```
+
 ## 使用
 
 Hlayer中含有一个全局变量hlayer，所有的方法都在这个变量里
