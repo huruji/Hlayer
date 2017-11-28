@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/huruji/hlayer#readme",
   "dependencies": {
+    "gulp-sass": "^3.1.0"
   },
   "devDependencies": {
     "gulp-imageisux": "^1.0.5",
